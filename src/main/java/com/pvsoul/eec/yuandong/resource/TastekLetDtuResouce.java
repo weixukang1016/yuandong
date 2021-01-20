@@ -24,10 +24,10 @@ public class TastekLetDtuResouce {
     @POST
     @Path("/test")
     //@ApiOperation("接收iotda的数据")
-    public Response pushData(@Context HttpServletRequest request, String data) {
+    public Response pushData(@Context HttpServletRequest request, JSONObject data) {
 
-        //log.info(JSONObject.toJSONString(data));
-        log.info(data);
+        log.info(JSONObject.toJSONString(data));
+        //log.info(data);
         return Response.status(Response.Status.OK).build();
     }
 
