@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pvsoul.eec.yuandong.mapper.PowerStationMapper">
+  <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.PowerStation">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="station_name" jdbcType="VARCHAR" property="stationName" />
+    <result column="station_address" jdbcType="VARCHAR" property="stationAddress" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="altitude" jdbcType="REAL" property="altitude" />
+    <result column="station_type" jdbcType="VARCHAR" property="stationType" />
+    <result column="capacity" jdbcType="REAL" property="capacity" />
+    <result column="region_count" jdbcType="INTEGER" property="regionCount" />
+    <result column="voltage_level" jdbcType="REAL" property="voltageLevel" />
+    <result column="time_zone" jdbcType="VARCHAR" property="timeZone" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, station_name, station_address, longitude, latitude, altitude, station_type, capacity, 
+    region_count, voltage_level, time_zone, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from power_station
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from power_station
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.PowerStation">
+    insert into power_station (id, station_name, station_address, 
+      longitude, latitude, altitude, 
+      station_type, capacity, region_count, 
+      voltage_level, time_zone, create_time, 
+      update_time)
+    values (#{id,jdbcType=OTHER}, #{stationName,jdbcType=VARCHAR}, #{stationAddress,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, #{altitude,jdbcType=REAL}, 
+      #{stationType,jdbcType=VARCHAR}, #{capacity,jdbcType=REAL}, #{regionCount,jdbcType=INTEGER}, 
+      #{voltageLevel,jdbcType=REAL}, #{timeZone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.PowerStation">
+    insert into power_station
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="stationName != null">
+        station_name,
+      </if>
+      <if test="stationAddress != null">
+        station_address,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="altitude != null">
+        altitude,
+      </if>
+      <if test="stationType != null">
+        station_type,
+      </if>
+      <if test="capacity != null">
+        capacity,
+      </if>
+      <if test="regionCount != null">
+        region_count,
+      </if>
+      <if test="voltageLevel != null">
+        voltage_level,
+      </if>
+      <if test="timeZone != null">
+        time_zone,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="stationName != null">
+        #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="stationAddress != null">
+        #{stationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="altitude != null">
+        #{altitude,jdbcType=REAL},
+      </if>
+      <if test="stationType != null">
+        #{stationType,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null">
+        #{capacity,jdbcType=REAL},
+      </if>
+      <if test="regionCount != null">
+        #{regionCount,jdbcType=INTEGER},
+      </if>
+      <if test="voltageLevel != null">
+        #{voltageLevel,jdbcType=REAL},
+      </if>
+      <if test="timeZone != null">
+        #{timeZone,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.eec.yuandong.entity.PowerStation">
+    update power_station
+    <set>
+      <if test="stationName != null">
+        station_name = #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="stationAddress != null">
+        station_address = #{stationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="altitude != null">
+        altitude = #{altitude,jdbcType=REAL},
+      </if>
+      <if test="stationType != null">
+        station_type = #{stationType,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null">
+        capacity = #{capacity,jdbcType=REAL},
+      </if>
+      <if test="regionCount != null">
+        region_count = #{regionCount,jdbcType=INTEGER},
+      </if>
+      <if test="voltageLevel != null">
+        voltage_level = #{voltageLevel,jdbcType=REAL},
+      </if>
+      <if test="timeZone != null">
+        time_zone = #{timeZone,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.eec.yuandong.entity.PowerStation">
+    update power_station
+    set station_name = #{stationName,jdbcType=VARCHAR},
+      station_address = #{stationAddress,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      altitude = #{altitude,jdbcType=REAL},
+      station_type = #{stationType,jdbcType=VARCHAR},
+      capacity = #{capacity,jdbcType=REAL},
+      region_count = #{regionCount,jdbcType=INTEGER},
+      voltage_level = #{voltageLevel,jdbcType=REAL},
+      time_zone = #{timeZone,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.PowerStation">
+    <result column="id" jdbcType="OTHER" property="id" />
+    <result column="station_name" jdbcType="VARCHAR" property="stationName" />
+    <result column="station_address" jdbcType="VARCHAR" property="stationAddress" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="altitude" jdbcType="REAL" property="altitude" />
+    <result column="station_type" jdbcType="VARCHAR" property="stationType" />
+    <result column="capacity" jdbcType="REAL" property="capacity" />
+    <result column="region_count" jdbcType="INTEGER" property="regionCount" />
+    <result column="voltage_level" jdbcType="REAL" property="voltageLevel" />
+    <result column="time_zone" jdbcType="VARCHAR" property="timeZone" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.PowerStation">
+    insert into power_station (id, station_name, station_address, 
+      longitude, latitude, altitude, 
+      station_type, capacity, region_count, 
+      voltage_level, time_zone, create_time, 
+      update_time)
+    values (#{id,jdbcType=OTHER}, #{stationName,jdbcType=VARCHAR}, #{stationAddress,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, #{altitude,jdbcType=REAL}, 
+      #{stationType,jdbcType=VARCHAR}, #{capacity,jdbcType=REAL}, #{regionCount,jdbcType=INTEGER}, 
+      #{voltageLevel,jdbcType=REAL}, #{timeZone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.PowerStation">
+    insert into power_station
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="stationName != null">
+        station_name,
+      </if>
+      <if test="stationAddress != null">
+        station_address,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="altitude != null">
+        altitude,
+      </if>
+      <if test="stationType != null">
+        station_type,
+      </if>
+      <if test="capacity != null">
+        capacity,
+      </if>
+      <if test="regionCount != null">
+        region_count,
+      </if>
+      <if test="voltageLevel != null">
+        voltage_level,
+      </if>
+      <if test="timeZone != null">
+        time_zone,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="stationName != null">
+        #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="stationAddress != null">
+        #{stationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="altitude != null">
+        #{altitude,jdbcType=REAL},
+      </if>
+      <if test="stationType != null">
+        #{stationType,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null">
+        #{capacity,jdbcType=REAL},
+      </if>
+      <if test="regionCount != null">
+        #{regionCount,jdbcType=INTEGER},
+      </if>
+      <if test="voltageLevel != null">
+        #{voltageLevel,jdbcType=REAL},
+      </if>
+      <if test="timeZone != null">
+        #{timeZone,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

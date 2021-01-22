@@ -7,7 +7,7 @@ public class TemperatureData {
 
     private String deviceId;
 
-    private Integer index;
+    private Integer sensorIndex;
 
     private Float temperature;
 
@@ -29,12 +29,12 @@ public class TemperatureData {
         this.deviceId = deviceId;
     }
 
-    public Integer getIndex() {
-        return index;
+    public Integer getSensorIndex() {
+        return sensorIndex;
     }
 
-    public void setIndex(Integer index) {
-        this.index = index;
+    public void setSensorIndex(Integer sensorIndex) {
+        this.sensorIndex = sensorIndex;
     }
 
     public Float getTemperature() {

@@ -32,13 +32,74 @@
                 targetProject="src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
-
-        <table tableName='meteorological_data' domainObjectName="MeteorologicalData"
-               delimitIdentifiers="false" delimitAllColumns="false"
-               enableSelectByExample="false" enableDeleteByExample="false"
-               enableCountByExample="false" selectByExampleQueryId="false"
-               enableUpdateByExample="false">
-        </table>
+        <!--
+                <table tableName='collect_record' domainObjectName="CollectRecord"
+                       delimitIdentifiers="false" delimitAllColumns="false"
+                       enableSelectByExample="false" enableDeleteByExample="false"
+                       enableCountByExample="false" selectByExampleQueryId="false"
+                       enableUpdateByExample="false">
+                </table>
+                <table tableName='inverter_data' domainObjectName="InverterData"
+                       delimitIdentifiers="false" delimitAllColumns="false"
+                       enableSelectByExample="false" enableDeleteByExample="false"
+                       enableCountByExample="false" selectByExampleQueryId="false"
+                       enableUpdateByExample="false">
+                </table>
+                <table tableName='meteorological_data' domainObjectName="MeteorologicalData"
+                       delimitIdentifiers="false" delimitAllColumns="false"
+                       enableSelectByExample="false" enableDeleteByExample="false"
+                       enableCountByExample="false" selectByExampleQueryId="false"
+                       enableUpdateByExample="false">
+                </table>
+                <table tableName='inverter_pv_data' domainObjectName="InverterPvData"
+                       delimitIdentifiers="false" delimitAllColumns="false"
+                       enableSelectByExample="false" enableDeleteByExample="false"
+                       enableCountByExample="false" selectByExampleQueryId="false"
+                       enableUpdateByExample="false">
+                </table>
+                <table tableName='inverter_ac_data' domainObjectName="InverterAcData"
+                       delimitIdentifiers="false" delimitAllColumns="false"
+                       enableSelectByExample="false" enableDeleteByExample="false"
+                       enableCountByExample="false" selectByExampleQueryId="false"
+                       enableUpdateByExample="false">
+                </table>
+                <table tableName='pv_string' domainObjectName="PvString"
+                       delimitIdentifiers="false" delimitAllColumns="false"
+                       enableSelectByExample="false" enableDeleteByExample="false"
+                       enableCountByExample="false" selectByExampleQueryId="false"
+                       enableUpdateByExample="false">
+                </table>
+                <table tableName='pv_string_data' domainObjectName="PvStringData"
+                       delimitIdentifiers="false" delimitAllColumns="false"
+                       enableSelectByExample="false" enableDeleteByExample="false"
+                       enableCountByExample="false" selectByExampleQueryId="false"
+                       enableUpdateByExample="false">
+                </table>
+                <table tableName='base_module_parameter' domainObjectName="BaseModuleParameter"
+                       delimitIdentifiers="false" delimitAllColumns="false"
+                       enableSelectByExample="false" enableDeleteByExample="false"
+                       enableCountByExample="false" selectByExampleQueryId="false"
+                       enableUpdateByExample="false">
+                </table>
+                <table tableName='inverter' domainObjectName="Inverter"
+                       delimitIdentifiers="false" delimitAllColumns="false"
+                       enableSelectByExample="false" enableDeleteByExample="false"
+                       enableCountByExample="false" selectByExampleQueryId="false"
+                       enableUpdateByExample="false">
+                </table>
+                <table tableName='power_station' domainObjectName="PowerStation"
+                       delimitIdentifiers="false" delimitAllColumns="false"
+                       enableSelectByExample="false" enableDeleteByExample="false"
+                       enableCountByExample="false" selectByExampleQueryId="false"
+                       enableUpdateByExample="false">
+                </table>
+                <table tableName='temperature_sensor' domainObjectName="TemperatureSensor"
+                       delimitIdentifiers="false" delimitAllColumns="false"
+                       enableSelectByExample="false" enableDeleteByExample="false"
+                       enableCountByExample="false" selectByExampleQueryId="false"
+                       enableUpdateByExample="false">
+                </table>
+            -->
         <table tableName='temperature_data' domainObjectName="TemperatureData"
                delimitIdentifiers="false" delimitAllColumns="false"
                enableSelectByExample="false" enableDeleteByExample="false"

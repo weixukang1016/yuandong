@@ -3,6 +3,9 @@ package com.pvsoul.eec.yuandong.resource;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.pvsoul.eec.yuandong.dao.*;
+import com.pvsoul.eec.yuandong.dto.MeteorologicalContentDto;
+import com.pvsoul.eec.yuandong.dto.ResultDto;
+import com.pvsoul.eec.yuandong.dto.TemperatureContentDto;
 import com.pvsoul.eec.yuandong.service.MeteorologicalService;
 import com.pvsoul.eec.yuandong.service.TemperatureService;
 import lombok.extern.slf4j.Slf4j;
@@ -47,12 +50,12 @@ public class DataReceiveResource {
         IotdaHeaderDao iotdaHeaderDao = data.getNotifyData().getHeader();
         IotdaBodyDao iotdaBodyDao = data.getNotifyData().getBody();
         String topic = iotdaBodyDao.getTopic();
-        ResultDao resultDao = new ResultDao();
+        ResultDto resultDao = new ResultDto();
         if (topic.equals(TOPIC_PREFIX_METEOROLOGICAL + iotdaHeaderDao.getDeviceId() + TOPIC_SUFFIX_METEOROLOGICAL)) {
-            MeteorologicalContentDao content = JSON.toJavaObject(data.getNotifyData().getBody().getContent(), MeteorologicalContentDao.class);
+            MeteorologicalContentDto content = JSON.toJavaObject(data.getNotifyData().getBody().getContent(), MeteorologicalContentDto.class);
             resultDao = meteorologicalService.SaveData(content);
         } else if (topic.equals(TOPIC_PREFIX_METEOROLOGICAL + iotdaHeaderDao.getDeviceId() + TOPIC_SUFFIX_TEMPERATUE)) {
-            TemperatureContentDao content = JSON.toJavaObject(data.getNotifyData().getBody().getContent(), TemperatureContentDao.class);
+            TemperatureContentDto content = JSON.toJavaObject(data.getNotifyData().getBody().getContent(), TemperatureContentDto.class);
             resultDao = temperatureService.SaveData(content);
         }
         return Response.status(Response.Status.OK).entity(resultDao).build();

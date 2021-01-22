@@ -1,7 +1,7 @@
 package com.pvsoul.eec.yuandong.provider;
 
 
-import com.pvsoul.eec.yuandong.dao.ResultDao;
+import com.pvsoul.eec.yuandong.dto.ResultDto;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.ws.rs.core.Response;
@@ -12,11 +12,11 @@ public class RuntimeExceptionProvider implements ExceptionMapper<RuntimeExceptio
     @Override
     public Response toResponse(RuntimeException e) {
         log.error("系统错误：", e);
-        ResultDao resultDao = new ResultDao();
-        resultDao.setCode("500");
-        resultDao.setMsg("系统错误");
-        resultDao.setSuccess(false);
-        return Response.status(Response.Status.OK).entity(resultDao).build();
+        ResultDto resultDto = new ResultDto();
+        resultDto.setCode("500");
+        resultDto.setMsg("系统错误");
+        resultDto.setSuccess(false);
+        return Response.status(Response.Status.OK).entity(resultDto).build();
 
     }
 }

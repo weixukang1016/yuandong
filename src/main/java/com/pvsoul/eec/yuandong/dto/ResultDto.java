@@ -1,4 +1,4 @@
-package com.pvsoul.eec.yuandong.dao;
+package com.pvsoul.eec.yuandong.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResultDao implements Serializable {
+public class ResultDto implements Serializable {
 
     private static final long serialVersionUID = 3905756703742518796L;
 

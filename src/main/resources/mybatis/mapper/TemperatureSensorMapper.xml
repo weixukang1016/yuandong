@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pvsoul.eec.yuandong.mapper.TemperatureSensorMapper">
+  <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="power_station_id" jdbcType="OTHER" property="powerStationId" />
+    <result column="inverter_id" jdbcType="OTHER" property="inverterId" />
+    <result column="pv_string_id" jdbcType="OTHER" property="pvStringId" />
+    <result column="collector_device_id" jdbcType="VARCHAR" property="collectorDeviceId" />
+    <result column="sensor_index" jdbcType="INTEGER" property="sensorIndex" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_valid" jdbcType="BIT" property="isValid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, power_station_id, inverter_id, pv_string_id, collector_device_id, sensor_index, 
+    create_time, update_time, is_valid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from temperature_sensor
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from temperature_sensor
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    insert into temperature_sensor (id, power_station_id, inverter_id, 
+      pv_string_id, collector_device_id, sensor_index, 
+      create_time, update_time, is_valid
+      )
+    values (#{id,jdbcType=OTHER}, #{powerStationId,jdbcType=OTHER}, #{inverterId,jdbcType=OTHER}, 
+      #{pvStringId,jdbcType=OTHER}, #{collectorDeviceId,jdbcType=VARCHAR}, #{sensorIndex,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isValid,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    insert into temperature_sensor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="powerStationId != null">
+        power_station_id,
+      </if>
+      <if test="inverterId != null">
+        inverter_id,
+      </if>
+      <if test="pvStringId != null">
+        pv_string_id,
+      </if>
+      <if test="collectorDeviceId != null">
+        collector_device_id,
+      </if>
+      <if test="sensorIndex != null">
+        sensor_index,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="powerStationId != null">
+        #{powerStationId,jdbcType=OTHER},
+      </if>
+      <if test="inverterId != null">
+        #{inverterId,jdbcType=OTHER},
+      </if>
+      <if test="pvStringId != null">
+        #{pvStringId,jdbcType=OTHER},
+      </if>
+      <if test="collectorDeviceId != null">
+        #{collectorDeviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorIndex != null">
+        #{sensorIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    update temperature_sensor
+    <set>
+      <if test="powerStationId != null">
+        power_station_id = #{powerStationId,jdbcType=OTHER},
+      </if>
+      <if test="inverterId != null">
+        inverter_id = #{inverterId,jdbcType=OTHER},
+      </if>
+      <if test="pvStringId != null">
+        pv_string_id = #{pvStringId,jdbcType=OTHER},
+      </if>
+      <if test="collectorDeviceId != null">
+        collector_device_id = #{collectorDeviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorIndex != null">
+        sensor_index = #{sensorIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    update temperature_sensor
+    set power_station_id = #{powerStationId,jdbcType=OTHER},
+      inverter_id = #{inverterId,jdbcType=OTHER},
+      pv_string_id = #{pvStringId,jdbcType=OTHER},
+      collector_device_id = #{collectorDeviceId,jdbcType=VARCHAR},
+      sensor_index = #{sensorIndex,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_valid = #{isValid,jdbcType=BIT}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="power_station_id" jdbcType="OTHER" property="powerStationId" />
+    <result column="inverter_id" jdbcType="OTHER" property="inverterId" />
+    <result column="string_id" jdbcType="OTHER" property="stringId" />
+    <result column="collector_device_id" jdbcType="VARCHAR" property="collectorDeviceId" />
+    <result column="sensor_index" jdbcType="INTEGER" property="sensorIndex" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, power_station_id, inverter_id, string_id, collector_device_id, sensor_index, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from temperature_sensor
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from temperature_sensor
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    insert into temperature_sensor (id, power_station_id, inverter_id, 
+      string_id, collector_device_id, sensor_index, 
+      create_time, update_time)
+    values (#{id,jdbcType=OTHER}, #{powerStationId,jdbcType=OTHER}, #{inverterId,jdbcType=OTHER}, 
+      #{stringId,jdbcType=OTHER}, #{collectorDeviceId,jdbcType=VARCHAR}, #{sensorIndex,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    insert into temperature_sensor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="powerStationId != null">
+        power_station_id,
+      </if>
+      <if test="inverterId != null">
+        inverter_id,
+      </if>
+      <if test="stringId != null">
+        string_id,
+      </if>
+      <if test="collectorDeviceId != null">
+        collector_device_id,
+      </if>
+      <if test="sensorIndex != null">
+        sensor_index,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="powerStationId != null">
+        #{powerStationId,jdbcType=OTHER},
+      </if>
+      <if test="inverterId != null">
+        #{inverterId,jdbcType=OTHER},
+      </if>
+      <if test="stringId != null">
+        #{stringId,jdbcType=OTHER},
+      </if>
+      <if test="collectorDeviceId != null">
+        #{collectorDeviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorIndex != null">
+        #{sensorIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    update temperature_sensor
+    <set>
+      <if test="powerStationId != null">
+        power_station_id = #{powerStationId,jdbcType=OTHER},
+      </if>
+      <if test="inverterId != null">
+        inverter_id = #{inverterId,jdbcType=OTHER},
+      </if>
+      <if test="stringId != null">
+        string_id = #{stringId,jdbcType=OTHER},
+      </if>
+      <if test="collectorDeviceId != null">
+        collector_device_id = #{collectorDeviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorIndex != null">
+        sensor_index = #{sensorIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    update temperature_sensor
+    set power_station_id = #{powerStationId,jdbcType=OTHER},
+      inverter_id = #{inverterId,jdbcType=OTHER},
+      string_id = #{stringId,jdbcType=OTHER},
+      collector_device_id = #{collectorDeviceId,jdbcType=VARCHAR},
+      sensor_index = #{sensorIndex,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="power_station_id" jdbcType="OTHER" property="powerStationId" />
+    <result column="inverter_id" jdbcType="OTHER" property="inverterId" />
+    <result column="string_id" jdbcType="OTHER" property="stringId" />
+    <result column="collector_device_id" jdbcType="VARCHAR" property="collectorDeviceId" />
+    <result column="sensor_index" jdbcType="INTEGER" property="sensorIndex" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, power_station_id, inverter_id, string_id, collector_device_id, sensor_index, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from temperature_sensor
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from temperature_sensor
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    insert into temperature_sensor (id, power_station_id, inverter_id, 
+      string_id, collector_device_id, sensor_index, 
+      create_time, update_time)
+    values (#{id,jdbcType=OTHER}, #{powerStationId,jdbcType=OTHER}, #{inverterId,jdbcType=OTHER}, 
+      #{stringId,jdbcType=OTHER}, #{collectorDeviceId,jdbcType=VARCHAR}, #{sensorIndex,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    insert into temperature_sensor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="powerStationId != null">
+        power_station_id,
+      </if>
+      <if test="inverterId != null">
+        inverter_id,
+      </if>
+      <if test="stringId != null">
+        string_id,
+      </if>
+      <if test="collectorDeviceId != null">
+        collector_device_id,
+      </if>
+      <if test="sensorIndex != null">
+        sensor_index,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="powerStationId != null">
+        #{powerStationId,jdbcType=OTHER},
+      </if>
+      <if test="inverterId != null">
+        #{inverterId,jdbcType=OTHER},
+      </if>
+      <if test="stringId != null">
+        #{stringId,jdbcType=OTHER},
+      </if>
+      <if test="collectorDeviceId != null">
+        #{collectorDeviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorIndex != null">
+        #{sensorIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    update temperature_sensor
+    <set>
+      <if test="powerStationId != null">
+        power_station_id = #{powerStationId,jdbcType=OTHER},
+      </if>
+      <if test="inverterId != null">
+        inverter_id = #{inverterId,jdbcType=OTHER},
+      </if>
+      <if test="stringId != null">
+        string_id = #{stringId,jdbcType=OTHER},
+      </if>
+      <if test="collectorDeviceId != null">
+        collector_device_id = #{collectorDeviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorIndex != null">
+        sensor_index = #{sensorIndex,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
+    update temperature_sensor
+    set power_station_id = #{powerStationId,jdbcType=OTHER},
+      inverter_id = #{inverterId,jdbcType=OTHER},
+      string_id = #{stringId,jdbcType=OTHER},
+      collector_device_id = #{collectorDeviceId,jdbcType=VARCHAR},
+      sensor_index = #{sensorIndex,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+</mapper>

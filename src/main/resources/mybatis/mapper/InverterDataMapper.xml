@@ -1,0 +1,1783 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pvsoul.eec.yuandong.mapper.InverterDataMapper">
+  <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.InverterData">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="collect_record_id" jdbcType="OTHER" property="collectRecordId" />
+    <result column="inverter_sn" jdbcType="VARCHAR" property="inverterSn" />
+    <result column="inverter_model" jdbcType="VARCHAR" property="inverterModel" />
+    <result column="rated_power" jdbcType="REAL" property="ratedPower" />
+    <result column="inverter_ver" jdbcType="VARCHAR" property="inverterVer" />
+    <result column="e_today" jdbcType="REAL" property="eToday" />
+    <result column="e_month" jdbcType="REAL" property="eMonth" />
+    <result column="e_year" jdbcType="REAL" property="eYear" />
+    <result column="e_total" jdbcType="REAL" property="eTotal" />
+    <result column="inverter_temp" jdbcType="REAL" property="inverterTemp" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="alarm_cn" jdbcType="VARCHAR" property="alarmCn" />
+    <result column="alarm_en" jdbcType="VARCHAR" property="alarmEn" />
+    <result column="fac" jdbcType="REAL" property="fac" />
+    <result column="pac" jdbcType="REAL" property="pac" />
+    <result column="national_code" jdbcType="INTEGER" property="nationalCode" />
+    <result column="national" jdbcType="VARCHAR" property="national" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, collect_record_id, inverter_sn, inverter_model, rated_power, inverter_ver, e_today, 
+    e_month, e_year, e_total, inverter_temp, state, alarm_cn, alarm_en, fac, pac, national_code, 
+    national, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.InverterData">
+    insert into inverter_data (id, collect_record_id, inverter_sn, 
+      inverter_model, rated_power, inverter_ver, 
+      e_today, e_month, e_year, e_total, 
+      inverter_temp, state, alarm_cn, 
+      alarm_en, fac, pac, national_code, 
+      national, create_time)
+    values (#{id,jdbcType=OTHER}, #{collectRecordId,jdbcType=OTHER}, #{inverterSn,jdbcType=VARCHAR}, 
+      #{inverterModel,jdbcType=VARCHAR}, #{ratedPower,jdbcType=REAL}, #{inverterVer,jdbcType=VARCHAR}, 
+      #{eToday,jdbcType=REAL}, #{eMonth,jdbcType=REAL}, #{eYear,jdbcType=REAL}, #{eTotal,jdbcType=REAL}, 
+      #{inverterTemp,jdbcType=REAL}, #{state,jdbcType=VARCHAR}, #{alarmCn,jdbcType=VARCHAR}, 
+      #{alarmEn,jdbcType=VARCHAR}, #{fac,jdbcType=REAL}, #{pac,jdbcType=REAL}, #{nationalCode,jdbcType=INTEGER}, 
+      #{national,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.InverterData">
+    insert into inverter_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="collectRecordId != null">
+        collect_record_id,
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn,
+      </if>
+      <if test="inverterModel != null">
+        inverter_model,
+      </if>
+      <if test="ratedPower != null">
+        rated_power,
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver,
+      </if>
+      <if test="eToday != null">
+        e_today,
+      </if>
+      <if test="eMonth != null">
+        e_month,
+      </if>
+      <if test="eYear != null">
+        e_year,
+      </if>
+      <if test="eTotal != null">
+        e_total,
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn,
+      </if>
+      <if test="alarmEn != null">
+        alarm_en,
+      </if>
+      <if test="fac != null">
+        fac,
+      </if>
+      <if test="pac != null">
+        pac,
+      </if>
+      <if test="nationalCode != null">
+        national_code,
+      </if>
+      <if test="national != null">
+        national,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="collectRecordId != null">
+        #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        #{ratedPower,jdbcType=REAL},
+      </if>
+      <if test="inverterVer != null">
+        #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        #{eToday,jdbcType=REAL},
+      </if>
+      <if test="eMonth != null">
+        #{eMonth,jdbcType=REAL},
+      </if>
+      <if test="eYear != null">
+        #{eYear,jdbcType=REAL},
+      </if>
+      <if test="eTotal != null">
+        #{eTotal,jdbcType=REAL},
+      </if>
+      <if test="inverterTemp != null">
+        #{inverterTemp,jdbcType=REAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        #{fac,jdbcType=REAL},
+      </if>
+      <if test="pac != null">
+        #{pac,jdbcType=REAL},
+      </if>
+      <if test="nationalCode != null">
+        #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.eec.yuandong.entity.InverterData">
+    update inverter_data
+    <set>
+      <if test="collectRecordId != null">
+        collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        rated_power = #{ratedPower,jdbcType=REAL},
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        e_today = #{eToday,jdbcType=REAL},
+      </if>
+      <if test="eMonth != null">
+        e_month = #{eMonth,jdbcType=REAL},
+      </if>
+      <if test="eYear != null">
+        e_year = #{eYear,jdbcType=REAL},
+      </if>
+      <if test="eTotal != null">
+        e_total = #{eTotal,jdbcType=REAL},
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp = #{inverterTemp,jdbcType=REAL},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        fac = #{fac,jdbcType=REAL},
+      </if>
+      <if test="pac != null">
+        pac = #{pac,jdbcType=REAL},
+      </if>
+      <if test="nationalCode != null">
+        national_code = #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        national = #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.eec.yuandong.entity.InverterData">
+    update inverter_data
+    set collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      rated_power = #{ratedPower,jdbcType=REAL},
+      inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      e_today = #{eToday,jdbcType=REAL},
+      e_month = #{eMonth,jdbcType=REAL},
+      e_year = #{eYear,jdbcType=REAL},
+      e_total = #{eTotal,jdbcType=REAL},
+      inverter_temp = #{inverterTemp,jdbcType=REAL},
+      state = #{state,jdbcType=VARCHAR},
+      alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      fac = #{fac,jdbcType=REAL},
+      pac = #{pac,jdbcType=REAL},
+      national_code = #{nationalCode,jdbcType=INTEGER},
+      national = #{national,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="collect_record_id" jdbcType="OTHER" property="collectRecordId" />
+    <result column="inverter_sn" jdbcType="VARCHAR" property="inverterSn" />
+    <result column="inverter_model" jdbcType="VARCHAR" property="inverterModel" />
+    <result column="rated_power" jdbcType="REAL" property="ratedPower" />
+    <result column="inverter_ver" jdbcType="VARCHAR" property="inverterVer" />
+    <result column="e_today" jdbcType="REAL" property="eToday" />
+    <result column="e_month" jdbcType="REAL" property="eMonth" />
+    <result column="e_year" jdbcType="REAL" property="eYear" />
+    <result column="e_total" jdbcType="REAL" property="eTotal" />
+    <result column="inverter_temp" jdbcType="REAL" property="inverterTemp" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="alarm_cn" jdbcType="VARCHAR" property="alarmCn" />
+    <result column="alarm_en" jdbcType="VARCHAR" property="alarmEn" />
+    <result column="fac" jdbcType="REAL" property="fac" />
+    <result column="pac" jdbcType="REAL" property="pac" />
+    <result column="national_code" jdbcType="INTEGER" property="nationalCode" />
+    <result column="national" jdbcType="VARCHAR" property="national" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, collect_record_id, inverter_sn, inverter_model, rated_power, inverter_ver, e_today, 
+    e_month, e_year, e_total, inverter_temp, state, alarm_cn, alarm_en, fac, pac, national_code, 
+    national, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    insert into inverter_data (id, collect_record_id, inverter_sn, 
+      inverter_model, rated_power, inverter_ver, 
+      e_today, e_month, e_year, e_total, 
+      inverter_temp, state, alarm_cn, 
+      alarm_en, fac, pac, national_code, 
+      national, create_time)
+    values (#{id,jdbcType=OTHER}, #{collectRecordId,jdbcType=OTHER}, #{inverterSn,jdbcType=VARCHAR}, 
+      #{inverterModel,jdbcType=VARCHAR}, #{ratedPower,jdbcType=REAL}, #{inverterVer,jdbcType=VARCHAR}, 
+      #{eToday,jdbcType=REAL}, #{eMonth,jdbcType=REAL}, #{eYear,jdbcType=REAL}, #{eTotal,jdbcType=REAL}, 
+      #{inverterTemp,jdbcType=REAL}, #{state,jdbcType=VARCHAR}, #{alarmCn,jdbcType=VARCHAR}, 
+      #{alarmEn,jdbcType=VARCHAR}, #{fac,jdbcType=REAL}, #{pac,jdbcType=REAL}, #{nationalCode,jdbcType=INTEGER}, 
+      #{national,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    insert into inverter_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="collectRecordId != null">
+        collect_record_id,
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn,
+      </if>
+      <if test="inverterModel != null">
+        inverter_model,
+      </if>
+      <if test="ratedPower != null">
+        rated_power,
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver,
+      </if>
+      <if test="eToday != null">
+        e_today,
+      </if>
+      <if test="eMonth != null">
+        e_month,
+      </if>
+      <if test="eYear != null">
+        e_year,
+      </if>
+      <if test="eTotal != null">
+        e_total,
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn,
+      </if>
+      <if test="alarmEn != null">
+        alarm_en,
+      </if>
+      <if test="fac != null">
+        fac,
+      </if>
+      <if test="pac != null">
+        pac,
+      </if>
+      <if test="nationalCode != null">
+        national_code,
+      </if>
+      <if test="national != null">
+        national,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="collectRecordId != null">
+        #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        #{ratedPower,jdbcType=REAL},
+      </if>
+      <if test="inverterVer != null">
+        #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        #{eToday,jdbcType=REAL},
+      </if>
+      <if test="eMonth != null">
+        #{eMonth,jdbcType=REAL},
+      </if>
+      <if test="eYear != null">
+        #{eYear,jdbcType=REAL},
+      </if>
+      <if test="eTotal != null">
+        #{eTotal,jdbcType=REAL},
+      </if>
+      <if test="inverterTemp != null">
+        #{inverterTemp,jdbcType=REAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        #{fac,jdbcType=REAL},
+      </if>
+      <if test="pac != null">
+        #{pac,jdbcType=REAL},
+      </if>
+      <if test="nationalCode != null">
+        #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    update inverter_data
+    <set>
+      <if test="collectRecordId != null">
+        collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        rated_power = #{ratedPower,jdbcType=REAL},
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        e_today = #{eToday,jdbcType=REAL},
+      </if>
+      <if test="eMonth != null">
+        e_month = #{eMonth,jdbcType=REAL},
+      </if>
+      <if test="eYear != null">
+        e_year = #{eYear,jdbcType=REAL},
+      </if>
+      <if test="eTotal != null">
+        e_total = #{eTotal,jdbcType=REAL},
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp = #{inverterTemp,jdbcType=REAL},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        fac = #{fac,jdbcType=REAL},
+      </if>
+      <if test="pac != null">
+        pac = #{pac,jdbcType=REAL},
+      </if>
+      <if test="nationalCode != null">
+        national_code = #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        national = #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    update inverter_data
+    set collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      rated_power = #{ratedPower,jdbcType=REAL},
+      inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      e_today = #{eToday,jdbcType=REAL},
+      e_month = #{eMonth,jdbcType=REAL},
+      e_year = #{eYear,jdbcType=REAL},
+      e_total = #{eTotal,jdbcType=REAL},
+      inverter_temp = #{inverterTemp,jdbcType=REAL},
+      state = #{state,jdbcType=VARCHAR},
+      alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      fac = #{fac,jdbcType=REAL},
+      pac = #{pac,jdbcType=REAL},
+      national_code = #{nationalCode,jdbcType=INTEGER},
+      national = #{national,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="collect_record_id" jdbcType="OTHER" property="collectRecordId" />
+    <result column="inverter_sn" jdbcType="VARCHAR" property="inverterSn" />
+    <result column="inverter_model" jdbcType="VARCHAR" property="inverterModel" />
+    <result column="rated_power" jdbcType="REAL" property="ratedPower" />
+    <result column="inverter_ver" jdbcType="VARCHAR" property="inverterVer" />
+    <result column="e_today" jdbcType="REAL" property="eToday" />
+    <result column="e_month" jdbcType="REAL" property="eMonth" />
+    <result column="e_year" jdbcType="REAL" property="eYear" />
+    <result column="e_total" jdbcType="REAL" property="eTotal" />
+    <result column="inverter_temp" jdbcType="REAL" property="inverterTemp" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="alarm_cn" jdbcType="VARCHAR" property="alarmCn" />
+    <result column="alarm_en" jdbcType="VARCHAR" property="alarmEn" />
+    <result column="fac" jdbcType="REAL" property="fac" />
+    <result column="pac" jdbcType="REAL" property="pac" />
+    <result column="national_code" jdbcType="INTEGER" property="nationalCode" />
+    <result column="national" jdbcType="VARCHAR" property="national" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, collect_record_id, inverter_sn, inverter_model, rated_power, inverter_ver, e_today, 
+    e_month, e_year, e_total, inverter_temp, state, alarm_cn, alarm_en, fac, pac, national_code, 
+    national, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    insert into inverter_data (id, collect_record_id, inverter_sn, 
+      inverter_model, rated_power, inverter_ver, 
+      e_today, e_month, e_year, e_total, 
+      inverter_temp, state, alarm_cn, 
+      alarm_en, fac, pac, national_code, 
+      national, create_time)
+    values (#{id,jdbcType=OTHER}, #{collectRecordId,jdbcType=OTHER}, #{inverterSn,jdbcType=VARCHAR}, 
+      #{inverterModel,jdbcType=VARCHAR}, #{ratedPower,jdbcType=REAL}, #{inverterVer,jdbcType=VARCHAR}, 
+      #{eToday,jdbcType=REAL}, #{eMonth,jdbcType=REAL}, #{eYear,jdbcType=REAL}, #{eTotal,jdbcType=REAL}, 
+      #{inverterTemp,jdbcType=REAL}, #{state,jdbcType=VARCHAR}, #{alarmCn,jdbcType=VARCHAR}, 
+      #{alarmEn,jdbcType=VARCHAR}, #{fac,jdbcType=REAL}, #{pac,jdbcType=REAL}, #{nationalCode,jdbcType=INTEGER}, 
+      #{national,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    insert into inverter_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="collectRecordId != null">
+        collect_record_id,
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn,
+      </if>
+      <if test="inverterModel != null">
+        inverter_model,
+      </if>
+      <if test="ratedPower != null">
+        rated_power,
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver,
+      </if>
+      <if test="eToday != null">
+        e_today,
+      </if>
+      <if test="eMonth != null">
+        e_month,
+      </if>
+      <if test="eYear != null">
+        e_year,
+      </if>
+      <if test="eTotal != null">
+        e_total,
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn,
+      </if>
+      <if test="alarmEn != null">
+        alarm_en,
+      </if>
+      <if test="fac != null">
+        fac,
+      </if>
+      <if test="pac != null">
+        pac,
+      </if>
+      <if test="nationalCode != null">
+        national_code,
+      </if>
+      <if test="national != null">
+        national,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="collectRecordId != null">
+        #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        #{ratedPower,jdbcType=REAL},
+      </if>
+      <if test="inverterVer != null">
+        #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        #{eToday,jdbcType=REAL},
+      </if>
+      <if test="eMonth != null">
+        #{eMonth,jdbcType=REAL},
+      </if>
+      <if test="eYear != null">
+        #{eYear,jdbcType=REAL},
+      </if>
+      <if test="eTotal != null">
+        #{eTotal,jdbcType=REAL},
+      </if>
+      <if test="inverterTemp != null">
+        #{inverterTemp,jdbcType=REAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        #{fac,jdbcType=REAL},
+      </if>
+      <if test="pac != null">
+        #{pac,jdbcType=REAL},
+      </if>
+      <if test="nationalCode != null">
+        #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    update inverter_data
+    <set>
+      <if test="collectRecordId != null">
+        collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        rated_power = #{ratedPower,jdbcType=REAL},
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        e_today = #{eToday,jdbcType=REAL},
+      </if>
+      <if test="eMonth != null">
+        e_month = #{eMonth,jdbcType=REAL},
+      </if>
+      <if test="eYear != null">
+        e_year = #{eYear,jdbcType=REAL},
+      </if>
+      <if test="eTotal != null">
+        e_total = #{eTotal,jdbcType=REAL},
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp = #{inverterTemp,jdbcType=REAL},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        fac = #{fac,jdbcType=REAL},
+      </if>
+      <if test="pac != null">
+        pac = #{pac,jdbcType=REAL},
+      </if>
+      <if test="nationalCode != null">
+        national_code = #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        national = #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    update inverter_data
+    set collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      rated_power = #{ratedPower,jdbcType=REAL},
+      inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      e_today = #{eToday,jdbcType=REAL},
+      e_month = #{eMonth,jdbcType=REAL},
+      e_year = #{eYear,jdbcType=REAL},
+      e_total = #{eTotal,jdbcType=REAL},
+      inverter_temp = #{inverterTemp,jdbcType=REAL},
+      state = #{state,jdbcType=VARCHAR},
+      alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      fac = #{fac,jdbcType=REAL},
+      pac = #{pac,jdbcType=REAL},
+      national_code = #{nationalCode,jdbcType=INTEGER},
+      national = #{national,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="collect_record_id" jdbcType="OTHER" property="collectRecordId" />
+    <result column="inverter_sn" jdbcType="VARCHAR" property="inverterSn" />
+    <result column="inverter_model" jdbcType="VARCHAR" property="inverterModel" />
+    <result column="rated_power" jdbcType="INTEGER" property="ratedPower" />
+    <result column="inverter_ver" jdbcType="VARCHAR" property="inverterVer" />
+    <result column="e_today" jdbcType="INTEGER" property="eToday" />
+    <result column="e_month" jdbcType="INTEGER" property="eMonth" />
+    <result column="e_year" jdbcType="INTEGER" property="eYear" />
+    <result column="e_total" jdbcType="INTEGER" property="eTotal" />
+    <result column="inverter_temp" jdbcType="INTEGER" property="inverterTemp" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="alarm_cn" jdbcType="VARCHAR" property="alarmCn" />
+    <result column="alarm_en" jdbcType="VARCHAR" property="alarmEn" />
+    <result column="fac" jdbcType="INTEGER" property="fac" />
+    <result column="pac" jdbcType="INTEGER" property="pac" />
+    <result column="national_code" jdbcType="INTEGER" property="nationalCode" />
+    <result column="national" jdbcType="VARCHAR" property="national" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, collect_record_id, inverter_sn, inverter_model, rated_power, inverter_ver, e_today, 
+    e_month, e_year, e_total, inverter_temp, state, alarm_cn, alarm_en, fac, pac, national_code, 
+    national, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    insert into inverter_data (id, collect_record_id, inverter_sn, 
+      inverter_model, rated_power, inverter_ver, 
+      e_today, e_month, e_year, 
+      e_total, inverter_temp, state, 
+      alarm_cn, alarm_en, fac, 
+      pac, national_code, national, 
+      create_time)
+    values (#{id,jdbcType=OTHER}, #{collectRecordId,jdbcType=OTHER}, #{inverterSn,jdbcType=VARCHAR}, 
+      #{inverterModel,jdbcType=VARCHAR}, #{ratedPower,jdbcType=INTEGER}, #{inverterVer,jdbcType=VARCHAR}, 
+      #{eToday,jdbcType=INTEGER}, #{eMonth,jdbcType=INTEGER}, #{eYear,jdbcType=INTEGER}, 
+      #{eTotal,jdbcType=INTEGER}, #{inverterTemp,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}, 
+      #{alarmCn,jdbcType=VARCHAR}, #{alarmEn,jdbcType=VARCHAR}, #{fac,jdbcType=INTEGER}, 
+      #{pac,jdbcType=INTEGER}, #{nationalCode,jdbcType=INTEGER}, #{national,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    insert into inverter_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="collectRecordId != null">
+        collect_record_id,
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn,
+      </if>
+      <if test="inverterModel != null">
+        inverter_model,
+      </if>
+      <if test="ratedPower != null">
+        rated_power,
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver,
+      </if>
+      <if test="eToday != null">
+        e_today,
+      </if>
+      <if test="eMonth != null">
+        e_month,
+      </if>
+      <if test="eYear != null">
+        e_year,
+      </if>
+      <if test="eTotal != null">
+        e_total,
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn,
+      </if>
+      <if test="alarmEn != null">
+        alarm_en,
+      </if>
+      <if test="fac != null">
+        fac,
+      </if>
+      <if test="pac != null">
+        pac,
+      </if>
+      <if test="nationalCode != null">
+        national_code,
+      </if>
+      <if test="national != null">
+        national,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="collectRecordId != null">
+        #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        #{ratedPower,jdbcType=INTEGER},
+      </if>
+      <if test="inverterVer != null">
+        #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        #{eToday,jdbcType=INTEGER},
+      </if>
+      <if test="eMonth != null">
+        #{eMonth,jdbcType=INTEGER},
+      </if>
+      <if test="eYear != null">
+        #{eYear,jdbcType=INTEGER},
+      </if>
+      <if test="eTotal != null">
+        #{eTotal,jdbcType=INTEGER},
+      </if>
+      <if test="inverterTemp != null">
+        #{inverterTemp,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        #{fac,jdbcType=INTEGER},
+      </if>
+      <if test="pac != null">
+        #{pac,jdbcType=INTEGER},
+      </if>
+      <if test="nationalCode != null">
+        #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    update inverter_data
+    <set>
+      <if test="collectRecordId != null">
+        collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        rated_power = #{ratedPower,jdbcType=INTEGER},
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        e_today = #{eToday,jdbcType=INTEGER},
+      </if>
+      <if test="eMonth != null">
+        e_month = #{eMonth,jdbcType=INTEGER},
+      </if>
+      <if test="eYear != null">
+        e_year = #{eYear,jdbcType=INTEGER},
+      </if>
+      <if test="eTotal != null">
+        e_total = #{eTotal,jdbcType=INTEGER},
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp = #{inverterTemp,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        fac = #{fac,jdbcType=INTEGER},
+      </if>
+      <if test="pac != null">
+        pac = #{pac,jdbcType=INTEGER},
+      </if>
+      <if test="nationalCode != null">
+        national_code = #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        national = #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    update inverter_data
+    set collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      rated_power = #{ratedPower,jdbcType=INTEGER},
+      inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      e_today = #{eToday,jdbcType=INTEGER},
+      e_month = #{eMonth,jdbcType=INTEGER},
+      e_year = #{eYear,jdbcType=INTEGER},
+      e_total = #{eTotal,jdbcType=INTEGER},
+      inverter_temp = #{inverterTemp,jdbcType=INTEGER},
+      state = #{state,jdbcType=VARCHAR},
+      alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      fac = #{fac,jdbcType=INTEGER},
+      pac = #{pac,jdbcType=INTEGER},
+      national_code = #{nationalCode,jdbcType=INTEGER},
+      national = #{national,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="collect_record_id" jdbcType="OTHER" property="collectRecordId" />
+    <result column="inverter_sn" jdbcType="VARCHAR" property="inverterSn" />
+    <result column="inverter_model" jdbcType="VARCHAR" property="inverterModel" />
+    <result column="rated_power" jdbcType="INTEGER" property="ratedPower" />
+    <result column="inverter_ver" jdbcType="VARCHAR" property="inverterVer" />
+    <result column="e_today" jdbcType="INTEGER" property="eToday" />
+    <result column="e_month" jdbcType="INTEGER" property="eMonth" />
+    <result column="e_year" jdbcType="BIGINT" property="eYear" />
+    <result column="e_total" jdbcType="BIGINT" property="eTotal" />
+    <result column="inverter_temp" jdbcType="INTEGER" property="inverterTemp" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="alarm_cn" jdbcType="VARCHAR" property="alarmCn" />
+    <result column="alarm_en" jdbcType="VARCHAR" property="alarmEn" />
+    <result column="fac" jdbcType="INTEGER" property="fac" />
+    <result column="pac" jdbcType="INTEGER" property="pac" />
+    <result column="national_code" jdbcType="INTEGER" property="nationalCode" />
+    <result column="national" jdbcType="VARCHAR" property="national" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, collect_record_id, inverter_sn, inverter_model, rated_power, inverter_ver, e_today, 
+    e_month, e_year, e_total, inverter_temp, state, alarm_cn, alarm_en, fac, pac, national_code, 
+    national, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    insert into inverter_data (id, collect_record_id, inverter_sn, 
+      inverter_model, rated_power, inverter_ver, 
+      e_today, e_month, e_year, 
+      e_total, inverter_temp, state, 
+      alarm_cn, alarm_en, fac, 
+      pac, national_code, national, 
+      create_time)
+    values (#{id,jdbcType=OTHER}, #{collectRecordId,jdbcType=OTHER}, #{inverterSn,jdbcType=VARCHAR}, 
+      #{inverterModel,jdbcType=VARCHAR}, #{ratedPower,jdbcType=INTEGER}, #{inverterVer,jdbcType=VARCHAR}, 
+      #{eToday,jdbcType=INTEGER}, #{eMonth,jdbcType=INTEGER}, #{eYear,jdbcType=BIGINT}, 
+      #{eTotal,jdbcType=BIGINT}, #{inverterTemp,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}, 
+      #{alarmCn,jdbcType=VARCHAR}, #{alarmEn,jdbcType=VARCHAR}, #{fac,jdbcType=INTEGER}, 
+      #{pac,jdbcType=INTEGER}, #{nationalCode,jdbcType=INTEGER}, #{national,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    insert into inverter_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="collectRecordId != null">
+        collect_record_id,
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn,
+      </if>
+      <if test="inverterModel != null">
+        inverter_model,
+      </if>
+      <if test="ratedPower != null">
+        rated_power,
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver,
+      </if>
+      <if test="eToday != null">
+        e_today,
+      </if>
+      <if test="eMonth != null">
+        e_month,
+      </if>
+      <if test="eYear != null">
+        e_year,
+      </if>
+      <if test="eTotal != null">
+        e_total,
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn,
+      </if>
+      <if test="alarmEn != null">
+        alarm_en,
+      </if>
+      <if test="fac != null">
+        fac,
+      </if>
+      <if test="pac != null">
+        pac,
+      </if>
+      <if test="nationalCode != null">
+        national_code,
+      </if>
+      <if test="national != null">
+        national,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="collectRecordId != null">
+        #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        #{ratedPower,jdbcType=INTEGER},
+      </if>
+      <if test="inverterVer != null">
+        #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        #{eToday,jdbcType=INTEGER},
+      </if>
+      <if test="eMonth != null">
+        #{eMonth,jdbcType=INTEGER},
+      </if>
+      <if test="eYear != null">
+        #{eYear,jdbcType=BIGINT},
+      </if>
+      <if test="eTotal != null">
+        #{eTotal,jdbcType=BIGINT},
+      </if>
+      <if test="inverterTemp != null">
+        #{inverterTemp,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        #{fac,jdbcType=INTEGER},
+      </if>
+      <if test="pac != null">
+        #{pac,jdbcType=INTEGER},
+      </if>
+      <if test="nationalCode != null">
+        #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    update inverter_data
+    <set>
+      <if test="collectRecordId != null">
+        collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        rated_power = #{ratedPower,jdbcType=INTEGER},
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        e_today = #{eToday,jdbcType=INTEGER},
+      </if>
+      <if test="eMonth != null">
+        e_month = #{eMonth,jdbcType=INTEGER},
+      </if>
+      <if test="eYear != null">
+        e_year = #{eYear,jdbcType=BIGINT},
+      </if>
+      <if test="eTotal != null">
+        e_total = #{eTotal,jdbcType=BIGINT},
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp = #{inverterTemp,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        fac = #{fac,jdbcType=INTEGER},
+      </if>
+      <if test="pac != null">
+        pac = #{pac,jdbcType=INTEGER},
+      </if>
+      <if test="nationalCode != null">
+        national_code = #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        national = #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    update inverter_data
+    set collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      rated_power = #{ratedPower,jdbcType=INTEGER},
+      inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      e_today = #{eToday,jdbcType=INTEGER},
+      e_month = #{eMonth,jdbcType=INTEGER},
+      e_year = #{eYear,jdbcType=BIGINT},
+      e_total = #{eTotal,jdbcType=BIGINT},
+      inverter_temp = #{inverterTemp,jdbcType=INTEGER},
+      state = #{state,jdbcType=VARCHAR},
+      alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      fac = #{fac,jdbcType=INTEGER},
+      pac = #{pac,jdbcType=INTEGER},
+      national_code = #{nationalCode,jdbcType=INTEGER},
+      national = #{national,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="collect_record_id" jdbcType="OTHER" property="collectRecordId" />
+    <result column="inverter_sn" jdbcType="VARCHAR" property="inverterSn" />
+    <result column="inverter_model" jdbcType="VARCHAR" property="inverterModel" />
+    <result column="rated_power" jdbcType="INTEGER" property="ratedPower" />
+    <result column="inverter_ver" jdbcType="VARCHAR" property="inverterVer" />
+    <result column="e_today" jdbcType="INTEGER" property="eToday" />
+    <result column="e_month" jdbcType="INTEGER" property="eMonth" />
+    <result column="e_year" jdbcType="BIGINT" property="eYear" />
+    <result column="e_total" jdbcType="BIGINT" property="eTotal" />
+    <result column="inverter_temp" jdbcType="SMALLINT" property="inverterTemp" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="alarm_cn" jdbcType="VARCHAR" property="alarmCn" />
+    <result column="alarm_en" jdbcType="VARCHAR" property="alarmEn" />
+    <result column="fac" jdbcType="SMALLINT" property="fac" />
+    <result column="pac" jdbcType="INTEGER" property="pac" />
+    <result column="national_code" jdbcType="INTEGER" property="nationalCode" />
+    <result column="national" jdbcType="VARCHAR" property="national" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, collect_record_id, inverter_sn, inverter_model, rated_power, inverter_ver, e_today, 
+    e_month, e_year, e_total, inverter_temp, state, alarm_cn, alarm_en, fac, pac, national_code, 
+    national, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    insert into inverter_data (id, collect_record_id, inverter_sn, 
+      inverter_model, rated_power, inverter_ver, 
+      e_today, e_month, e_year, 
+      e_total, inverter_temp, state, 
+      alarm_cn, alarm_en, fac, 
+      pac, national_code, national, 
+      create_time)
+    values (#{id,jdbcType=OTHER}, #{collectRecordId,jdbcType=OTHER}, #{inverterSn,jdbcType=VARCHAR}, 
+      #{inverterModel,jdbcType=VARCHAR}, #{ratedPower,jdbcType=INTEGER}, #{inverterVer,jdbcType=VARCHAR}, 
+      #{eToday,jdbcType=INTEGER}, #{eMonth,jdbcType=INTEGER}, #{eYear,jdbcType=BIGINT}, 
+      #{eTotal,jdbcType=BIGINT}, #{inverterTemp,jdbcType=SMALLINT}, #{state,jdbcType=VARCHAR}, 
+      #{alarmCn,jdbcType=VARCHAR}, #{alarmEn,jdbcType=VARCHAR}, #{fac,jdbcType=SMALLINT}, 
+      #{pac,jdbcType=INTEGER}, #{nationalCode,jdbcType=INTEGER}, #{national,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    insert into inverter_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="collectRecordId != null">
+        collect_record_id,
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn,
+      </if>
+      <if test="inverterModel != null">
+        inverter_model,
+      </if>
+      <if test="ratedPower != null">
+        rated_power,
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver,
+      </if>
+      <if test="eToday != null">
+        e_today,
+      </if>
+      <if test="eMonth != null">
+        e_month,
+      </if>
+      <if test="eYear != null">
+        e_year,
+      </if>
+      <if test="eTotal != null">
+        e_total,
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn,
+      </if>
+      <if test="alarmEn != null">
+        alarm_en,
+      </if>
+      <if test="fac != null">
+        fac,
+      </if>
+      <if test="pac != null">
+        pac,
+      </if>
+      <if test="nationalCode != null">
+        national_code,
+      </if>
+      <if test="national != null">
+        national,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="collectRecordId != null">
+        #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        #{ratedPower,jdbcType=INTEGER},
+      </if>
+      <if test="inverterVer != null">
+        #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        #{eToday,jdbcType=INTEGER},
+      </if>
+      <if test="eMonth != null">
+        #{eMonth,jdbcType=INTEGER},
+      </if>
+      <if test="eYear != null">
+        #{eYear,jdbcType=BIGINT},
+      </if>
+      <if test="eTotal != null">
+        #{eTotal,jdbcType=BIGINT},
+      </if>
+      <if test="inverterTemp != null">
+        #{inverterTemp,jdbcType=SMALLINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        #{fac,jdbcType=SMALLINT},
+      </if>
+      <if test="pac != null">
+        #{pac,jdbcType=INTEGER},
+      </if>
+      <if test="nationalCode != null">
+        #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    update inverter_data
+    <set>
+      <if test="collectRecordId != null">
+        collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        rated_power = #{ratedPower,jdbcType=INTEGER},
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        e_today = #{eToday,jdbcType=INTEGER},
+      </if>
+      <if test="eMonth != null">
+        e_month = #{eMonth,jdbcType=INTEGER},
+      </if>
+      <if test="eYear != null">
+        e_year = #{eYear,jdbcType=BIGINT},
+      </if>
+      <if test="eTotal != null">
+        e_total = #{eTotal,jdbcType=BIGINT},
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp = #{inverterTemp,jdbcType=SMALLINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        fac = #{fac,jdbcType=SMALLINT},
+      </if>
+      <if test="pac != null">
+        pac = #{pac,jdbcType=INTEGER},
+      </if>
+      <if test="nationalCode != null">
+        national_code = #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        national = #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    update inverter_data
+    set collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      rated_power = #{ratedPower,jdbcType=INTEGER},
+      inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      e_today = #{eToday,jdbcType=INTEGER},
+      e_month = #{eMonth,jdbcType=INTEGER},
+      e_year = #{eYear,jdbcType=BIGINT},
+      e_total = #{eTotal,jdbcType=BIGINT},
+      inverter_temp = #{inverterTemp,jdbcType=SMALLINT},
+      state = #{state,jdbcType=VARCHAR},
+      alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      fac = #{fac,jdbcType=SMALLINT},
+      pac = #{pac,jdbcType=INTEGER},
+      national_code = #{nationalCode,jdbcType=INTEGER},
+      national = #{national,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="collect_record_id" jdbcType="OTHER" property="collectRecordId" />
+    <result column="inverter_sn" jdbcType="VARCHAR" property="inverterSn" />
+    <result column="inverter_model" jdbcType="VARCHAR" property="inverterModel" />
+    <result column="rated_power" jdbcType="INTEGER" property="ratedPower" />
+    <result column="inverter_ver" jdbcType="VARCHAR" property="inverterVer" />
+    <result column="e_today" jdbcType="INTEGER" property="eToday" />
+    <result column="e_month" jdbcType="INTEGER" property="eMonth" />
+    <result column="e_year" jdbcType="BIGINT" property="eYear" />
+    <result column="e_total" jdbcType="BIGINT" property="eTotal" />
+    <result column="inverter_temp" jdbcType="SMALLINT" property="inverterTemp" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="alarm_cn" jdbcType="VARCHAR" property="alarmCn" />
+    <result column="alarm_en" jdbcType="VARCHAR" property="alarmEn" />
+    <result column="fac" jdbcType="SMALLINT" property="fac" />
+    <result column="pac" jdbcType="INTEGER" property="pac" />
+    <result column="national_code" jdbcType="INTEGER" property="nationalCode" />
+    <result column="national" jdbcType="VARCHAR" property="national" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, collect_record_id, inverter_sn, inverter_model, rated_power, inverter_ver, e_today, 
+    e_month, e_year, e_total, inverter_temp, state, alarm_cn, alarm_en, fac, pac, national_code, 
+    national, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from inverter_data
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    insert into inverter_data (id, collect_record_id, inverter_sn, 
+      inverter_model, rated_power, inverter_ver, 
+      e_today, e_month, e_year, 
+      e_total, inverter_temp, state, 
+      alarm_cn, alarm_en, fac, 
+      pac, national_code, national, 
+      create_time)
+    values (#{id,jdbcType=OTHER}, #{collectRecordId,jdbcType=OTHER}, #{inverterSn,jdbcType=VARCHAR}, 
+      #{inverterModel,jdbcType=VARCHAR}, #{ratedPower,jdbcType=INTEGER}, #{inverterVer,jdbcType=VARCHAR}, 
+      #{eToday,jdbcType=INTEGER}, #{eMonth,jdbcType=INTEGER}, #{eYear,jdbcType=BIGINT}, 
+      #{eTotal,jdbcType=BIGINT}, #{inverterTemp,jdbcType=SMALLINT}, #{state,jdbcType=VARCHAR}, 
+      #{alarmCn,jdbcType=VARCHAR}, #{alarmEn,jdbcType=VARCHAR}, #{fac,jdbcType=SMALLINT}, 
+      #{pac,jdbcType=INTEGER}, #{nationalCode,jdbcType=INTEGER}, #{national,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    insert into inverter_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="collectRecordId != null">
+        collect_record_id,
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn,
+      </if>
+      <if test="inverterModel != null">
+        inverter_model,
+      </if>
+      <if test="ratedPower != null">
+        rated_power,
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver,
+      </if>
+      <if test="eToday != null">
+        e_today,
+      </if>
+      <if test="eMonth != null">
+        e_month,
+      </if>
+      <if test="eYear != null">
+        e_year,
+      </if>
+      <if test="eTotal != null">
+        e_total,
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn,
+      </if>
+      <if test="alarmEn != null">
+        alarm_en,
+      </if>
+      <if test="fac != null">
+        fac,
+      </if>
+      <if test="pac != null">
+        pac,
+      </if>
+      <if test="nationalCode != null">
+        national_code,
+      </if>
+      <if test="national != null">
+        national,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="collectRecordId != null">
+        #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        #{ratedPower,jdbcType=INTEGER},
+      </if>
+      <if test="inverterVer != null">
+        #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        #{eToday,jdbcType=INTEGER},
+      </if>
+      <if test="eMonth != null">
+        #{eMonth,jdbcType=INTEGER},
+      </if>
+      <if test="eYear != null">
+        #{eYear,jdbcType=BIGINT},
+      </if>
+      <if test="eTotal != null">
+        #{eTotal,jdbcType=BIGINT},
+      </if>
+      <if test="inverterTemp != null">
+        #{inverterTemp,jdbcType=SMALLINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        #{fac,jdbcType=SMALLINT},
+      </if>
+      <if test="pac != null">
+        #{pac,jdbcType=INTEGER},
+      </if>
+      <if test="nationalCode != null">
+        #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    update inverter_data
+    <set>
+      <if test="collectRecordId != null">
+        collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      </if>
+      <if test="inverterSn != null">
+        inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      </if>
+      <if test="inverterModel != null">
+        inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedPower != null">
+        rated_power = #{ratedPower,jdbcType=INTEGER},
+      </if>
+      <if test="inverterVer != null">
+        inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      </if>
+      <if test="eToday != null">
+        e_today = #{eToday,jdbcType=INTEGER},
+      </if>
+      <if test="eMonth != null">
+        e_month = #{eMonth,jdbcType=INTEGER},
+      </if>
+      <if test="eYear != null">
+        e_year = #{eYear,jdbcType=BIGINT},
+      </if>
+      <if test="eTotal != null">
+        e_total = #{eTotal,jdbcType=BIGINT},
+      </if>
+      <if test="inverterTemp != null">
+        inverter_temp = #{inverterTemp,jdbcType=SMALLINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmCn != null">
+        alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmEn != null">
+        alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fac != null">
+        fac = #{fac,jdbcType=SMALLINT},
+      </if>
+      <if test="pac != null">
+        pac = #{pac,jdbcType=INTEGER},
+      </if>
+      <if test="nationalCode != null">
+        national_code = #{nationalCode,jdbcType=INTEGER},
+      </if>
+      <if test="national != null">
+        national = #{national,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.datacollection.jinlang.entity.InverterData">
+    update inverter_data
+    set collect_record_id = #{collectRecordId,jdbcType=OTHER},
+      inverter_sn = #{inverterSn,jdbcType=VARCHAR},
+      inverter_model = #{inverterModel,jdbcType=VARCHAR},
+      rated_power = #{ratedPower,jdbcType=INTEGER},
+      inverter_ver = #{inverterVer,jdbcType=VARCHAR},
+      e_today = #{eToday,jdbcType=INTEGER},
+      e_month = #{eMonth,jdbcType=INTEGER},
+      e_year = #{eYear,jdbcType=BIGINT},
+      e_total = #{eTotal,jdbcType=BIGINT},
+      inverter_temp = #{inverterTemp,jdbcType=SMALLINT},
+      state = #{state,jdbcType=VARCHAR},
+      alarm_cn = #{alarmCn,jdbcType=VARCHAR},
+      alarm_en = #{alarmEn,jdbcType=VARCHAR},
+      fac = #{fac,jdbcType=SMALLINT},
+      pac = #{pac,jdbcType=INTEGER},
+      national_code = #{nationalCode,jdbcType=INTEGER},
+      national = #{national,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+</mapper>

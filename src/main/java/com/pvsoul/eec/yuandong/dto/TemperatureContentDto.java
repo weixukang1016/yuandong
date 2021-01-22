@@ -1,7 +1,7 @@
-package com.pvsoul.eec.yuandong.dao;
+package com.pvsoul.eec.yuandong.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,40 +14,40 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TemperatureContentDao implements Serializable {
+public class TemperatureContentDto implements Serializable {
     private static final long serialVersionUID = -7005437124753337103L;
 
-    @JSONField(name="Device_ID")
+    @JsonProperty("Device_ID")
     private String deviceId;
 
-    @JSONField(name="Temperature_0")
+    @JsonProperty("Temperature_0")
     private Float temperature0;
 
-    @JSONField(name="Temperature_1")
+    @JsonProperty("Temperature_1")
     private Float temperature1;
 
-    @JSONField(name="Temperature_2")
+    @JsonProperty("Temperature_2")
     private Float temperature2;
 
-    @JSONField(name="Temperature_3")
+    @JsonProperty("Temperature_3")
     private Float temperature3;
 
-    @JSONField(name="Temperature_4")
+    @JsonProperty("Temperature_4")
     private Float temperature4;
 
-    @JSONField(name="Temperature_5")
+    @JsonProperty("Temperature_5")
     private Float temperature5;
 
-    @JSONField(name="Temperature_6")
+    @JsonProperty("Temperature_6")
     private Float temperature6;
 
-    @JSONField(name="Temperature_7")
+    @JsonProperty("Temperature_7")
     private Float temperature7;
 
-    @JSONField(name="Temperature_8")
+    @JsonProperty("Temperature_8")
     private Float temperature8;
 
-    @JSONField(name="Temperature_9")
+    @JsonProperty("Temperature_9")
     private Float temperature9;
 
 }

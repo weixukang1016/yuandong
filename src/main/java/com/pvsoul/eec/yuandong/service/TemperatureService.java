@@ -1,8 +1,8 @@
 package com.pvsoul.eec.yuandong.service;
 
-import com.pvsoul.eec.yuandong.dao.ResultDao;
-import com.pvsoul.eec.yuandong.dao.TemperatureContentDao;
+import com.pvsoul.eec.yuandong.dto.ResultDto;
+import com.pvsoul.eec.yuandong.dto.TemperatureContentDto;
 
 public interface TemperatureService {
-    public ResultDao SaveData(TemperatureContentDao data);
+    public ResultDto SaveData(TemperatureContentDto data);
 }

@@ -1,7 +1,7 @@
 package com.pvsoul.eec.yuandong.service.impl;
 
-import com.pvsoul.eec.yuandong.dao.ResultDao;
-import com.pvsoul.eec.yuandong.dao.TemperatureContentDao;
+import com.pvsoul.eec.yuandong.dto.ResultDto;
+import com.pvsoul.eec.yuandong.dto.TemperatureContentDto;
 import com.pvsoul.eec.yuandong.entity.TemperatureData;
 import com.pvsoul.eec.yuandong.mapper.TemperatureDataMapper;
 import com.pvsoul.eec.yuandong.service.TemperatureService;
@@ -22,8 +22,8 @@ public class TemperatureServiceImpl implements TemperatureService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResultDao SaveData(TemperatureContentDao content) {
-        ResultDao resultDao = new ResultDao();
+    public ResultDto SaveData(TemperatureContentDto content) {
+        ResultDto resultDto = new ResultDto();
         Date now = new Date();
         String deviceId = content.getDeviceId();
 
@@ -67,7 +67,7 @@ public class TemperatureServiceImpl implements TemperatureService {
             TemperatureData temperatureData = getTemperatureData(9, deviceId, content.getTemperature9(), now);
             temperatureDataMapper.insert(temperatureData);
         }
-        return resultDao;
+        return resultDto;
     }
 
     private TemperatureData getTemperatureData(int index, String deviceId, Float temperature, Date createtime) {
@@ -75,7 +75,7 @@ public class TemperatureServiceImpl implements TemperatureService {
         String id = UUID.randomUUID().toString();
         TemperatureData temperatureData = new TemperatureData();
         temperatureData.setId(id);
-        temperatureData.setIndex(index);
+        temperatureData.setSensorIndex(index);
         temperatureData.setDeviceId(deviceId);
         temperatureData.setTemperature(temperature);
         temperatureData.setCreateTime(createtime);

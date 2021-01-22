@@ -17,6 +17,7 @@ public class JerseyConfig implements ResourceConfigCustomizer {
     @Override
     public void customize(ResourceConfig config) {
         //config.packages("com.pvsoul.eec.yuandong.resource");
+        config.register(com.pvsoul.eec.yuandong.resource.JinlangResource.class);
         config.register(com.pvsoul.eec.yuandong.resource.TastekLetDtuResouce.class);
         config.registerClasses(ValidationExceptionProvider.class);
         config.registerClasses(RuntimeExceptionProvider.class);
