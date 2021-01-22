@@ -1,6 +1,5 @@
-package com.pvsoul.eec.yuandong.dao;
+package com.pvsoul.eec.yuandong.dto;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -15,13 +14,13 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IotdaBodyDao implements Serializable {
-    private static final long serialVersionUID = 1389033345147498788L;
+public class IotdaNotifyDataDto implements Serializable {
+    private static final long serialVersionUID = -222753328497208510L;
 
-    @JsonProperty("topic")
-    private String topic;
+    @JsonProperty("header")
+    private IotdaHeaderDto header;
 
-    @JsonProperty("content")
-    private JSONObject content;
+    @JsonProperty("body")
+    private IotdaBodyDto body;
 
 }

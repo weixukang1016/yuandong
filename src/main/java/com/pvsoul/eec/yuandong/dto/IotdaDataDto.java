@@ -1,4 +1,4 @@
-package com.pvsoul.eec.yuandong.dao;
+package com.pvsoul.eec.yuandong.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IotdaDataDao implements Serializable {
+public class IotdaDataDto implements Serializable {
     private static final long serialVersionUID = 9058328430384287451L;
 
     @JsonProperty("resource")
@@ -27,6 +27,6 @@ public class IotdaDataDao implements Serializable {
     private String eventTime;
 
     @JsonProperty("notify_data")
-    private IotdaNotifyDataDao notifyData;
+    private IotdaNotifyDataDto notifyData;
 
 }

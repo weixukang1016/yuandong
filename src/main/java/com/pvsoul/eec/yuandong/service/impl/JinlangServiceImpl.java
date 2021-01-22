@@ -121,7 +121,6 @@ public class JinlangServiceImpl implements JinlangService {
                             .eq("pv_index", pvIndex)
                             .eq("is_valid", true);
                     PvString pvString = pvStringMapper.selectOne(pvStringQueryWrapper);
-                    PvString pvString2 = pvStringMapper.selectByPrimaryKey("2eca2e27-0477-4ce9-ab2d-326d32fde6b9");
 
                     if (pvString != null) {
                         //存在光伏组串时，插入数据
@@ -146,8 +145,7 @@ public class JinlangServiceImpl implements JinlangService {
                         getPvStringTemperatureRequestVo.setPvStringId(pvString.getId().toString());
                         getPvStringTemperatureRequestVo.setStartTime(before10M.getTime());
                         getPvStringTemperatureRequestVo.setEndTime(now);
-                        TemperatureData t = temperatureDataMapper.selectByPrimaryKey("80a1f820-c4df-4764-9e77-6ef3f58c288e");
-                        //List<TemperatureData> pvStringTemperatrue = temperatureDataMapper.getPvStringTemperature();
+                        List<TemperatureData> pvStringTemperatrue = temperatureDataMapper.getPvStringTemperature(getPvStringTemperatureRequestVo);
                         //pvStringData.setTemperature(pvStringTemperatrue);
                         pvStringDataMapper.insert(pvStringData);
                     }

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pvsoul.eec.yuandong.mapper.TemperatureDataMapper">
+  <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.TemperatureData">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="sensor_index" jdbcType="INTEGER" property="sensorIndex" />
+    <result column="temperature" jdbcType="REAL" property="temperature" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, device_id, sensor_index, temperature, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from temperature_data
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from temperature_data
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureData">
+    insert into temperature_data (id, device_id, sensor_index, 
+      temperature, create_time)
+    values (#{id,jdbcType=OTHER}, #{deviceId,jdbcType=VARCHAR}, #{sensorIndex,jdbcType=INTEGER}, 
+      #{temperature,jdbcType=REAL}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureData">
+    insert into temperature_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="sensorIndex != null">
+        sensor_index,
+      </if>
+      <if test="temperature != null">
+        temperature,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorIndex != null">
+        #{sensorIndex,jdbcType=INTEGER},
+      </if>
+      <if test="temperature != null">
+        #{temperature,jdbcType=REAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureData">
+    update temperature_data
+    <set>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorIndex != null">
+        sensor_index = #{sensorIndex,jdbcType=INTEGER},
+      </if>
+      <if test="temperature != null">
+        temperature = #{temperature,jdbcType=REAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureData">
+    update temperature_data
+    set device_id = #{deviceId,jdbcType=VARCHAR},
+      sensor_index = #{sensorIndex,jdbcType=INTEGER},
+      temperature = #{temperature,jdbcType=REAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <select id="getPvStringTemperature" parameterType="com.pvsoul.eec.yuandong.vo.GetPvStringTemperatureRequestVo" resultMap="BaseResultMap">
+
+    SELECT
+    td.id, td.device_id, td.index, td.temperature, td.create_time
+    FROM temperature_data td
+    INNER JOIN temperature_sensor ts ON td.device_id = ts.collector_device_id AND td.sensor_index = ts.sensor_index
+    <where>
+      ts.inverter_id = #{inverterId,jdbcType=OTHER}
+      AND ts.pv_string_id = #{pvStringId,jdbcType=OTHER}
+      AND td.create_time = (
+      SELECT
+      "max" ( td.create_time )
+      FROM
+      temperature_data td
+      INNER JOIN temperature_sensor ts ON td.device_id = ts.collector_device_id
+      AND td.sensor_index = ts.sensor_index
+      <where>
+        ts.inverter_id = #{invertId,jdbcType=OTHER}
+        AND ts.pv_string_id = #{pvStringId,jdbcType=OTHER}
+        AND td.create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+        AND td.create_time &lt;= #{endtTime,jdbcType=TIMESTAMP}
+      </where>
+      )
+    </where>
+  </select>
+</mapper>
