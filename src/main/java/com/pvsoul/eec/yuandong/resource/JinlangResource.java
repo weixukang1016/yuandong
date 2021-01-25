@@ -1,6 +1,6 @@
 package com.pvsoul.eec.yuandong.resource;
 
-//import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import com.pvsoul.eec.yuandong.dto.JinLangDataDto;
 import com.pvsoul.eec.yuandong.dto.ResultDto;
 import com.pvsoul.eec.yuandong.service.JinlangService;
@@ -40,9 +40,12 @@ public class JinlangResource {
         String authorization = request.getHeader("authorization");
         boolean isAuth = JinlangAuth.checkAuth(verb, contentType, date, canonicalizedResource, authorization);
         ResultDto resultDto;
-        isAuth = true;
+
+        //TODO delete  调试代码
+        //isAuth = true;
+
         if (isAuth) {
-            //log.info(JSONObject.toJSONString(data));
+            log.info(JSONObject.toJSONString(data));
             resultDto = jinlangService.SaveData(data);
         } else {
             log.info("Jinlang Authorization is wrong");

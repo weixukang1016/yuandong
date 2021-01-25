@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -46,6 +43,8 @@ public class JinlangServiceImpl implements JinlangService {
 
     @Autowired
     private TemperatureDataMapper temperatureDataMapper;
+
+    private float TEMPERATURE_DIFF_THRESHOLD = 5; //温度差值的阈值
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -138,14 +137,19 @@ public class JinlangServiceImpl implements JinlangService {
                         before10M.setTime(now);
                         before10M.add(Calendar.MINUTE, -10);
 
-                        before10M.add(Calendar.DATE, -2);
+                        //TODO delete 调试代码
+                        //before10M.add(Calendar.DATE, -5);
 
                         GetPvStringTemperatureRequestVo getPvStringTemperatureRequestVo = new GetPvStringTemperatureRequestVo();
                         getPvStringTemperatureRequestVo.setInverterId(inverter.getId().toString());
                         getPvStringTemperatureRequestVo.setPvStringId(pvString.getId().toString());
                         getPvStringTemperatureRequestVo.setStartTime(before10M.getTime());
                         getPvStringTemperatureRequestVo.setEndTime(now);
-                        List<TemperatureData> pvStringTemperatrue = temperatureDataMapper.getPvStringTemperature(getPvStringTemperatureRequestVo);
+                        List<TemperatureData> pvStringTemperatrues = temperatureDataMapper.getPvStringTemperature(getPvStringTemperatureRequestVo);
+                        if (pvStringTemperatrues.size() > 0) {
+                            Float temperature =  calculatePvStringTemperature(pvStringTemperatrues);
+                            pvStringData.setTemperature(temperature);
+                        }
                         //pvStringData.setTemperature(pvStringTemperatrue);
                         pvStringDataMapper.insert(pvStringData);
                     }
@@ -167,5 +171,52 @@ public class JinlangServiceImpl implements JinlangService {
         }
 
         return resultDto;
+    }
+
+    /**
+     * 计算光伏组串的平均温度
+     * 算法：当只有一个有效温度值时，认为无效
+     *      当只有两个温度值,检查差值超过阈值泽认为无效，返回NULL，如果不大于阈值，认为有效，取平均值
+     *      当多于两个温度值是，依次检查某一值与其他值的平均值的差值，如果大于阈值，认为无效，去除该值；去除后少于两个值的情况返回NULL，多于两个值的时候去平均值
+     * @param pvStringTemperatrues
+     * @return
+     */
+    private Float calculatePvStringTemperature(List<TemperatureData> pvStringTemperatrues) {
+        if (pvStringTemperatrues.size() < 2) {
+            return null;
+        } else if (pvStringTemperatrues.size() == 2) {
+            if (pvStringTemperatrues.get(0).getTemperature() - pvStringTemperatrues.get(1).getTemperature() > TEMPERATURE_DIFF_THRESHOLD
+                || pvStringTemperatrues.get(1).getTemperature() - pvStringTemperatrues.get(0).getTemperature() > TEMPERATURE_DIFF_THRESHOLD) {
+                return null;
+            } else {
+                return (pvStringTemperatrues.get(0).getTemperature() + pvStringTemperatrues.get(1).getTemperature()) / 2;
+            }
+        } else {
+            List<Float> validTemperatures = new ArrayList<>();
+            for (int i = 0; i < pvStringTemperatrues.size(); i++) {
+                float temperature = pvStringTemperatrues.get(i).getTemperature();
+                float temperatureSum = 0;
+                for (int j = 0; j < pvStringTemperatrues.size(); j++) {
+                    if (j != i) {
+                        temperatureSum += pvStringTemperatrues.get(j).getTemperature();
+                    }
+                }
+                float temperatureAvg = temperatureSum / (pvStringTemperatrues.size() - 1);
+                if (temperature - temperatureAvg > TEMPERATURE_DIFF_THRESHOLD || temperatureAvg - temperature > TEMPERATURE_DIFF_THRESHOLD) {
+                    continue;
+                } else {
+                    validTemperatures.add(temperature);
+                }
+            }
+            if (validTemperatures.size() < 2 ) {
+                return null;
+            } else {
+                float temperatureSum = 0;
+                for (int i = 0; i < validTemperatures.size(); i++) {
+                    temperatureSum += validTemperatures.get(i);
+                }
+                return temperatureSum / validTemperatures.size();
+            }
+        }
     }
 }

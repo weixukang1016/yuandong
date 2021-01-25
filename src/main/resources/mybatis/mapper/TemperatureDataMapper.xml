@@ -93,7 +93,7 @@
   <select id="getPvStringTemperature" parameterType="com.pvsoul.eec.yuandong.vo.GetPvStringTemperatureRequestVo" resultMap="BaseResultMap">
 
     SELECT
-    td.id, td.device_id, td.index, td.temperature, td.create_time
+    td.id, td.device_id, td.sensor_index, td.temperature, td.create_time
     FROM temperature_data td
     INNER JOIN temperature_sensor ts ON td.device_id = ts.collector_device_id AND td.sensor_index = ts.sensor_index
     <where>
@@ -105,12 +105,12 @@
       FROM
       temperature_data td
       INNER JOIN temperature_sensor ts ON td.device_id = ts.collector_device_id
-      AND td.sensor_index = ts.sensor_index
+      AND td.sensor_index = ts.sensor_index and ts.is_valid=TRUE
       <where>
-        ts.inverter_id = #{invertId,jdbcType=OTHER}
+        ts.inverter_id = #{inverterId,jdbcType=OTHER}
         AND ts.pv_string_id = #{pvStringId,jdbcType=OTHER}
         AND td.create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
-        AND td.create_time &lt;= #{endtTime,jdbcType=TIMESTAMP}
+        AND td.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
       </where>
       )
     </where>
