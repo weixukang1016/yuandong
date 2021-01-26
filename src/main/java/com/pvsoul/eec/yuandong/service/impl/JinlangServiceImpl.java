@@ -110,7 +110,7 @@ public class JinlangServiceImpl implements JinlangService {
                 inverterPvData.setU(pvUI.getU());
                 inverterPvData.setI(pvUI.getI());
                 inverterPvData.setCreateTime(now);
-                inverterPvData.setPvIndex(pvIndex++);
+                inverterPvData.setPvIndex(pvIndex);
                 inverterPvDataMapper.insert(inverterPvData);
 
                 if (inverter != null) {
@@ -154,6 +154,7 @@ public class JinlangServiceImpl implements JinlangService {
                         pvStringDataMapper.insert(pvStringData);
                     }
                 }
+                pvIndex++;
             }
             int acIndex = 0;
             for (UIDataDto acUI:inverterDataDao.getAc()) {
@@ -165,8 +166,9 @@ public class JinlangServiceImpl implements JinlangService {
                 inverterAcData.setU(acUI.getU());
                 inverterAcData.setI(acUI.getI());
                 inverterAcData.setCreateTime(now);
-                inverterAcData.setAcIndex(acIndex++);
+                inverterAcData.setAcIndex(acIndex);
                 inverterAcDataMapper.insert(inverterAcData);
+                acIndex++;
             }
         }
 
