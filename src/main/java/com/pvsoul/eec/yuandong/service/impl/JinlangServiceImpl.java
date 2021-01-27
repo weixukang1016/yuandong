@@ -129,6 +129,7 @@ public class JinlangServiceImpl implements JinlangService {
                         pvStringData.setInverterId(inverter.getId());
                         pvStringData.setPvStringId(pvString.getId());
                         pvStringData.setCreateTime(now);
+                        pvStringData.setDeviceTime(data.getTime());
                         pvStringData.setU(pvUI.getU());
                         pvStringData.setI(pvUI.getI());
 
