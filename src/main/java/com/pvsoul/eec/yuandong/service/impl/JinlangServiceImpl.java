@@ -135,7 +135,7 @@ public class JinlangServiceImpl implements JinlangService {
 
                         //查询十分钟内最近时间的温度数据的平均值，用于该光伏组串的温度值
                         Calendar before10M = Calendar.getInstance();
-                        before10M.setTime(now);
+                        before10M.setTime(data.getTime());
                         before10M.add(Calendar.MINUTE, -10);
 
                         //TODO delete 调试代码
@@ -145,7 +145,7 @@ public class JinlangServiceImpl implements JinlangService {
                         getPvStringTemperatureRequestVo.setInverterId(inverter.getId().toString());
                         getPvStringTemperatureRequestVo.setPvStringId(pvString.getId().toString());
                         getPvStringTemperatureRequestVo.setStartTime(before10M.getTime());
-                        getPvStringTemperatureRequestVo.setEndTime(now);
+                        getPvStringTemperatureRequestVo.setEndTime(data.getTime());
                         List<TemperatureData> pvStringTemperatrues = temperatureDataMapper.getPvStringTemperature(getPvStringTemperatureRequestVo);
                         if (pvStringTemperatrues.size() > 0) {
                             Float temperature =  calculatePvStringTemperature(pvStringTemperatrues);
