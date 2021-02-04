@@ -1,44 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pvsoul.eec.yuandong.mapper.PvStringMapper">
-  <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.PvString">
+<mapper namespace="com.pvsoul.eec.yuandong.mapper.CombinerBoxMapper">
+  <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.CombinerBox">
     <id column="id" jdbcType="OTHER" property="id" />
     <result column="power_station_id" jdbcType="OTHER" property="powerStationId" />
     <result column="inverter_id" jdbcType="OTHER" property="inverterId" />
-    <result column="string_no" jdbcType="VARCHAR" property="stringNo" />
+    <result column="box_no" jdbcType="VARCHAR" property="boxNo" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="pv_index" jdbcType="INTEGER" property="pvIndex" />
-    <result column="is_standard" jdbcType="BIT" property="isStandard" />
     <result column="is_valid" jdbcType="BIT" property="isValid" />
-    <result column="combiner_box_id" jdbcType="OTHER" property="combinerBoxId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, power_station_id, inverter_id, string_no, create_time, update_time, pv_index, 
-    is_standard, is_valid, combiner_box_id
+    id, power_station_id, inverter_id, box_no, create_time, update_time, is_valid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from pv_string
+    from combiner_box
     where id = #{id,jdbcType=OTHER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
-    delete from pv_string
+    delete from combiner_box
     where id = #{id,jdbcType=OTHER}
   </delete>
-  <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.PvString">
-    insert into pv_string (id, power_station_id, inverter_id, 
-      string_no, create_time, update_time, 
-      pv_index, is_standard, is_valid, 
-      combiner_box_id)
+  <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.CombinerBox">
+    insert into combiner_box (id, power_station_id, inverter_id, 
+      box_no, create_time, update_time, 
+      is_valid)
     values (#{id,jdbcType=OTHER}, #{powerStationId,jdbcType=OTHER}, #{inverterId,jdbcType=OTHER}, 
-      #{stringNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{pvIndex,jdbcType=INTEGER}, #{isStandard,jdbcType=BIT}, #{isValid,jdbcType=BIT}, 
-      #{combinerBoxId,jdbcType=OTHER})
+      #{boxNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isValid,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.PvString">
-    insert into pv_string
+  <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.CombinerBox">
+    insert into combiner_box
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -49,8 +43,8 @@
       <if test="inverterId != null">
         inverter_id,
       </if>
-      <if test="stringNo != null">
-        string_no,
+      <if test="boxNo != null">
+        box_no,
       </if>
       <if test="createTime != null">
         create_time,
@@ -58,17 +52,8 @@
       <if test="updateTime != null">
         update_time,
       </if>
-      <if test="pvIndex != null">
-        pv_index,
-      </if>
-      <if test="isStandard != null">
-        is_standard,
-      </if>
       <if test="isValid != null">
         is_valid,
-      </if>
-      <if test="combinerBoxId != null">
-        combiner_box_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -81,8 +66,8 @@
       <if test="inverterId != null">
         #{inverterId,jdbcType=OTHER},
       </if>
-      <if test="stringNo != null">
-        #{stringNo,jdbcType=VARCHAR},
+      <if test="boxNo != null">
+        #{boxNo,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -90,22 +75,13 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="pvIndex != null">
-        #{pvIndex,jdbcType=INTEGER},
-      </if>
-      <if test="isStandard != null">
-        #{isStandard,jdbcType=BIT},
-      </if>
       <if test="isValid != null">
         #{isValid,jdbcType=BIT},
       </if>
-      <if test="combinerBoxId != null">
-        #{combinerBoxId,jdbcType=OTHER},
-      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.eec.yuandong.entity.PvString">
-    update pv_string
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.eec.yuandong.entity.CombinerBox">
+    update combiner_box
     <set>
       <if test="powerStationId != null">
         power_station_id = #{powerStationId,jdbcType=OTHER},
@@ -113,8 +89,8 @@
       <if test="inverterId != null">
         inverter_id = #{inverterId,jdbcType=OTHER},
       </if>
-      <if test="stringNo != null">
-        string_no = #{stringNo,jdbcType=VARCHAR},
+      <if test="boxNo != null">
+        box_no = #{boxNo,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -122,32 +98,20 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="pvIndex != null">
-        pv_index = #{pvIndex,jdbcType=INTEGER},
-      </if>
-      <if test="isStandard != null">
-        is_standard = #{isStandard,jdbcType=BIT},
-      </if>
       <if test="isValid != null">
         is_valid = #{isValid,jdbcType=BIT},
-      </if>
-      <if test="combinerBoxId != null">
-        combiner_box_id = #{combinerBoxId,jdbcType=OTHER},
       </if>
     </set>
     where id = #{id,jdbcType=OTHER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pvsoul.eec.yuandong.entity.PvString">
-    update pv_string
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.eec.yuandong.entity.CombinerBox">
+    update combiner_box
     set power_station_id = #{powerStationId,jdbcType=OTHER},
       inverter_id = #{inverterId,jdbcType=OTHER},
-      string_no = #{stringNo,jdbcType=VARCHAR},
+      box_no = #{boxNo,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      pv_index = #{pvIndex,jdbcType=INTEGER},
-      is_standard = #{isStandard,jdbcType=BIT},
-      is_valid = #{isValid,jdbcType=BIT},
-      combiner_box_id = #{combinerBoxId,jdbcType=OTHER}
+      is_valid = #{isValid,jdbcType=BIT}
     where id = #{id,jdbcType=OTHER}
   </update>
 </mapper>

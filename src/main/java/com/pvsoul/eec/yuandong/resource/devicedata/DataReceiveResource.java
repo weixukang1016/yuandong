@@ -1,8 +1,9 @@
-package com.pvsoul.eec.yuandong.resource;
+package com.pvsoul.eec.yuandong.resource.devicedata;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.pvsoul.eec.yuandong.dto.*;
+import com.pvsoul.eec.yuandong.dto.devicedata.*;
 import com.pvsoul.eec.yuandong.service.MeteorologicalService;
 import com.pvsoul.eec.yuandong.service.TemperatureService;
 import lombok.extern.slf4j.Slf4j;

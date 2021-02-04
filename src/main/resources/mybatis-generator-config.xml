@@ -32,6 +32,7 @@
                 targetProject="src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
+        <!--
                 <table tableName='collect_record' domainObjectName="CollectRecord"
                        delimitIdentifiers="false" delimitAllColumns="false"
                        enableSelectByExample="false" enableDeleteByExample="false"
@@ -57,12 +58,6 @@
                        enableUpdateByExample="false">
                 </table>
                 <table tableName='inverter_ac_data' domainObjectName="InverterAcData"
-                       delimitIdentifiers="false" delimitAllColumns="false"
-                       enableSelectByExample="false" enableDeleteByExample="false"
-                       enableCountByExample="false" selectByExampleQueryId="false"
-                       enableUpdateByExample="false">
-                </table>
-                <table tableName='pv_string' domainObjectName="PvString"
                        delimitIdentifiers="false" delimitAllColumns="false"
                        enableSelectByExample="false" enableDeleteByExample="false"
                        enableCountByExample="false" selectByExampleQueryId="false"
@@ -99,6 +94,31 @@
                enableUpdateByExample="false">
         </table>
         <table tableName='base_module_parameter' domainObjectName="BaseModuleParameter"
+               delimitIdentifiers="false" delimitAllColumns="false"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" selectByExampleQueryId="false"
+               enableUpdateByExample="false">
+        </table>
+        <table tableName='combiner_box' domainObjectName="CombinerBox"
+               delimitIdentifiers="false" delimitAllColumns="false"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" selectByExampleQueryId="false"
+               enableUpdateByExample="false">
+        </table>
+        <table tableName='pv_string' domainObjectName="PvString"
+               delimitIdentifiers="false" delimitAllColumns="false"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" selectByExampleQueryId="false"
+               enableUpdateByExample="false">
+        </table>
+        <table tableName='pv_string_data' domainObjectName="PvStringData"
+               delimitIdentifiers="false" delimitAllColumns="false"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" selectByExampleQueryId="false"
+               enableUpdateByExample="false">
+        </table>
+        -->
+        <table tableName='combiner_box_data' domainObjectName="CombinerBoxData"
                delimitIdentifiers="false" delimitAllColumns="false"
                enableSelectByExample="false" enableDeleteByExample="false"
                enableCountByExample="false" selectByExampleQueryId="false"

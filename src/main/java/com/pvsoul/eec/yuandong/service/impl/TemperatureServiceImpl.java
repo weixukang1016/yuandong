@@ -1,7 +1,7 @@
 package com.pvsoul.eec.yuandong.service.impl;
 
 import com.pvsoul.eec.yuandong.dto.ResultDto;
-import com.pvsoul.eec.yuandong.dto.TemperatureContentDto;
+import com.pvsoul.eec.yuandong.dto.devicedata.TemperatureContentDto;
 import com.pvsoul.eec.yuandong.entity.TemperatureData;
 import com.pvsoul.eec.yuandong.mapper.TemperatureDataMapper;
 import com.pvsoul.eec.yuandong.service.TemperatureService;

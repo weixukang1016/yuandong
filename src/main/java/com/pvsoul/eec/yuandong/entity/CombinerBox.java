@@ -2,26 +2,20 @@ package com.pvsoul.eec.yuandong.entity;
 
 import java.util.Date;
 
-public class PvString {
+public class CombinerBox {
     private Object id;
 
     private Object powerStationId;
 
     private Object inverterId;
 
-    private String stringNo;
+    private String boxNo;
 
     private Date createTime;
 
     private Date updateTime;
 
-    private Integer pvIndex;
-
-    private Boolean isStandard;
-
     private Boolean isValid;
-
-    private Object combinerBoxId;
 
     public Object getId() {
         return id;
@@ -47,12 +41,12 @@ public class PvString {
         this.inverterId = inverterId;
     }
 
-    public String getStringNo() {
-        return stringNo;
+    public String getBoxNo() {
+        return boxNo;
     }
 
-    public void setStringNo(String stringNo) {
-        this.stringNo = stringNo;
+    public void setBoxNo(String boxNo) {
+        this.boxNo = boxNo;
     }
 
     public Date getCreateTime() {
@@ -71,35 +65,11 @@ public class PvString {
         this.updateTime = updateTime;
     }
 
-    public Integer getPvIndex() {
-        return pvIndex;
-    }
-
-    public void setPvIndex(Integer pvIndex) {
-        this.pvIndex = pvIndex;
-    }
-
-    public Boolean getIsStandard() {
-        return isStandard;
-    }
-
-    public void setIsStandard(Boolean isStandard) {
-        this.isStandard = isStandard;
-    }
-
     public Boolean getIsValid() {
         return isValid;
     }
 
     public void setIsValid(Boolean isValid) {
         this.isValid = isValid;
-    }
-
-    public Object getCombinerBoxId() {
-        return combinerBoxId;
-    }
-
-    public void setCombinerBoxId(Object combinerBoxId) {
-        this.combinerBoxId = combinerBoxId;
     }
 }

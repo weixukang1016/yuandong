@@ -1,7 +1,7 @@
-package com.pvsoul.eec.yuandong.resource;
+package com.pvsoul.eec.yuandong.resource.devicedata;
 
 import com.alibaba.fastjson.JSONObject;
-import com.pvsoul.eec.yuandong.dto.JinLangDataDto;
+import com.pvsoul.eec.yuandong.dto.devicedata.JinLangDataDto;
 import com.pvsoul.eec.yuandong.dto.ResultDto;
 import com.pvsoul.eec.yuandong.service.JinlangService;
 import com.pvsoul.eec.yuandong.util.JinlangAuth;

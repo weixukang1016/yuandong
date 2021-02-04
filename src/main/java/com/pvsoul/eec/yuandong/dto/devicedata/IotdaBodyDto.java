@@ -1,4 +1,4 @@
-package com.pvsoul.eec.yuandong.dto;
+package com.pvsoul.eec.yuandong.dto.devicedata;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

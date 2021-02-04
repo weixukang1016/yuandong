@@ -1,10 +1,10 @@
 package com.pvsoul.eec.yuandong.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.pvsoul.eec.yuandong.dto.InverterDataDto;
-import com.pvsoul.eec.yuandong.dto.JinLangDataDto;
+import com.pvsoul.eec.yuandong.dto.devicedata.InverterDataDto;
+import com.pvsoul.eec.yuandong.dto.devicedata.JinLangDataDto;
 import com.pvsoul.eec.yuandong.dto.ResultDto;
-import com.pvsoul.eec.yuandong.dto.UIDataDto;
+import com.pvsoul.eec.yuandong.dto.devicedata.UIDataDto;
 import com.pvsoul.eec.yuandong.entity.*;
 import com.pvsoul.eec.yuandong.mapper.*;
 import com.pvsoul.eec.yuandong.service.JinlangService;
@@ -19,6 +19,10 @@ import java.util.*;
 @Service
 @Slf4j
 public class JinlangServiceImpl implements JinlangService {
+
+    private static float TEMPERATURE_DIFF_THRESHOLD = 5; //温度差值的阈值
+
+    private static final int DATA_VALID_MINITUES = 10; //数据有效时间（10分钟）
 
     @Autowired
     private CollectRecordMapper collectRecordMapper;
@@ -36,6 +40,12 @@ public class JinlangServiceImpl implements JinlangService {
     private InverterMapper inverterMapper;
 
     @Autowired
+    private CombinerBoxMapper combinerBoxMapper;
+
+    @Autowired
+    private CombinerBoxDataMapper combinerBoxDataMapper;
+
+    @Autowired
     private PvStringMapper pvStringMapper;
 
     @Autowired
@@ -44,7 +54,6 @@ public class JinlangServiceImpl implements JinlangService {
     @Autowired
     private TemperatureDataMapper temperatureDataMapper;
 
-    private float TEMPERATURE_DIFF_THRESHOLD = 5; //温度差值的阈值
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -99,6 +108,18 @@ public class JinlangServiceImpl implements JinlangService {
                     .eq("is_valid", true);
             Inverter inverter = inverterMapper.selectOne(inverterQueryWrapper);
 
+            CombinerBox combinerBox = null;
+            float combinerI = 0;
+            float combinerU = 0;
+            int pvStringCountInCombiner = 0;
+            if (inverter != null) {
+                //查找数据对应的汇流箱,因为远东的是光伏组串直接接逆变器，汇流箱是虚拟汇流箱，因此汇流箱是根据逆变器来查找的
+                QueryWrapper<CombinerBox> combinerBoxQueryWrapper = new QueryWrapper<>();
+                combinerBoxQueryWrapper.eq("inverter_id", inverter.getId())
+                        .eq("is_valid", true);
+                combinerBox = combinerBoxMapper.selectOne(combinerBoxQueryWrapper);
+            }
+
             int pvIndex = 0;
 
             for (UIDataDto pvUI:inverterDataDao.getPv()) {
@@ -128,6 +149,7 @@ public class JinlangServiceImpl implements JinlangService {
                         pvStringData.setPowerStationId(inverter.getPowerStationId());
                         pvStringData.setInverterId(inverter.getId());
                         pvStringData.setPvStringId(pvString.getId());
+                        pvStringData.setCombinerBoxId(pvString.getCombinerBoxId());
                         pvStringData.setCreateTime(now);
                         pvStringData.setDeviceTime(data.getTime());
                         pvStringData.setU(pvUI.getU());
@@ -136,7 +158,7 @@ public class JinlangServiceImpl implements JinlangService {
                         //查询十分钟内最近时间的温度数据的平均值，用于该光伏组串的温度值
                         Calendar before10M = Calendar.getInstance();
                         before10M.setTime(data.getTime());
-                        before10M.add(Calendar.MINUTE, -10);
+                        before10M.add(Calendar.MINUTE, -DATA_VALID_MINITUES);
 
                         //TODO delete 调试代码
                         //before10M.add(Calendar.DATE, -5);
@@ -153,10 +175,30 @@ public class JinlangServiceImpl implements JinlangService {
                         }
                         //pvStringData.setTemperature(pvStringTemperatrue);
                         pvStringDataMapper.insert(pvStringData);
+                        if (combinerBox != null) {
+                            combinerU += pvUI.getU();
+                            combinerI += pvUI.getI();
+                            pvStringCountInCombiner++;
+                        }
                     }
                 }
                 pvIndex++;
             }
+
+            if (combinerBox != null && pvStringCountInCombiner != 0) {
+                CombinerBoxData combinerBoxData = new CombinerBoxData();
+                combinerBoxData.setId(UUID.randomUUID().toString());
+                combinerBoxData.setPowerStationId(combinerBox.getPowerStationId());
+                combinerBoxData.setInverterId(combinerBox.getInverterId());
+                combinerBoxData.setCombinerBoxId(combinerBox.getId());
+                combinerBoxData.setU(combinerU / pvStringCountInCombiner);  //用逆变器各支路的电压求平均
+                combinerBoxData.setI(combinerI); //用逆变器各支路的电流和
+                combinerBoxData.setTemperature(inverterDataDao.getInverterTemp()); //用逆变器的温度
+                combinerBoxData.setCreateTime(now);
+                combinerBoxData.setDeviceTime(data.getTime());//用逆变器数据上报的时间
+                combinerBoxDataMapper.insert(combinerBoxData);
+            }
+
             int acIndex = 0;
             for (UIDataDto acUI:inverterDataDao.getAc()) {
                 String inverterAcDataId = UUID.randomUUID().toString();

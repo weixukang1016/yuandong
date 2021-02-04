@@ -2,14 +2,14 @@ package com.pvsoul.eec.yuandong.entity;
 
 import java.util.Date;
 
-public class PvStringData {
+public class CombinerBoxData {
     private Object id;
 
     private Object powerStationId;
 
     private Object inverterId;
 
-    private Object pvStringId;
+    private Object combinerBoxId;
 
     private Float u;
 
@@ -18,8 +18,6 @@ public class PvStringData {
     private Float temperature;
 
     private Date createTime;
-
-    private Object combinerBoxId;
 
     private Date deviceTime;
 
@@ -47,12 +45,12 @@ public class PvStringData {
         this.inverterId = inverterId;
     }
 
-    public Object getPvStringId() {
-        return pvStringId;
+    public Object getCombinerBoxId() {
+        return combinerBoxId;
     }
 
-    public void setPvStringId(Object pvStringId) {
-        this.pvStringId = pvStringId;
+    public void setCombinerBoxId(Object combinerBoxId) {
+        this.combinerBoxId = combinerBoxId;
     }
 
     public Float getU() {
@@ -85,14 +83,6 @@ public class PvStringData {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public Object getCombinerBoxId() {
-        return combinerBoxId;
-    }
-
-    public void setCombinerBoxId(Object combinerBoxId) {
-        this.combinerBoxId = combinerBoxId;
     }
 
     public Date getDeviceTime() {

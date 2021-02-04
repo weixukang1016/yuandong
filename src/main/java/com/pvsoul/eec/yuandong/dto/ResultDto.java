@@ -14,7 +14,7 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResultDto implements Serializable {
+public class ResultDto<T> implements Serializable {
 
     private static final long serialVersionUID = 3905756703742518796L;
 
@@ -30,5 +30,8 @@ public class ResultDto implements Serializable {
     @JsonProperty("msg")
     private String msg = "成功";
 
+    //成功
+    @JsonProperty("entity")
+    private Object entity;
 
 }
