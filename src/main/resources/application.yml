@@ -31,7 +31,7 @@ mybatis-plus:
   mapper-locations: classpath:mybatis/mapper/*.xml
 #fegin配置
 feign:
-  eeccenter-baseurl: http://eec-center/api/eeccenter
+  eeccenter-baseurl: http://eec-center:8080/api/eeccenter
 logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{x-request-id}] %-5level %logger{50} - %msg%n'
