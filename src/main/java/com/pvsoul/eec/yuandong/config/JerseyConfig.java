@@ -2,6 +2,7 @@ package com.pvsoul.eec.yuandong.config;
 
 import com.pvsoul.eec.yuandong.provider.RuntimeExceptionProvider;
 import com.pvsoul.eec.yuandong.provider.ValidationExceptionProvider;
+import com.pvsoul.eec.yuandong.resource.EecCenterResource;
 import com.pvsoul.eec.yuandong.resource.devicedata.JinlangResource;
 import com.pvsoul.eec.yuandong.resource.devicedata.TastekLetDtuResouce;
 import com.pvsoul.eec.yuandong.resource.web.SideBarResource;
@@ -22,6 +23,7 @@ public class JerseyConfig implements ResourceConfigCustomizer {
         config.register(JinlangResource.class);
         config.register(TastekLetDtuResouce.class);
         config.register(SideBarResource.class);
+        config.register(EecCenterResource.class);
 
         config.registerClasses(ValidationExceptionProvider.class);
         config.registerClasses(RuntimeExceptionProvider.class);
