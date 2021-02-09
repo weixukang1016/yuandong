@@ -82,6 +82,9 @@ public class JinlangServiceImpl implements JinlangService {
             inverterQueryWrapper.eq("inverter_sn", inverterDataDao.getInverterSn())
                     .eq("is_valid", true);
             Inverter inverter = inverterMapper.selectOne(inverterQueryWrapper);
+            log.info("inverter:" + inverter.getId());
+            log.info("inverter.getPowerStationId():" + inverter.getPowerStationId());
+            log.info("inverter.getTransformerId():" + inverter.getTransformerId());
 
             String inverterDataId = UUID.randomUUID().toString();
             InverterData inverterData = new InverterData();
