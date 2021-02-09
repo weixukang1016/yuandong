@@ -16,10 +16,11 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_valid" jdbcType="BIT" property="isValid" />
+    <result column="station_photo" jdbcType="VARCHAR" property="stationPhoto" />
   </resultMap>
   <sql id="Base_Column_List">
     id, station_name, station_address, longitude, latitude, altitude, station_type, capacity, 
-    region_count, voltage_level, time_zone, create_time, update_time, is_valid
+    region_count, voltage_level, time_zone, create_time, update_time, is_valid, station_photo
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
     select 
@@ -36,12 +37,14 @@
       longitude, latitude, altitude, 
       station_type, capacity, region_count, 
       voltage_level, time_zone, create_time, 
-      update_time, is_valid)
+      update_time, is_valid, station_photo
+      )
     values (#{id,jdbcType=OTHER}, #{stationName,jdbcType=VARCHAR}, #{stationAddress,jdbcType=VARCHAR}, 
       #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, #{altitude,jdbcType=REAL}, 
       #{stationType,jdbcType=VARCHAR}, #{capacity,jdbcType=REAL}, #{regionCount,jdbcType=INTEGER}, 
       #{voltageLevel,jdbcType=REAL}, #{timeZone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{isValid,jdbcType=BIT})
+      #{updateTime,jdbcType=TIMESTAMP}, #{isValid,jdbcType=BIT}, #{stationPhoto,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.PowerStation">
     insert into power_station
@@ -88,6 +91,9 @@
       <if test="isValid != null">
         is_valid,
       </if>
+      <if test="stationPhoto != null">
+        station_photo,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -131,6 +137,9 @@
       </if>
       <if test="isValid != null">
         #{isValid,jdbcType=BIT},
+      </if>
+      <if test="stationPhoto != null">
+        #{stationPhoto,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -176,6 +185,9 @@
       <if test="isValid != null">
         is_valid = #{isValid,jdbcType=BIT},
       </if>
+      <if test="stationPhoto != null">
+        station_photo = #{stationPhoto,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=OTHER}
   </update>
@@ -193,7 +205,8 @@
       time_zone = #{timeZone,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      is_valid = #{isValid,jdbcType=BIT}
+      is_valid = #{isValid,jdbcType=BIT},
+      station_photo = #{stationPhoto,jdbcType=VARCHAR}
     where id = #{id,jdbcType=OTHER}
   </update>
 </mapper>

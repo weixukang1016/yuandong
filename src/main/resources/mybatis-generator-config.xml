@@ -69,18 +69,6 @@
                        enableCountByExample="false" selectByExampleQueryId="false"
                        enableUpdateByExample="false">
                 </table>
-                <table tableName='inverter' domainObjectName="Inverter"
-                       delimitIdentifiers="false" delimitAllColumns="false"
-                       enableSelectByExample="false" enableDeleteByExample="false"
-                       enableCountByExample="false" selectByExampleQueryId="false"
-                       enableUpdateByExample="false">
-                </table>
-                <table tableName='power_station' domainObjectName="PowerStation"
-                       delimitIdentifiers="false" delimitAllColumns="false"
-                       enableSelectByExample="false" enableDeleteByExample="false"
-                       enableCountByExample="false" selectByExampleQueryId="false"
-                       enableUpdateByExample="false">
-                </table>
                 <table tableName='temperature_sensor' domainObjectName="TemperatureSensor"
                        delimitIdentifiers="false" delimitAllColumns="false"
                        enableSelectByExample="false" enableDeleteByExample="false"
@@ -99,26 +87,38 @@
                enableCountByExample="false" selectByExampleQueryId="false"
                enableUpdateByExample="false">
         </table>
-        <table tableName='combiner_box' domainObjectName="CombinerBox"
-               delimitIdentifiers="false" delimitAllColumns="false"
-               enableSelectByExample="false" enableDeleteByExample="false"
-               enableCountByExample="false" selectByExampleQueryId="false"
-               enableUpdateByExample="false">
-        </table>
-        <table tableName='pv_string' domainObjectName="PvString"
-               delimitIdentifiers="false" delimitAllColumns="false"
-               enableSelectByExample="false" enableDeleteByExample="false"
-               enableCountByExample="false" selectByExampleQueryId="false"
-               enableUpdateByExample="false">
-        </table>
         <table tableName='pv_string_data' domainObjectName="PvStringData"
                delimitIdentifiers="false" delimitAllColumns="false"
                enableSelectByExample="false" enableDeleteByExample="false"
                enableCountByExample="false" selectByExampleQueryId="false"
                enableUpdateByExample="false">
         </table>
-        -->
         <table tableName='combiner_box_data' domainObjectName="CombinerBoxData"
+               delimitIdentifiers="false" delimitAllColumns="false"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" selectByExampleQueryId="false"
+               enableUpdateByExample="false">
+        </table>
+        -->
+        <table tableName='pv_string' domainObjectName="PvString"
+               delimitIdentifiers="false" delimitAllColumns="false"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" selectByExampleQueryId="false"
+               enableUpdateByExample="false">
+        </table>
+        <table tableName='combiner_box' domainObjectName="CombinerBox"
+               delimitIdentifiers="false" delimitAllColumns="false"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" selectByExampleQueryId="false"
+               enableUpdateByExample="false">
+        </table>
+        <table tableName='inverter' domainObjectName="Inverter"
+               delimitIdentifiers="false" delimitAllColumns="false"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" selectByExampleQueryId="false"
+               enableUpdateByExample="false">
+        </table>
+        <table tableName='power_station' domainObjectName="PowerStation"
                delimitIdentifiers="false" delimitAllColumns="false"
                enableSelectByExample="false" enableDeleteByExample="false"
                enableCountByExample="false" selectByExampleQueryId="false"

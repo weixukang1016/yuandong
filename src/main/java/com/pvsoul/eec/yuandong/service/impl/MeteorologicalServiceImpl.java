@@ -62,13 +62,15 @@ public class MeteorologicalServiceImpl implements MeteorologicalService {
         meteorologicalDataQueryWrapper.ge("create_time", before10M.getTime()).orderByDesc("create_time").last("limit 1");
         MeteorologicalData meteorologicalData = meteorologicalDataMapper.selectOne(meteorologicalDataQueryWrapper);
         GetMeteoDataResponseDto getMeteoDataResponseDto = new GetMeteoDataResponseDto();
-        getMeteoDataResponseDto.setTemperature(meteorologicalData.getTemperature());
-        getMeteoDataResponseDto.setHumidity(meteorologicalData.getHumidity());
-        getMeteoDataResponseDto.setWindDirection(getWindDirection(meteorologicalData.getWindDirection()));
-        getMeteoDataResponseDto.setWindSpeed(meteorologicalData.getWindSpeed());
-        getMeteoDataResponseDto.setPressure(meteorologicalData.getPressure());
-        getMeteoDataResponseDto.setPoa(meteorologicalData.getIrradiance());
-        resultDto.setEntity(getMeteoDataResponseDto);
+        if (meteorologicalData != null) {
+            getMeteoDataResponseDto.setTemperature(meteorologicalData.getTemperature());
+            getMeteoDataResponseDto.setHumidity(meteorologicalData.getHumidity());
+            getMeteoDataResponseDto.setWindDirection(getWindDirection(meteorologicalData.getWindDirection()));
+            getMeteoDataResponseDto.setWindSpeed(meteorologicalData.getWindSpeed());
+            getMeteoDataResponseDto.setPressure(meteorologicalData.getPressure());
+            getMeteoDataResponseDto.setPoa(meteorologicalData.getIrradiance());
+            resultDto.setEntity(getMeteoDataResponseDto);
+        }
         return resultDto;
     }
 

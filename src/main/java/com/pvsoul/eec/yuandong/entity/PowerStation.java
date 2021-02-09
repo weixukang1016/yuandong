@@ -31,6 +31,8 @@ public class PowerStation {
 
     private Boolean isValid;
 
+    private String stationPhoto;
+
     public Object getId() {
         return id;
     }
@@ -141,5 +143,13 @@ public class PowerStation {
 
     public void setIsValid(Boolean isValid) {
         this.isValid = isValid;
+    }
+
+    public String getStationPhoto() {
+        return stationPhoto;
+    }
+
+    public void setStationPhoto(String stationPhoto) {
+        this.stationPhoto = stationPhoto;
     }
 }

@@ -9,9 +9,12 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_valid" jdbcType="BIT" property="isValid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, power_station_id, inverter_id, box_no, create_time, update_time, is_valid
+    id, power_station_id, inverter_id, box_no, create_time, update_time, is_valid, status, 
+    status_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
     select 
@@ -26,10 +29,12 @@
   <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.CombinerBox">
     insert into combiner_box (id, power_station_id, inverter_id, 
       box_no, create_time, update_time, 
-      is_valid)
+      is_valid, status, status_time
+      )
     values (#{id,jdbcType=OTHER}, #{powerStationId,jdbcType=OTHER}, #{inverterId,jdbcType=OTHER}, 
       #{boxNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{isValid,jdbcType=BIT})
+      #{isValid,jdbcType=BIT}, #{status,jdbcType=INTEGER}, #{statusTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.CombinerBox">
     insert into combiner_box
@@ -55,6 +60,12 @@
       <if test="isValid != null">
         is_valid,
       </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="statusTime != null">
+        status_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -77,6 +88,12 @@
       </if>
       <if test="isValid != null">
         #{isValid,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusTime != null">
+        #{statusTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -101,6 +118,12 @@
       <if test="isValid != null">
         is_valid = #{isValid,jdbcType=BIT},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusTime != null">
+        status_time = #{statusTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=OTHER}
   </update>
@@ -111,7 +134,16 @@
       box_no = #{boxNo,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      is_valid = #{isValid,jdbcType=BIT}
+      is_valid = #{isValid,jdbcType=BIT},
+      status = #{status,jdbcType=INTEGER},
+      status_time = #{statusTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=OTHER}
   </update>
+  <select id="getDeviceStatusCount" resultType="com.pvsoul.eec.yuandong.entity.DeviceStatusCount">
+    select
+    status,count(1) device_count
+    from combiner_box
+    where is_valid=true
+    group by status
+  </select>
 </mapper>

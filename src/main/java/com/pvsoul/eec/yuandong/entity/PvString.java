@@ -23,6 +23,10 @@ public class PvString {
 
     private Object combinerBoxId;
 
+    private Integer status;
+
+    private Date statusTime;
+
     public Object getId() {
         return id;
     }
@@ -101,5 +105,21 @@ public class PvString {
 
     public void setCombinerBoxId(Object combinerBoxId) {
         this.combinerBoxId = combinerBoxId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getStatusTime() {
+        return statusTime;
+    }
+
+    public void setStatusTime(Date statusTime) {
+        this.statusTime = statusTime;
     }
 }

@@ -27,6 +27,10 @@ public class Inverter {
 
     private Boolean isValid;
 
+    private Integer status;
+
+    private Date statusTime;
+
     public Object getId() {
         return id;
     }
@@ -121,5 +125,21 @@ public class Inverter {
 
     public void setIsValid(Boolean isValid) {
         this.isValid = isValid;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getStatusTime() {
+        return statusTime;
+    }
+
+    public void setStatusTime(Date statusTime) {
+        this.statusTime = statusTime;
     }
 }
