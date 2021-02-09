@@ -11,10 +11,11 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_valid" jdbcType="BIT" property="isValid" />
+    <result column="transformer_id" jdbcType="OTHER" property="transformerId" />
   </resultMap>
   <sql id="Base_Column_List">
     id, power_station_id, inverter_id, pv_string_id, collector_device_id, sensor_index, 
-    create_time, update_time, is_valid
+    create_time, update_time, is_valid, transformer_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
     select 
@@ -29,12 +30,12 @@
   <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
     insert into temperature_sensor (id, power_station_id, inverter_id, 
       pv_string_id, collector_device_id, sensor_index, 
-      create_time, update_time, is_valid
-      )
+      create_time, update_time, is_valid, 
+      transformer_id)
     values (#{id,jdbcType=OTHER}, #{powerStationId,jdbcType=OTHER}, #{inverterId,jdbcType=OTHER}, 
       #{pvStringId,jdbcType=OTHER}, #{collectorDeviceId,jdbcType=VARCHAR}, #{sensorIndex,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isValid,jdbcType=BIT}
-      )
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isValid,jdbcType=BIT}, 
+      #{transformerId,jdbcType=OTHER})
   </insert>
   <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.TemperatureSensor">
     insert into temperature_sensor
@@ -66,6 +67,9 @@
       <if test="isValid != null">
         is_valid,
       </if>
+      <if test="transformerId != null">
+        transformer_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -94,6 +98,9 @@
       </if>
       <if test="isValid != null">
         #{isValid,jdbcType=BIT},
+      </if>
+      <if test="transformerId != null">
+        #{transformerId,jdbcType=OTHER},
       </if>
     </trim>
   </insert>
@@ -124,6 +131,9 @@
       <if test="isValid != null">
         is_valid = #{isValid,jdbcType=BIT},
       </if>
+      <if test="transformerId != null">
+        transformer_id = #{transformerId,jdbcType=OTHER},
+      </if>
     </set>
     where id = #{id,jdbcType=OTHER}
   </update>
@@ -136,7 +146,8 @@
       sensor_index = #{sensorIndex,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      is_valid = #{isValid,jdbcType=BIT}
+      is_valid = #{isValid,jdbcType=BIT},
+      transformer_id = #{transformerId,jdbcType=OTHER}
     where id = #{id,jdbcType=OTHER}
   </update>
 </mapper>

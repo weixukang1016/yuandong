@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pvsoul.eec.yuandong.mapper.BaseJinlangInvertCodeMapper">
+  <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.BaseJinlangInvertCode">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="description_cn" jdbcType="VARCHAR" property="descriptionCn" />
+    <result column="description_en" jdbcType="VARCHAR" property="descriptionEn" />
+    <result column="device_type" jdbcType="INTEGER" property="deviceType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, code, description_cn, description_en, device_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_jinlang_invert_code
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from base_jinlang_invert_code
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.BaseJinlangInvertCode">
+    insert into base_jinlang_invert_code (id, code, description_cn, 
+      description_en, device_type)
+    values (#{id,jdbcType=OTHER}, #{code,jdbcType=VARCHAR}, #{descriptionCn,jdbcType=VARCHAR}, 
+      #{descriptionEn,jdbcType=VARCHAR}, #{deviceType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.BaseJinlangInvertCode">
+    insert into base_jinlang_invert_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="descriptionCn != null">
+        description_cn,
+      </if>
+      <if test="descriptionEn != null">
+        description_en,
+      </if>
+      <if test="deviceType != null">
+        device_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionCn != null">
+        #{descriptionCn,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionEn != null">
+        #{descriptionEn,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        #{deviceType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.eec.yuandong.entity.BaseJinlangInvertCode">
+    update base_jinlang_invert_code
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionCn != null">
+        description_cn = #{descriptionCn,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionEn != null">
+        description_en = #{descriptionEn,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        device_type = #{deviceType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.eec.yuandong.entity.BaseJinlangInvertCode">
+    update base_jinlang_invert_code
+    set code = #{code,jdbcType=VARCHAR},
+      description_cn = #{descriptionCn,jdbcType=VARCHAR},
+      description_en = #{descriptionEn,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+</mapper>

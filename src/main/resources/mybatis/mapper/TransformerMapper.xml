@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pvsoul.eec.yuandong.mapper.TransformerMapper">
+  <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.Transformer">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="power_station_id" jdbcType="OTHER" property="powerStationId" />
+    <result column="transformer_no" jdbcType="VARCHAR" property="transformerNo" />
+    <result column="is_valid" jdbcType="BIT" property="isValid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, power_station_id, transformer_no, is_valid, status, status_time, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from transformer
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from transformer
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.Transformer">
+    insert into transformer (id, power_station_id, transformer_no, 
+      is_valid, status, status_time, 
+      create_time, update_time)
+    values (#{id,jdbcType=OTHER}, #{powerStationId,jdbcType=OTHER}, #{transformerNo,jdbcType=VARCHAR}, 
+      #{isValid,jdbcType=BIT}, #{status,jdbcType=INTEGER}, #{statusTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.Transformer">
+    insert into transformer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="powerStationId != null">
+        power_station_id,
+      </if>
+      <if test="transformerNo != null">
+        transformer_no,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="statusTime != null">
+        status_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="powerStationId != null">
+        #{powerStationId,jdbcType=OTHER},
+      </if>
+      <if test="transformerNo != null">
+        #{transformerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusTime != null">
+        #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.eec.yuandong.entity.Transformer">
+    update transformer
+    <set>
+      <if test="powerStationId != null">
+        power_station_id = #{powerStationId,jdbcType=OTHER},
+      </if>
+      <if test="transformerNo != null">
+        transformer_no = #{transformerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="statusTime != null">
+        status_time = #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.eec.yuandong.entity.Transformer">
+    update transformer
+    set power_station_id = #{powerStationId,jdbcType=OTHER},
+      transformer_no = #{transformerNo,jdbcType=VARCHAR},
+      is_valid = #{isValid,jdbcType=BIT},
+      status = #{status,jdbcType=INTEGER},
+      status_time = #{statusTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+</mapper>

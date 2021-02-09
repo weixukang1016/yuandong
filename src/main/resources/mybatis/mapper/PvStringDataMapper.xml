@@ -12,10 +12,11 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="combiner_box_id" jdbcType="OTHER" property="combinerBoxId" />
     <result column="device_time" jdbcType="TIMESTAMP" property="deviceTime" />
+    <result column="transformer_id" jdbcType="OTHER" property="transformerId" />
   </resultMap>
   <sql id="Base_Column_List">
     id, power_station_id, inverter_id, pv_string_id, u, i, temperature, create_time, 
-    combiner_box_id, device_time
+    combiner_box_id, device_time, transformer_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
     select 
@@ -30,12 +31,12 @@
   <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.PvStringData">
     insert into pv_string_data (id, power_station_id, inverter_id, 
       pv_string_id, u, i, temperature, 
-      create_time, combiner_box_id, device_time
-      )
+      create_time, combiner_box_id, device_time, 
+      transformer_id)
     values (#{id,jdbcType=OTHER}, #{powerStationId,jdbcType=OTHER}, #{inverterId,jdbcType=OTHER}, 
       #{pvStringId,jdbcType=OTHER}, #{u,jdbcType=REAL}, #{i,jdbcType=REAL}, #{temperature,jdbcType=REAL}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{combinerBoxId,jdbcType=OTHER}, #{deviceTime,jdbcType=TIMESTAMP}
-      )
+      #{createTime,jdbcType=TIMESTAMP}, #{combinerBoxId,jdbcType=OTHER}, #{deviceTime,jdbcType=TIMESTAMP}, 
+      #{transformerId,jdbcType=OTHER})
   </insert>
   <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.PvStringData">
     insert into pv_string_data
@@ -70,6 +71,9 @@
       <if test="deviceTime != null">
         device_time,
       </if>
+      <if test="transformerId != null">
+        transformer_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -101,6 +105,9 @@
       </if>
       <if test="deviceTime != null">
         #{deviceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transformerId != null">
+        #{transformerId,jdbcType=OTHER},
       </if>
     </trim>
   </insert>
@@ -134,6 +141,9 @@
       <if test="deviceTime != null">
         device_time = #{deviceTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="transformerId != null">
+        transformer_id = #{transformerId,jdbcType=OTHER},
+      </if>
     </set>
     where id = #{id,jdbcType=OTHER}
   </update>
@@ -147,7 +157,8 @@
       temperature = #{temperature,jdbcType=REAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       combiner_box_id = #{combinerBoxId,jdbcType=OTHER},
-      device_time = #{deviceTime,jdbcType=TIMESTAMP}
+      device_time = #{deviceTime,jdbcType=TIMESTAMP},
+      transformer_id = #{transformerId,jdbcType=OTHER}
     where id = #{id,jdbcType=OTHER}
   </update>
 </mapper>

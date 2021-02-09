@@ -77,6 +77,12 @@ public class JinlangServiceImpl implements JinlangService {
 
         for (InverterDataDto inverterDataDao:data.getInverter1()) {
 
+            //查找数据对应的逆变器
+            QueryWrapper<Inverter> inverterQueryWrapper = new QueryWrapper<>();
+            inverterQueryWrapper.eq("inverter_sn", inverterDataDao.getInverterSn())
+                    .eq("is_valid", true);
+            Inverter inverter = inverterMapper.selectOne(inverterQueryWrapper);
+
             String inverterDataId = UUID.randomUUID().toString();
             InverterData inverterData = new InverterData();
             inverterData.setId(inverterDataId);
@@ -99,14 +105,11 @@ public class JinlangServiceImpl implements JinlangService {
             inverterData.setNationalCode(inverterDataDao.getNationalCode());
             inverterData.setNational(inverterDataDao.getNational());
             inverterData.setCreateTime(now);
+            inverterData.setPowerStationId(inverter.getPowerStationId());
+            inverterData.setTransformerId(inverter.getTransformerId());
+            inverterData.setInverterId(inverter.getId());
 
             inverterDataMapper.insert(inverterData);
-
-            //查找数据对应的逆变器
-            QueryWrapper<Inverter> inverterQueryWrapper = new QueryWrapper<>();
-            inverterQueryWrapper.eq("inverter_sn", inverterDataDao.getInverterSn())
-                    .eq("is_valid", true);
-            Inverter inverter = inverterMapper.selectOne(inverterQueryWrapper);
 
             CombinerBox combinerBox = null;
             float combinerI = 0;
@@ -146,10 +149,11 @@ public class JinlangServiceImpl implements JinlangService {
                         //存在光伏组串时，插入数据
                         PvStringData pvStringData = new PvStringData();
                         pvStringData.setId(UUID.randomUUID());
-                        pvStringData.setPowerStationId(inverter.getPowerStationId());
-                        pvStringData.setInverterId(inverter.getId());
-                        pvStringData.setPvStringId(pvString.getId());
+                        pvStringData.setPowerStationId(pvString.getPowerStationId());
+                        pvStringData.setTransformerId(pvString.getTransformerId());
+                        pvStringData.setInverterId(pvString.getInverterId());
                         pvStringData.setCombinerBoxId(pvString.getCombinerBoxId());
+                        pvStringData.setPvStringId(pvString.getId());
                         pvStringData.setCreateTime(now);
                         pvStringData.setDeviceTime(data.getTime());
                         pvStringData.setU(pvUI.getU());
@@ -189,6 +193,7 @@ public class JinlangServiceImpl implements JinlangService {
                 CombinerBoxData combinerBoxData = new CombinerBoxData();
                 combinerBoxData.setId(UUID.randomUUID().toString());
                 combinerBoxData.setPowerStationId(combinerBox.getPowerStationId());
+                combinerBoxData.setTransformerId(combinerBox.getTransformerId());
                 combinerBoxData.setInverterId(combinerBox.getInverterId());
                 combinerBoxData.setCombinerBoxId(combinerBox.getId());
                 combinerBoxData.setU(combinerU / pvStringCountInCombiner);  //用逆变器各支路的电压求平均

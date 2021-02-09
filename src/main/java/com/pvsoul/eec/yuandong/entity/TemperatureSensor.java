@@ -21,6 +21,8 @@ public class TemperatureSensor {
 
     private Boolean isValid;
 
+    private Object transformerId;
+
     public Object getId() {
         return id;
     }
@@ -91,5 +93,13 @@ public class TemperatureSensor {
 
     public void setIsValid(Boolean isValid) {
         this.isValid = isValid;
+    }
+
+    public Object getTransformerId() {
+        return transformerId;
+    }
+
+    public void setTransformerId(Object transformerId) {
+        this.transformerId = transformerId;
     }
 }

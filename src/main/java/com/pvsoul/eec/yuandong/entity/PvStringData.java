@@ -23,6 +23,8 @@ public class PvStringData {
 
     private Date deviceTime;
 
+    private Object transformerId;
+
     public Object getId() {
         return id;
     }
@@ -101,5 +103,13 @@ public class PvStringData {
 
     public void setDeviceTime(Date deviceTime) {
         this.deviceTime = deviceTime;
+    }
+
+    public Object getTransformerId() {
+        return transformerId;
+    }
+
+    public void setTransformerId(Object transformerId) {
+        this.transformerId = transformerId;
     }
 }

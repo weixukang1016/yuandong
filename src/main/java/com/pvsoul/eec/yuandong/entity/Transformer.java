@@ -2,18 +2,12 @@ package com.pvsoul.eec.yuandong.entity;
 
 import java.util.Date;
 
-public class CombinerBox {
+public class Transformer {
     private Object id;
 
     private Object powerStationId;
 
-    private Object inverterId;
-
-    private String boxNo;
-
-    private Date createTime;
-
-    private Date updateTime;
+    private String transformerNo;
 
     private Boolean isValid;
 
@@ -21,7 +15,9 @@ public class CombinerBox {
 
     private Date statusTime;
 
-    private Object transformerId;
+    private Date createTime;
+
+    private Date updateTime;
 
     public Object getId() {
         return id;
@@ -39,36 +35,12 @@ public class CombinerBox {
         this.powerStationId = powerStationId;
     }
 
-    public Object getInverterId() {
-        return inverterId;
+    public String getTransformerNo() {
+        return transformerNo;
     }
 
-    public void setInverterId(Object inverterId) {
-        this.inverterId = inverterId;
-    }
-
-    public String getBoxNo() {
-        return boxNo;
-    }
-
-    public void setBoxNo(String boxNo) {
-        this.boxNo = boxNo;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setTransformerNo(String transformerNo) {
+        this.transformerNo = transformerNo;
     }
 
     public Boolean getIsValid() {
@@ -95,11 +67,19 @@ public class CombinerBox {
         this.statusTime = statusTime;
     }
 
-    public Object getTransformerId() {
-        return transformerId;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setTransformerId(Object transformerId) {
-        this.transformerId = transformerId;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

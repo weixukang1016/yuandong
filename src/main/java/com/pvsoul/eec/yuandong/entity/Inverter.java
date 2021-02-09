@@ -31,6 +31,8 @@ public class Inverter {
 
     private Date statusTime;
 
+    private Object transformerId;
+
     public Object getId() {
         return id;
     }
@@ -141,5 +143,13 @@ public class Inverter {
 
     public void setStatusTime(Date statusTime) {
         this.statusTime = statusTime;
+    }
+
+    public Object getTransformerId() {
+        return transformerId;
+    }
+
+    public void setTransformerId(Object transformerId) {
+        this.transformerId = transformerId;
     }
 }

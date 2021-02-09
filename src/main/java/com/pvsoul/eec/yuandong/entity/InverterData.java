@@ -41,6 +41,12 @@ public class InverterData {
 
     private Date createTime;
 
+    private Object powerStationId;
+
+    private Object transformerId;
+
+    private Object inverterId;
+
     public Object getId() {
         return id;
     }
@@ -191,5 +197,29 @@ public class InverterData {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Object getPowerStationId() {
+        return powerStationId;
+    }
+
+    public void setPowerStationId(Object powerStationId) {
+        this.powerStationId = powerStationId;
+    }
+
+    public Object getTransformerId() {
+        return transformerId;
+    }
+
+    public void setTransformerId(Object transformerId) {
+        this.transformerId = transformerId;
+    }
+
+    public Object getInverterId() {
+        return inverterId;
+    }
+
+    public void setInverterId(Object inverterId) {
+        this.inverterId = inverterId;
     }
 }

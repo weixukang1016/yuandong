@@ -27,6 +27,8 @@ public class PvString {
 
     private Date statusTime;
 
+    private Object transformerId;
+
     public Object getId() {
         return id;
     }
@@ -121,5 +123,13 @@ public class PvString {
 
     public void setStatusTime(Date statusTime) {
         this.statusTime = statusTime;
+    }
+
+    public Object getTransformerId() {
+        return transformerId;
+    }
+
+    public void setTransformerId(Object transformerId) {
+        this.transformerId = transformerId;
     }
 }
