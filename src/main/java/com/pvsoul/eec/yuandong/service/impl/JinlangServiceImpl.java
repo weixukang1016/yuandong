@@ -257,8 +257,8 @@ public class JinlangServiceImpl implements JinlangService {
             acCount++;
         }
         if (acCount != 0) {
-            transformerData.setlU((float)(acU / acCount * 1.732));
-            transformerData.sethU((float)(acU / acCount / 220 *10));
+            transformerData.setlU((float)((acU / acCount) * 1.732));
+            transformerData.sethU((float)((acU / acCount) / 220 *10));
         }
         //频率=逆变器AC侧频率 (50Hz左右波动)
         transformerData.setFac(inverterDataDao.getFac());
