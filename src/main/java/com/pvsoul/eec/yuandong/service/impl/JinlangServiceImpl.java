@@ -253,7 +253,7 @@ public class JinlangServiceImpl implements JinlangService {
         float acU = 0;
         int acCount = 0;
         for (UIDataDto acUI:inverterDataDao.getAc()) {
-            acU =+ acUI.getU();
+            acU += acUI.getU();
             acCount++;
         }
         if (acCount != 0) {
