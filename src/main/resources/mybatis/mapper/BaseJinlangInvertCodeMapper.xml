@@ -3,7 +3,7 @@
 <mapper namespace="com.pvsoul.eec.yuandong.mapper.BaseJinlangInvertCodeMapper">
   <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.BaseJinlangInvertCode">
     <id column="id" jdbcType="OTHER" property="id" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="code" jdbcType="INTEGER" property="code" />
     <result column="description_cn" jdbcType="VARCHAR" property="descriptionCn" />
     <result column="description_en" jdbcType="VARCHAR" property="descriptionEn" />
     <result column="device_type" jdbcType="INTEGER" property="deviceType" />
@@ -24,7 +24,7 @@
   <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.BaseJinlangInvertCode">
     insert into base_jinlang_invert_code (id, code, description_cn, 
       description_en, device_type)
-    values (#{id,jdbcType=OTHER}, #{code,jdbcType=VARCHAR}, #{descriptionCn,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=OTHER}, #{code,jdbcType=INTEGER}, #{descriptionCn,jdbcType=VARCHAR}, 
       #{descriptionEn,jdbcType=VARCHAR}, #{deviceType,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.BaseJinlangInvertCode">
@@ -51,7 +51,7 @@
         #{id,jdbcType=OTHER},
       </if>
       <if test="code != null">
-        #{code,jdbcType=VARCHAR},
+        #{code,jdbcType=INTEGER},
       </if>
       <if test="descriptionCn != null">
         #{descriptionCn,jdbcType=VARCHAR},
@@ -68,7 +68,7 @@
     update base_jinlang_invert_code
     <set>
       <if test="code != null">
-        code = #{code,jdbcType=VARCHAR},
+        code = #{code,jdbcType=INTEGER},
       </if>
       <if test="descriptionCn != null">
         description_cn = #{descriptionCn,jdbcType=VARCHAR},
@@ -84,7 +84,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pvsoul.eec.yuandong.entity.BaseJinlangInvertCode">
     update base_jinlang_invert_code
-    set code = #{code,jdbcType=VARCHAR},
+    set code = #{code,jdbcType=INTEGER},
       description_cn = #{descriptionCn,jdbcType=VARCHAR},
       description_en = #{descriptionEn,jdbcType=VARCHAR},
       device_type = #{deviceType,jdbcType=INTEGER}

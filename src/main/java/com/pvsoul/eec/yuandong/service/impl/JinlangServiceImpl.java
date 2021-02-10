@@ -83,39 +83,39 @@ public class JinlangServiceImpl implements JinlangService {
         collectRecord.setCreateTime(now);
         collectRecordMapper.insert(collectRecord);
 
-        for (InverterDataDto inverterDataDao:data.getInverter1()) {
+        for (InverterDataDto inverterDataDto:data.getInverter1()) {
 
             //查找数据对应的逆变器
             QueryWrapper<Inverter> inverterQueryWrapper = new QueryWrapper<>();
-            inverterQueryWrapper.eq("inverter_sn", inverterDataDao.getInverterSn())
+            inverterQueryWrapper.eq("inverter_sn", inverterDataDto.getInverterSn())
                     .eq("is_valid", true);
             Inverter inverter = inverterMapper.selectOne(inverterQueryWrapper);
             if (inverter.getIsForTransformer()) {
                 //如果是用于采集升压变的逆变器，写入升压变数据
-                insertTransformerData(inverter, inverterDataDao, data.getTime(), now);
+                insertTransformerData(inverter, inverterDataDto, data.getTime(), now);
             }
 
             String inverterDataId = UUID.randomUUID().toString();
             InverterData inverterData = new InverterData();
             inverterData.setId(inverterDataId);
             inverterData.setCollectRecordId(collectRecordId);
-            inverterData.setInverterSn(inverterDataDao.getInverterSn());
-            inverterData.setInverterModel(inverterDataDao.getInverterModel());
-            inverterData.setRatedPower(inverterDataDao.getRatedPower());
-            inverterData.setInverterVer(inverterDataDao.getInverterVer());
-            inverterData.seteToday(inverterDataDao.getEToday());
-            inverterData.seteMonth(inverterDataDao.getEMonth());
-            inverterData.seteYear(inverterDataDao.getEYear());
-            inverterData.seteTotal(inverterDataDao.getETotal());
-            inverterData.setInverterTemp(inverterDataDao.getInverterTemp());
-            inverterData.setState(inverterDataDao.getState());
-            inverterData.setAlarmCn(inverterDataDao.getAlarmCn());
-            inverterData.setAlarmEn(inverterDataDao.getAlarmEn());
+            inverterData.setInverterSn(inverterDataDto.getInverterSn());
+            inverterData.setInverterModel(inverterDataDto.getInverterModel());
+            inverterData.setRatedPower(inverterDataDto.getRatedPower());
+            inverterData.setInverterVer(inverterDataDto.getInverterVer());
+            inverterData.seteToday(inverterDataDto.getEToday());
+            inverterData.seteMonth(inverterDataDto.getEMonth());
+            inverterData.seteYear(inverterDataDto.getEYear());
+            inverterData.seteTotal(inverterDataDto.getETotal());
+            inverterData.setInverterTemp(inverterDataDto.getInverterTemp());
+            inverterData.setState(Integer.parseInt(inverterDataDto.getState()));
+            inverterData.setAlarmCn(inverterDataDto.getAlarmCn());
+            inverterData.setAlarmEn(inverterDataDto.getAlarmEn());
 
-            inverterData.setFac(inverterDataDao.getFac());
-            inverterData.setPac(inverterDataDao.getPac());
-            inverterData.setNationalCode(inverterDataDao.getNationalCode());
-            inverterData.setNational(inverterDataDao.getNational());
+            inverterData.setFac(inverterDataDto.getFac());
+            inverterData.setPac(inverterDataDto.getPac());
+            inverterData.setNationalCode(inverterDataDto.getNationalCode());
+            inverterData.setNational(inverterDataDto.getNational());
             inverterData.setCreateTime(now);
             inverterData.setDeviceTime(data.getTime());
             inverterData.setPowerStationId(inverter.getPowerStationId());
@@ -138,7 +138,7 @@ public class JinlangServiceImpl implements JinlangService {
 
             int pvIndex = 0;
 
-            for (UIDataDto pvUI:inverterDataDao.getPv()) {
+            for (UIDataDto pvUI:inverterDataDto.getPv()) {
                 String inverterPvDataId = UUID.randomUUID().toString();
                 InverterPvData inverterPvData = new InverterPvData();
                 inverterPvData.setId(inverterPvDataId);
@@ -211,14 +211,14 @@ public class JinlangServiceImpl implements JinlangService {
                 combinerBoxData.setCombinerBoxId(combinerBox.getId());
                 combinerBoxData.setU(combinerU / pvStringCountInCombiner);  //用逆变器各支路的电压求平均
                 combinerBoxData.setI(combinerI); //用逆变器各支路的电流和
-                combinerBoxData.setTemperature(inverterDataDao.getInverterTemp()); //用逆变器的温度
+                combinerBoxData.setTemperature(inverterDataDto.getInverterTemp()); //用逆变器的温度
                 combinerBoxData.setCreateTime(now);
                 combinerBoxData.setDeviceTime(data.getTime());//用逆变器数据上报的时间
                 combinerBoxDataMapper.insert(combinerBoxData);
             }
 
             int acIndex = 0;
-            for (UIDataDto acUI:inverterDataDao.getAc()) {
+            for (UIDataDto acUI:inverterDataDto.getAc()) {
                 String inverterAcDataId = UUID.randomUUID().toString();
                 InverterAcData inverterAcData = new InverterAcData();
                 inverterAcData.setId(inverterAcDataId);
@@ -231,19 +231,32 @@ public class JinlangServiceImpl implements JinlangService {
                 inverterAcDataMapper.insert(inverterAcData);
                 acIndex++;
             }
+            updateDeviceStatus(inverterDataDto.getState());
         }
 
         return resultDto;
     }
 
+    private void updateDeviceStatus(String state) {
+        Integer code = Integer.parseInt(state);
+
+        if (code != 0) {
+            //状态代码不为0时，有设备故障
+
+        } else {
+
+        }
+
+    }
+
     /**
      * 因为远东学校的数据没有直接采集于升压变，用逆变器的数据来生成升压变的数据
      * @param inverter
-     * @param inverterDataDao
+     * @param inverterDataDto
      * @param deviceTime
      * @param now
      */
-    private void insertTransformerData(Inverter inverter, InverterDataDto inverterDataDao, Date deviceTime, Date now) {
+    private void insertTransformerData(Inverter inverter, InverterDataDto inverterDataDto, Date deviceTime, Date now) {
         TransformerData transformerData = new TransformerData();
         transformerData.setId(UUID.randomUUID().toString());
         transformerData.setPowerStationId(inverter.getPowerStationId());
@@ -252,7 +265,7 @@ public class JinlangServiceImpl implements JinlangService {
         //高压侧电压=逆变器AC侧电压3相平均值/220*10 (kV)
         float acU = 0;
         int acCount = 0;
-        for (UIDataDto acUI:inverterDataDao.getAc()) {
+        for (UIDataDto acUI:inverterDataDto.getAc()) {
             acU += acUI.getU();
             acCount++;
         }
@@ -261,7 +274,7 @@ public class JinlangServiceImpl implements JinlangService {
             transformerData.sethU((float)((acU / acCount) / 220 *10));
         }
         //频率=逆变器AC侧频率 (50Hz左右波动)
-        transformerData.setFac(inverterDataDao.getFac());
+        transformerData.setFac(inverterDataDto.getFac());
 
         //功率=5个逆变器AC侧有功功率瞬时值之和
         //查询十分钟内最近时间的其他逆变器的功率，用于计算功率之和
@@ -278,7 +291,7 @@ public class JinlangServiceImpl implements JinlangService {
                 .orderByDesc("device_time");
         List<InverterData> inverterDatas = inverterDataMapper.selectList(inverterDataQueryWrapper);
 
-        float total_pac = inverterDataDao.getPac();
+        float total_pac = inverterDataDto.getPac();
         Map<String,Float> inverterDataMap = new HashMap<>();
         for (InverterData inverterData : inverterDatas) {
             if (!inverterData.getInverterId().equals(inverter.getId())) {

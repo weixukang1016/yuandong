@@ -13,7 +13,7 @@
     <result column="e_year" jdbcType="REAL" property="eYear" />
     <result column="e_total" jdbcType="REAL" property="eTotal" />
     <result column="inverter_temp" jdbcType="REAL" property="inverterTemp" />
-    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="state" jdbcType="INTEGER" property="state" />
     <result column="alarm_cn" jdbcType="VARCHAR" property="alarmCn" />
     <result column="alarm_en" jdbcType="VARCHAR" property="alarmEn" />
     <result column="fac" jdbcType="REAL" property="fac" />
@@ -53,7 +53,7 @@
     values (#{id,jdbcType=OTHER}, #{collectRecordId,jdbcType=OTHER}, #{inverterSn,jdbcType=VARCHAR}, 
       #{inverterModel,jdbcType=VARCHAR}, #{ratedPower,jdbcType=REAL}, #{inverterVer,jdbcType=VARCHAR}, 
       #{eToday,jdbcType=REAL}, #{eMonth,jdbcType=REAL}, #{eYear,jdbcType=REAL}, #{eTotal,jdbcType=REAL}, 
-      #{inverterTemp,jdbcType=REAL}, #{state,jdbcType=VARCHAR}, #{alarmCn,jdbcType=VARCHAR}, 
+      #{inverterTemp,jdbcType=REAL}, #{state,jdbcType=INTEGER}, #{alarmCn,jdbcType=VARCHAR}, 
       #{alarmEn,jdbcType=VARCHAR}, #{fac,jdbcType=REAL}, #{pac,jdbcType=REAL}, #{nationalCode,jdbcType=INTEGER}, 
       #{national,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{powerStationId,jdbcType=OTHER}, 
       #{transformerId,jdbcType=OTHER}, #{inverterId,jdbcType=OTHER}, #{deviceTime,jdbcType=TIMESTAMP}
@@ -167,7 +167,7 @@
         #{inverterTemp,jdbcType=REAL},
       </if>
       <if test="state != null">
-        #{state,jdbcType=VARCHAR},
+        #{state,jdbcType=INTEGER},
       </if>
       <if test="alarmCn != null">
         #{alarmCn,jdbcType=VARCHAR},
@@ -238,7 +238,7 @@
         inverter_temp = #{inverterTemp,jdbcType=REAL},
       </if>
       <if test="state != null">
-        state = #{state,jdbcType=VARCHAR},
+        state = #{state,jdbcType=INTEGER},
       </if>
       <if test="alarmCn != null">
         alarm_cn = #{alarmCn,jdbcType=VARCHAR},
@@ -288,7 +288,7 @@
       e_year = #{eYear,jdbcType=REAL},
       e_total = #{eTotal,jdbcType=REAL},
       inverter_temp = #{inverterTemp,jdbcType=REAL},
-      state = #{state,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
       alarm_cn = #{alarmCn,jdbcType=VARCHAR},
       alarm_en = #{alarmEn,jdbcType=VARCHAR},
       fac = #{fac,jdbcType=REAL},

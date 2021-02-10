@@ -3,7 +3,7 @@ package com.pvsoul.eec.yuandong.entity;
 public class BaseJinlangInvertCode {
     private Object id;
 
-    private String code;
+    private Integer code;
 
     private String descriptionCn;
 
@@ -19,11 +19,11 @@ public class BaseJinlangInvertCode {
         this.id = id;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 

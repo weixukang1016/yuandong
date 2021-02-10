@@ -76,12 +76,6 @@
                enableUpdateByExample="false">
         </table>
 
-        <table tableName='base_jinlang_invert_code' domainObjectName="BaseJinlangInvertCode"
-               delimitIdentifiers="false" delimitAllColumns="false"
-               enableSelectByExample="false" enableDeleteByExample="false"
-               enableCountByExample="false" selectByExampleQueryId="false"
-               enableUpdateByExample="false">
-        </table>
         <table tableName='transformer' domainObjectName="Transformer"
                delimitIdentifiers="false" delimitAllColumns="false"
                enableSelectByExample="false" enableDeleteByExample="false"
@@ -142,14 +136,20 @@
                enableCountByExample="false" selectByExampleQueryId="false"
                enableUpdateByExample="false">
         </table>
-        <table tableName='inverter_data' domainObjectName="InverterData"
+        <table tableName='transformer_data' domainObjectName="TransformerData"
                delimitIdentifiers="false" delimitAllColumns="false"
                enableSelectByExample="false" enableDeleteByExample="false"
                enableCountByExample="false" selectByExampleQueryId="false"
                enableUpdateByExample="false">
         </table>
         -->
-        <table tableName='transformer_data' domainObjectName="TransformerData"
+        <table tableName='inverter_data' domainObjectName="InverterData"
+               delimitIdentifiers="false" delimitAllColumns="false"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" selectByExampleQueryId="false"
+               enableUpdateByExample="false">
+        </table>
+        <table tableName='base_jinlang_invert_code' domainObjectName="BaseJinlangInvertCode"
                delimitIdentifiers="false" delimitAllColumns="false"
                enableSelectByExample="false" enableDeleteByExample="false"
                enableCountByExample="false" selectByExampleQueryId="false"

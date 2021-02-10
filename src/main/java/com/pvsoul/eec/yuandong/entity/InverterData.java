@@ -25,7 +25,7 @@ public class InverterData {
 
     private Float inverterTemp;
 
-    private String state;
+    private Integer state;
 
     private String alarmCn;
 
@@ -137,11 +137,11 @@ public class InverterData {
         this.inverterTemp = inverterTemp;
     }
 
-    public String getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
