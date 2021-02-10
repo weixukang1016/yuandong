@@ -24,11 +24,12 @@
     <result column="power_station_id" jdbcType="OTHER" property="powerStationId" />
     <result column="transformer_id" jdbcType="OTHER" property="transformerId" />
     <result column="inverter_id" jdbcType="OTHER" property="inverterId" />
+    <result column="device_time" jdbcType="TIMESTAMP" property="deviceTime" />
   </resultMap>
   <sql id="Base_Column_List">
     id, collect_record_id, inverter_sn, inverter_model, rated_power, inverter_ver, e_today, 
     e_month, e_year, e_total, inverter_temp, state, alarm_cn, alarm_en, fac, pac, national_code, 
-    national, create_time, power_station_id, transformer_id, inverter_id
+    national, create_time, power_station_id, transformer_id, inverter_id, device_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
     select 
@@ -47,14 +48,16 @@
       inverter_temp, state, alarm_cn, 
       alarm_en, fac, pac, national_code, 
       national, create_time, power_station_id, 
-      transformer_id, inverter_id)
+      transformer_id, inverter_id, device_time
+      )
     values (#{id,jdbcType=OTHER}, #{collectRecordId,jdbcType=OTHER}, #{inverterSn,jdbcType=VARCHAR}, 
       #{inverterModel,jdbcType=VARCHAR}, #{ratedPower,jdbcType=REAL}, #{inverterVer,jdbcType=VARCHAR}, 
       #{eToday,jdbcType=REAL}, #{eMonth,jdbcType=REAL}, #{eYear,jdbcType=REAL}, #{eTotal,jdbcType=REAL}, 
       #{inverterTemp,jdbcType=REAL}, #{state,jdbcType=VARCHAR}, #{alarmCn,jdbcType=VARCHAR}, 
       #{alarmEn,jdbcType=VARCHAR}, #{fac,jdbcType=REAL}, #{pac,jdbcType=REAL}, #{nationalCode,jdbcType=INTEGER}, 
       #{national,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{powerStationId,jdbcType=OTHER}, 
-      #{transformerId,jdbcType=OTHER}, #{inverterId,jdbcType=OTHER})
+      #{transformerId,jdbcType=OTHER}, #{inverterId,jdbcType=OTHER}, #{deviceTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.InverterData">
     insert into inverter_data
@@ -125,6 +128,9 @@
       <if test="inverterId != null">
         inverter_id,
       </if>
+      <if test="deviceTime != null">
+        device_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -192,6 +198,9 @@
       </if>
       <if test="inverterId != null">
         #{inverterId,jdbcType=OTHER},
+      </if>
+      <if test="deviceTime != null">
+        #{deviceTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -261,6 +270,9 @@
       <if test="inverterId != null">
         inverter_id = #{inverterId,jdbcType=OTHER},
       </if>
+      <if test="deviceTime != null">
+        device_time = #{deviceTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=OTHER}
   </update>
@@ -286,7 +298,8 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       power_station_id = #{powerStationId,jdbcType=OTHER},
       transformer_id = #{transformerId,jdbcType=OTHER},
-      inverter_id = #{inverterId,jdbcType=OTHER}
+      inverter_id = #{inverterId,jdbcType=OTHER},
+      device_time = #{deviceTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=OTHER}
   </update>
 </mapper>

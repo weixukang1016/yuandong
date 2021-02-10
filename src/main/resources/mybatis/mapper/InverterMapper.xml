@@ -17,10 +17,12 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
     <result column="transformer_id" jdbcType="OTHER" property="transformerId" />
+    <result column="is_for_transformer" jdbcType="BIT" property="isForTransformer" />
   </resultMap>
   <sql id="Base_Column_List">
     id, power_station_id, inverter_sn, inverter_model, manufactor, rated_power, inverter_ver, 
-    region, create_time, update_time, inverter_no, is_valid, status, status_time, transformer_id
+    region, create_time, update_time, inverter_no, is_valid, status, status_time, transformer_id, 
+    is_for_transformer
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
     select 
@@ -37,14 +39,14 @@
       inverter_model, manufactor, rated_power, 
       inverter_ver, region, create_time, 
       update_time, inverter_no, is_valid, 
-      status, status_time, transformer_id
-      )
+      status, status_time, transformer_id, 
+      is_for_transformer)
     values (#{id,jdbcType=OTHER}, #{powerStationId,jdbcType=OTHER}, #{inverterSn,jdbcType=VARCHAR}, 
       #{inverterModel,jdbcType=VARCHAR}, #{manufactor,jdbcType=VARCHAR}, #{ratedPower,jdbcType=REAL}, 
       #{inverterVer,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{inverterNo,jdbcType=VARCHAR}, #{isValid,jdbcType=BIT}, 
-      #{status,jdbcType=INTEGER}, #{statusTime,jdbcType=TIMESTAMP}, #{transformerId,jdbcType=OTHER}
-      )
+      #{status,jdbcType=INTEGER}, #{statusTime,jdbcType=TIMESTAMP}, #{transformerId,jdbcType=OTHER}, 
+      #{isForTransformer,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.Inverter">
     insert into inverter
@@ -94,6 +96,9 @@
       <if test="transformerId != null">
         transformer_id,
       </if>
+      <if test="isForTransformer != null">
+        is_for_transformer,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -140,6 +145,9 @@
       </if>
       <if test="transformerId != null">
         #{transformerId,jdbcType=OTHER},
+      </if>
+      <if test="isForTransformer != null">
+        #{isForTransformer,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -188,6 +196,9 @@
       <if test="transformerId != null">
         transformer_id = #{transformerId,jdbcType=OTHER},
       </if>
+      <if test="isForTransformer != null">
+        is_for_transformer = #{isForTransformer,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=OTHER}
   </update>
@@ -206,7 +217,8 @@
       is_valid = #{isValid,jdbcType=BIT},
       status = #{status,jdbcType=INTEGER},
       status_time = #{statusTime,jdbcType=TIMESTAMP},
-      transformer_id = #{transformerId,jdbcType=OTHER}
+      transformer_id = #{transformerId,jdbcType=OTHER},
+      is_for_transformer = #{isForTransformer,jdbcType=BIT}
     where id = #{id,jdbcType=OTHER}
   </update>
   <select id="getDeviceStatusCount" resultType="com.pvsoul.eec.yuandong.entity.DeviceStatusCount">

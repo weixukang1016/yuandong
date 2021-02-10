@@ -11,9 +11,11 @@
     <result column="pac" jdbcType="REAL" property="pac" />
     <result column="p_factor" jdbcType="REAL" property="pFactor" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="device_time" jdbcType="TIMESTAMP" property="deviceTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, power_station_id, transformer_id, l_u, h_u, fac, pac, p_factor, create_time
+    id, power_station_id, transformer_id, l_u, h_u, fac, pac, p_factor, create_time, 
+    device_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
     select 
@@ -28,10 +30,12 @@
   <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.TransformerData">
     insert into transformer_data (id, power_station_id, transformer_id, 
       l_u, h_u, fac, pac, 
-      p_factor, create_time)
+      p_factor, create_time, device_time
+      )
     values (#{id,jdbcType=OTHER}, #{powerStationId,jdbcType=OTHER}, #{transformerId,jdbcType=OTHER}, 
       #{lU,jdbcType=REAL}, #{hU,jdbcType=REAL}, #{fac,jdbcType=REAL}, #{pac,jdbcType=REAL}, 
-      #{pFactor,jdbcType=REAL}, #{createTime,jdbcType=TIMESTAMP})
+      #{pFactor,jdbcType=REAL}, #{createTime,jdbcType=TIMESTAMP}, #{deviceTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.TransformerData">
     insert into transformer_data
@@ -63,6 +67,9 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="deviceTime != null">
+        device_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -91,6 +98,9 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceTime != null">
+        #{deviceTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -121,6 +131,9 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="deviceTime != null">
+        device_time = #{deviceTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=OTHER}
   </update>
@@ -133,7 +146,8 @@
       fac = #{fac,jdbcType=REAL},
       pac = #{pac,jdbcType=REAL},
       p_factor = #{pFactor,jdbcType=REAL},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      device_time = #{deviceTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=OTHER}
   </update>
 </mapper>

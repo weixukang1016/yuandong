@@ -21,6 +21,8 @@ public class TransformerData {
 
     private Date createTime;
 
+    private Date deviceTime;
+
     public Object getId() {
         return id;
     }
@@ -91,5 +93,13 @@ public class TransformerData {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Date getDeviceTime() {
+        return deviceTime;
+    }
+
+    public void setDeviceTime(Date deviceTime) {
+        this.deviceTime = deviceTime;
     }
 }

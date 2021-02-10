@@ -24,8 +24,13 @@ public class JinlangServiceImpl implements JinlangService {
 
     private static final int DATA_VALID_MINITUES = 10; //数据有效时间（10分钟）
 
+    private static final float TRANSFORMER_POWER_FACTOR = 0.95f; //功率因数固定为0.95
+
     @Autowired
     private CollectRecordMapper collectRecordMapper;
+
+    @Autowired
+    private TransformerMapper transformerMapper;
 
     @Autowired
     private InverterDataMapper inverterDataMapper;
@@ -35,6 +40,9 @@ public class JinlangServiceImpl implements JinlangService {
 
     @Autowired
     private InverterAcDataMapper inverterAcDataMapper;
+
+    @Autowired
+    private TransformerDataMapper transformerDataMapper;
 
     @Autowired
     private InverterMapper inverterMapper;
@@ -82,9 +90,10 @@ public class JinlangServiceImpl implements JinlangService {
             inverterQueryWrapper.eq("inverter_sn", inverterDataDao.getInverterSn())
                     .eq("is_valid", true);
             Inverter inverter = inverterMapper.selectOne(inverterQueryWrapper);
-            log.info("inverter:" + inverter.getId());
-            log.info("inverter.getPowerStationId():" + inverter.getPowerStationId());
-            log.info("inverter.getTransformerId():" + inverter.getTransformerId());
+            if (inverter.getIsForTransformer()) {
+                //如果是用于采集升压变的逆变器，写入升压变数据
+                insertTransformerData(inverter, inverterDataDao, data.getTime(), now);
+            }
 
             String inverterDataId = UUID.randomUUID().toString();
             InverterData inverterData = new InverterData();
@@ -108,6 +117,7 @@ public class JinlangServiceImpl implements JinlangService {
             inverterData.setNationalCode(inverterDataDao.getNationalCode());
             inverterData.setNational(inverterDataDao.getNational());
             inverterData.setCreateTime(now);
+            inverterData.setDeviceTime(data.getTime());
             inverterData.setPowerStationId(inverter.getPowerStationId());
             inverterData.setTransformerId(inverter.getTransformerId());
             inverterData.setInverterId(inverter.getId());
@@ -224,6 +234,69 @@ public class JinlangServiceImpl implements JinlangService {
         }
 
         return resultDto;
+    }
+
+    /**
+     * 因为远东学校的数据没有直接采集于升压变，用逆变器的数据来生成升压变的数据
+     * @param inverter
+     * @param inverterDataDao
+     * @param deviceTime
+     * @param now
+     */
+    private void insertTransformerData(Inverter inverter, InverterDataDto inverterDataDao, Date deviceTime, Date now) {
+        TransformerData transformerData = new TransformerData();
+        transformerData.setId(UUID.randomUUID().toString());
+        transformerData.setPowerStationId(inverter.getPowerStationId());
+        transformerData.setTransformerId(inverter.getTransformerId());
+        //低压侧电压=逆变器AC侧电压3相平均值*1.732  (V)
+        //高压侧电压=逆变器AC侧电压3相平均值/220*10 (kV)
+        float acU = 0;
+        int acCount = 0;
+        for (UIDataDto acUI:inverterDataDao.getAc()) {
+            acU =+ acUI.getU();
+            acCount++;
+        }
+        if (acCount != 0) {
+            transformerData.setlU((float)(acU / acCount * 1.732));
+            transformerData.sethU((float)(acU / acCount / 220 *10));
+        }
+        //频率=逆变器AC侧频率 (50Hz左右波动)
+        transformerData.setFac(inverterDataDao.getFac());
+
+        //功率=5个逆变器AC侧有功功率瞬时值之和
+        //查询十分钟内最近时间的其他逆变器的功率，用于计算功率之和
+        Calendar before10M = Calendar.getInstance();
+        before10M.setTime(deviceTime);
+        before10M.add(Calendar.MINUTE, -DATA_VALID_MINITUES);
+
+        //TODO delete 调试代码
+        //before10M.add(Calendar.DATE, -2);
+
+        QueryWrapper<InverterData> inverterDataQueryWrapper = new QueryWrapper<>();
+        inverterDataQueryWrapper.gt("device_time", before10M.getTime())
+                .le("device_time", deviceTime)
+                .orderByDesc("device_time");
+        List<InverterData> inverterDatas = inverterDataMapper.selectList(inverterDataQueryWrapper);
+
+        float total_pac = inverterDataDao.getPac();
+        Map<String,Float> inverterDataMap = new HashMap<>();
+        for (InverterData inverterData : inverterDatas) {
+            if (!inverterData.getInverterId().equals(inverter.getId())) {
+                if (!inverterDataMap.containsKey(inverterData.getInverterId().toString())) {
+                    inverterDataMap.put(inverterData.getInverterId().toString(), inverterData.getPac());
+                    total_pac += inverterData.getPac();
+                }
+            }
+        }
+        transformerData.setPac(total_pac);
+
+        //功率因数=0.95
+        transformerData.setpFactor(TRANSFORMER_POWER_FACTOR);
+
+        transformerData.setCreateTime(now);
+        transformerData.setDeviceTime(deviceTime);
+
+        transformerDataMapper.insert(transformerData);
     }
 
     /**

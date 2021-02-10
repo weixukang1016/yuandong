@@ -47,6 +47,8 @@ public class InverterData {
 
     private Object inverterId;
 
+    private Date deviceTime;
+
     public Object getId() {
         return id;
     }
@@ -221,5 +223,13 @@ public class InverterData {
 
     public void setInverterId(Object inverterId) {
         this.inverterId = inverterId;
+    }
+
+    public Date getDeviceTime() {
+        return deviceTime;
+    }
+
+    public void setDeviceTime(Date deviceTime) {
+        this.deviceTime = deviceTime;
     }
 }

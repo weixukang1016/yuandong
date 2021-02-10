@@ -1,8 +1,9 @@
 package com.pvsoul.eec.yuandong.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pvsoul.eec.yuandong.entity.Transformer;
 
-public interface TransformerMapper {
+public interface TransformerMapper extends BaseMapper<Transformer> {
     int deleteByPrimaryKey(Object id);
 
     int insert(Transformer record);

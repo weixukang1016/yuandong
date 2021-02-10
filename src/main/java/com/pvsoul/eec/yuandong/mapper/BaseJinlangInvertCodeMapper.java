@@ -1,8 +1,9 @@
 package com.pvsoul.eec.yuandong.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pvsoul.eec.yuandong.entity.BaseJinlangInvertCode;
 
-public interface BaseJinlangInvertCodeMapper {
+public interface BaseJinlangInvertCodeMapper extends BaseMapper<BaseJinlangInvertCode> {
     int deleteByPrimaryKey(Object id);
 
     int insert(BaseJinlangInvertCode record);

@@ -33,6 +33,8 @@ public class Inverter {
 
     private Object transformerId;
 
+    private Boolean isForTransformer;
+
     public Object getId() {
         return id;
     }
@@ -151,5 +153,13 @@ public class Inverter {
 
     public void setTransformerId(Object transformerId) {
         this.transformerId = transformerId;
+    }
+
+    public Boolean getIsForTransformer() {
+        return isForTransformer;
+    }
+
+    public void setIsForTransformer(Boolean isForTransformer) {
+        this.isForTransformer = isForTransformer;
     }
 }
