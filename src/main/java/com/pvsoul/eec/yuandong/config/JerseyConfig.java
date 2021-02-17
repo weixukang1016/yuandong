@@ -1,5 +1,6 @@
 package com.pvsoul.eec.yuandong.config;
 
+import com.pvsoul.eec.yuandong.filter.CorsFilter;
 import com.pvsoul.eec.yuandong.provider.RuntimeExceptionProvider;
 import com.pvsoul.eec.yuandong.provider.ValidationExceptionProvider;
 import com.pvsoul.eec.yuandong.resource.EecCenterResource;
@@ -20,6 +21,7 @@ public class JerseyConfig implements ResourceConfigCustomizer {
 
     @Override
     public void customize(ResourceConfig config) {
+        config.register(CorsFilter.class);
         config.register(JinlangResource.class);
         config.register(TastekLetDtuResouce.class);
         config.register(SideBarResource.class);
@@ -27,5 +29,6 @@ public class JerseyConfig implements ResourceConfigCustomizer {
 
         config.registerClasses(ValidationExceptionProvider.class);
         config.registerClasses(RuntimeExceptionProvider.class);
+
     }
 }

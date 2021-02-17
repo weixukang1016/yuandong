@@ -66,6 +66,7 @@ public class JinlangServiceImpl implements JinlangService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResultDto SaveData(JinLangDataDto data) {
+        log.info("开始处理锦浪数据");
         ResultDto resultDto = new ResultDto();
         Date now = new Date();
         String collectRecordId = UUID.randomUUID().toString();
@@ -231,14 +232,19 @@ public class JinlangServiceImpl implements JinlangService {
                 inverterAcDataMapper.insert(inverterAcData);
                 acIndex++;
             }
-            updateDeviceStatus(inverterDataDto.getState());
+            //updateDeviceStatus(inverterDataDto);
         }
 
+        log.info("完成锦浪数据的处理");
         return resultDto;
     }
 
-    private void updateDeviceStatus(String state) {
-        Integer code = Integer.parseInt(state);
+    /**
+     * 根据锦浪逆变器的设备状态码来更新设备状态，如果有故障，记录故障
+     * @param inverterDataDto
+     */
+    private void updateDeviceStatus(InverterDataDto inverterDataDto) {
+        Integer code = Integer.parseInt(inverterDataDto.getState());
 
         if (code != 0) {
             //状态代码不为0时，有设备故障
