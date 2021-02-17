@@ -1,6 +1,7 @@
 package com.pvsoul.eec.yuandong.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.pvsoul.eec.yuandong.dto.ResultDto;
 import com.pvsoul.eec.yuandong.dto.web.response.GetDeviceInfoResponseDto;
 import com.pvsoul.eec.yuandong.dto.web.response.GetDeviceStatusInfoResponseDto;
 import com.pvsoul.eec.yuandong.entity.CombinerBox;
@@ -34,7 +35,8 @@ public class DeviceServiceImpl implements DeviceService {
     private PvStringMapper pvStringMapper;
 
     @Override
-    public List<GetDeviceInfoResponseDto> getDevicesInfo() {
+    public ResultDto getDevicesInfo() {
+        ResultDto resultDto = new ResultDto();
         List<GetDeviceInfoResponseDto> result = new ArrayList<GetDeviceInfoResponseDto>();
 
         QueryWrapper<Inverter> inverterQueryWrapper = new QueryWrapper<>();
@@ -63,12 +65,13 @@ public class DeviceServiceImpl implements DeviceService {
         getDeviceInfoResponseDto.setDeviceTypeCode(DeviceType.PVSTRING.getDeviceTypeCode());
         getDeviceInfoResponseDto.setDeviceCount(pvStringCount);
         result.add(getDeviceInfoResponseDto);
-
-        return result;
+        resultDto.setEntity(result);
+        return resultDto;
     }
 
     @Override
-    public List<GetDeviceStatusInfoResponseDto> getDevicesStatusInfo(int deviceTypeCode) {
+    public ResultDto getDevicesStatusInfo(int deviceTypeCode) {
+        ResultDto resultDto = new ResultDto();
         List<GetDeviceStatusInfoResponseDto> result = new ArrayList<GetDeviceStatusInfoResponseDto>();
         GetDeviceStatusInfoResponseDto getDeviceStatusInfoResponseDto = new GetDeviceStatusInfoResponseDto();
 
@@ -109,7 +112,8 @@ public class DeviceServiceImpl implements DeviceService {
             devicesStatusCount = inverterMapper.getDeviceStatusCount();
             setDeviceStatusCount(devicesStatusCount, result);
         }
-        return result;
+        resultDto.setEntity(result);
+        return resultDto;
     }
 
     private void setDeviceStatusCount(List<DeviceStatusCount> devicesStatusCount, List<GetDeviceStatusInfoResponseDto> result) {

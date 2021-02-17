@@ -49,7 +49,7 @@ public class SideBarResource {
     public Response getDevicesInfo(@Context HttpServletRequest request) {
 
         //log.info(JSONObject.toJSONString(data));
-        List<GetDeviceInfoResponseDto> resultDto = deviceService.getDevicesInfo();
+        ResultDto resultDto = deviceService.getDevicesInfo();
         return Response.status(Response.Status.OK).entity(resultDto).build();
     }
 
@@ -59,7 +59,7 @@ public class SideBarResource {
     public Response getDevicesStatusInfo(@Context HttpServletRequest request, GetDevicesStatusInfoRequestDto data) {
 
         //log.info(JSONObject.toJSONString(data));
-        List<GetDeviceStatusInfoResponseDto> resultDto = deviceService.getDevicesStatusInfo(data.getDeviceTypeCode());
+        ResultDto resultDto = deviceService.getDevicesStatusInfo(data.getDeviceTypeCode());
         return Response.status(Response.Status.OK).entity(resultDto).build();
     }
 }
