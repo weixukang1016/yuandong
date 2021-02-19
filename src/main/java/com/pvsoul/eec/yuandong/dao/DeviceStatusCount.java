@@ -1,4 +1,4 @@
-package com.pvsoul.eec.yuandong.entity;
+package com.pvsoul.eec.yuandong.dao;
 
 import lombok.Getter;
 import lombok.Setter;

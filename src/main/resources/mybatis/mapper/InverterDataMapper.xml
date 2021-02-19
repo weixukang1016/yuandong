@@ -302,4 +302,43 @@
       device_time = #{deviceTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=OTHER}
   </update>
+  <select id="getInverterLastDatas" resultMap="BaseResultMap">
+   select inverter_sn,
+          (select device_time
+          from inverter_data
+          where inverter_id=it.id
+            and device_time &lt;=#{endTime,jdbcType=TIMESTAMP}
+          order by device_time desc
+          limit(1)
+          ) device_time,
+          (select e_today
+          from inverter_data
+          where inverter_id=it.id
+            and device_time &lt;=#{endTime,jdbcType=TIMESTAMP}
+          order by device_time desc
+          limit(1)
+          ) e_today,
+          (select e_month
+          from inverter_data
+          where inverter_id=it.id
+            and device_time &lt;=#{endTime,jdbcType=TIMESTAMP}
+          order by device_time desc
+          limit(1)
+          ) e_month,
+          (select e_year
+          from inverter_data
+          where inverter_id=it.id
+            and device_time &lt;=#{endTime,jdbcType=TIMESTAMP}
+          order by device_time desc
+          limit(1)
+          ) e_year,
+          (select e_total
+          from inverter_data
+          where inverter_id=it.id
+            and device_time &lt;=#{endTime,jdbcType=TIMESTAMP}
+          order by device_time desc
+          limit(1)
+          ) e_total
+  from inverter it
+  </select>
 </mapper>

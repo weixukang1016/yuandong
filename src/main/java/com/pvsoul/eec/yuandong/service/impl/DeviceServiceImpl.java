@@ -1,15 +1,22 @@
 package com.pvsoul.eec.yuandong.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.pvsoul.eec.yuandong.dao.PvStringInfo;
 import com.pvsoul.eec.yuandong.dto.ResultDto;
+import com.pvsoul.eec.yuandong.dto.web.request.GetPvstringListRequestDto;
 import com.pvsoul.eec.yuandong.dto.web.response.GetDeviceInfoResponseDto;
 import com.pvsoul.eec.yuandong.dto.web.response.GetDeviceStatusInfoResponseDto;
+import com.pvsoul.eec.yuandong.dto.web.response.GetPvstringListReponseDto;
+import com.pvsoul.eec.yuandong.dto.web.response.PvStringInfoDto;
 import com.pvsoul.eec.yuandong.entity.CombinerBox;
-import com.pvsoul.eec.yuandong.entity.DeviceStatusCount;
+import com.pvsoul.eec.yuandong.dao.DeviceStatusCount;
 import com.pvsoul.eec.yuandong.entity.Inverter;
 import com.pvsoul.eec.yuandong.entity.PvString;
 import com.pvsoul.eec.yuandong.mapper.CombinerBoxMapper;
 import com.pvsoul.eec.yuandong.mapper.InverterMapper;
+import com.pvsoul.eec.yuandong.mapper.PvStringDataMapper;
 import com.pvsoul.eec.yuandong.mapper.PvStringMapper;
 import com.pvsoul.eec.yuandong.service.DeviceService;
 import com.pvsoul.eec.yuandong.util.DeviceStatus;
@@ -33,6 +40,9 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Autowired
     private PvStringMapper pvStringMapper;
+
+    @Autowired
+    private PvStringDataMapper pvStringDataMapper;
 
     @Override
     public ResultDto getDevicesInfo() {
@@ -113,6 +123,33 @@ public class DeviceServiceImpl implements DeviceService {
             setDeviceStatusCount(devicesStatusCount, result);
         }
         resultDto.setEntity(result);
+        return resultDto;
+    }
+
+    @Override
+    public ResultDto getPvStringInfoList(GetPvstringListRequestDto getPvstringListRequestDto) {
+        ResultDto resultDto = new ResultDto();
+        PageHelper.startPage(getPvstringListRequestDto.getPageNum(), getPvstringListRequestDto.getPageSize());
+        List<PvStringInfo> pvStringInfos = pvStringDataMapper.getPvStringList(getPvstringListRequestDto.getDeviceStatus());
+        PageInfo page = new PageInfo(pvStringInfos);
+        GetPvstringListReponseDto getPvstringListReponseDto = new GetPvstringListReponseDto();
+        getPvstringListReponseDto.setPageCount(page.getPages());
+        getPvstringListReponseDto.setPageNum(page.getPageNum());
+        getPvstringListReponseDto.setPageSize(page.getPageSize());
+        getPvstringListReponseDto.setTotalCount(page.getTotal());
+        List<PvStringInfoDto> pvStringDatas = new ArrayList<>();
+        for(PvStringInfo pvStringInfo : pvStringInfos) {
+            PvStringInfoDto pvStringInfoDto = new PvStringInfoDto();
+            pvStringInfoDto.setDeviceId(pvStringInfo.getId());
+            pvStringInfoDto.setDeviceName(pvStringInfo.getStringNo());
+            pvStringInfoDto.setStandard(pvStringInfo.isStandard());
+            pvStringInfoDto.setU(pvStringInfo.getU());
+            pvStringInfoDto.setI(pvStringInfo.getI());
+            pvStringInfoDto.setP(pvStringInfo.getI() * pvStringInfo.getU());
+            pvStringDatas.add(pvStringInfoDto);
+        }
+        getPvstringListReponseDto.setPvStringDatas(pvStringDatas);
+        resultDto.setEntity(getPvstringListReponseDto);
         return resultDto;
     }
 

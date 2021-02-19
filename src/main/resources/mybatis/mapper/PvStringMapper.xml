@@ -185,7 +185,7 @@
       transformer_id = #{transformerId,jdbcType=OTHER}
     where id = #{id,jdbcType=OTHER}
   </update>
-  <select id="getDeviceStatusCount" resultType="com.pvsoul.eec.yuandong.entity.DeviceStatusCount">
+  <select id="getDeviceStatusCount" resultType="com.pvsoul.eec.yuandong.dao.DeviceStatusCount">
     select
     status,count(1) device_count
     from pv_string

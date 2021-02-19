@@ -1,4 +1,4 @@
-package com.pvsoul.eec.yuandong.dto.web.response;
+package com.pvsoul.eec.yuandong.dto.web.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -13,13 +13,13 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GetDeviceStatusInfoResponseDto implements Serializable {
+public class GetPvstringListRequestDto implements Serializable {
 
-    private static final long serialVersionUID = -3435566425893955754L;
+    private static final long serialVersionUID = -8741933785910821335L;
 
-    private String deviceStauts;
+    private Integer deviceStatus;
 
-    private int deviceStautsCode;
+    private int pageNum;
 
-    private int deviceCount;
+    private int pageSize;
 }

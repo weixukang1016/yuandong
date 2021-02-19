@@ -161,4 +161,22 @@
       transformer_id = #{transformerId,jdbcType=OTHER}
     where id = #{id,jdbcType=OTHER}
   </update>
+  <select id="getPvStringList" resultType="com.pvsoul.eec.yuandong.dao.PvStringInfo">
+    SELECT ID ,
+        string_no,
+        status,
+        is_standard,
+        ( SELECT u FROM pv_string_data WHERE pv_string_id = ps.ID ORDER BY device_time DESC LIMIT ( 1 ) ) u,
+        ( SELECT i FROM pv_string_data WHERE pv_string_id = ps.ID ORDER BY device_time DESC LIMIT ( 1 ) ) i,
+        ( SELECT temperature FROM pv_string_data WHERE pv_string_id = ps.ID ORDER BY device_time DESC LIMIT ( 1 ) ) temperature
+    FROM
+        pv_string ps
+    <where>
+      <if test="deviceStatus != null">
+        and status = #{deviceStatus}
+      </if>
+    </where>
+    ORDER BY
+        string_no
+  </select>
 </mapper>

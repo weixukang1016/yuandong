@@ -1,7 +1,7 @@
 package com.pvsoul.eec.yuandong.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.pvsoul.eec.yuandong.entity.DeviceStatusCount;
+import com.pvsoul.eec.yuandong.dao.DeviceStatusCount;
 import com.pvsoul.eec.yuandong.entity.PvString;
 
 import java.util.List;

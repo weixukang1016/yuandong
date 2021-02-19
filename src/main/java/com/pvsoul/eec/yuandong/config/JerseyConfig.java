@@ -6,6 +6,8 @@ import com.pvsoul.eec.yuandong.provider.ValidationExceptionProvider;
 import com.pvsoul.eec.yuandong.resource.EecCenterResource;
 import com.pvsoul.eec.yuandong.resource.devicedata.JinlangResource;
 import com.pvsoul.eec.yuandong.resource.devicedata.TastekLetDtuResouce;
+import com.pvsoul.eec.yuandong.resource.web.HomeResource;
+import com.pvsoul.eec.yuandong.resource.web.MonitorResource;
 import com.pvsoul.eec.yuandong.resource.web.SideBarResource;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.boot.autoconfigure.jersey.ResourceConfigCustomizer;
@@ -22,10 +24,13 @@ public class JerseyConfig implements ResourceConfigCustomizer {
     @Override
     public void customize(ResourceConfig config) {
         config.register(CorsFilter.class);
+
         config.register(JinlangResource.class);
         config.register(TastekLetDtuResouce.class);
         config.register(SideBarResource.class);
         config.register(EecCenterResource.class);
+        config.register(HomeResource.class);
+        config.register(MonitorResource.class);
 
         config.registerClasses(ValidationExceptionProvider.class);
         config.registerClasses(RuntimeExceptionProvider.class);
