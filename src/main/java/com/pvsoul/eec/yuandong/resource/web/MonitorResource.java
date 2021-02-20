@@ -30,6 +30,17 @@ public class MonitorResource {
     private DeviceService deviceService;
 
     @POST
+    @Path("/gettransformerlist")
+    //@ApiOperation("获取升压变列表")
+    public Response getTransformerList(@Context HttpServletRequest request, GetDeviceListRequestDto getDeviceListRequestDto) {
+
+        //log.info(JSONObject.toJSONString(data));
+        ResultDto resultDto = deviceService.getTransformerInfoList(getDeviceListRequestDto);
+        String result = JSONObject.toJSONString(resultDto, SerializerFeature.WriteMapNullValue);
+        return Response.status(Response.Status.OK).entity(result).build();
+    }
+
+    @POST
     @Path("/getinverterlist")
     //@ApiOperation("获取逆变器列表")
     public Response getInverterList(@Context HttpServletRequest request, GetDeviceListRequestDto getDeviceListRequestDto) {

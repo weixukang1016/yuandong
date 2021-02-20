@@ -161,7 +161,7 @@
       p = #{p,jdbcType=REAL}
     where id = #{id,jdbcType=OTHER}
   </update>
-  <select id="getCombinerBoxInfoList" parameterType="com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao" resultType="com.pvsoul.eec.yuandong.dao.CombinerBoxInfo">
+  <select id="getCombinerBoxInfoList" parameterType="com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao" resultType="com.pvsoul.eec.yuandong.dao.CombinerBoxInfoDao">
     SELECT ID ,
 	box_no,
 	status,

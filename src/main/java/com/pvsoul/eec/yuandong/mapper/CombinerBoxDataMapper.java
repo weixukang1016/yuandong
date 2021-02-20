@@ -1,7 +1,7 @@
 package com.pvsoul.eec.yuandong.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.pvsoul.eec.yuandong.dao.CombinerBoxInfo;
+import com.pvsoul.eec.yuandong.dao.CombinerBoxInfoDao;
 import com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao;
 import com.pvsoul.eec.yuandong.entity.CombinerBoxData;
 
@@ -20,5 +20,5 @@ public interface CombinerBoxDataMapper extends BaseMapper<CombinerBoxData> {
 
     int updateByPrimaryKey(CombinerBoxData record);
 
-    List<CombinerBoxInfo> getCombinerBoxInfoList(QueryDeviceInfoDao queryDeviceInfoDao);
+    List<CombinerBoxInfoDao> getCombinerBoxInfoList(QueryDeviceInfoDao queryDeviceInfoDao);
 }

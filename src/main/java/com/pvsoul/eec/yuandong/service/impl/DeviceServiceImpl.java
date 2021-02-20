@@ -47,6 +47,9 @@ public class DeviceServiceImpl implements DeviceService {
     @Autowired
     private InverterDataMapper inverterDataMapper;
 
+    @Autowired
+    private TransformerDataMapper transformerDataMapper;
+
     @Override
     public ResultDto getDevicesInfo() {
         ResultDto resultDto = new ResultDto();
@@ -107,18 +110,18 @@ public class DeviceServiceImpl implements DeviceService {
         result.add(getDeviceStatusInfoResponseDto);
 
         if (deviceTypeCode == DeviceType.PVSTRING.getDeviceTypeCode()) {
-            List<DeviceStatusCount> devicesStatusCount = pvStringMapper.getDeviceStatusCount();
+            List<DeviceStatusCountDao> devicesStatusCount = pvStringMapper.getDeviceStatusCount();
             setDeviceStatusCount(devicesStatusCount, result);
         } else if (deviceTypeCode == DeviceType.COMBINER_BOX.getDeviceTypeCode()) {
-            List<DeviceStatusCount> devicesStatusCount = combinerBoxMapper.getDeviceStatusCount();
+            List<DeviceStatusCountDao> devicesStatusCount = combinerBoxMapper.getDeviceStatusCount();
             setDeviceStatusCount(devicesStatusCount, result);
         } else if (deviceTypeCode == DeviceType.INVERTER.getDeviceTypeCode()) {
-            List<DeviceStatusCount> devicesStatusCount = inverterMapper.getDeviceStatusCount();
+            List<DeviceStatusCountDao> devicesStatusCount = inverterMapper.getDeviceStatusCount();
             setDeviceStatusCount(devicesStatusCount, result);
         } else if (deviceTypeCode == DeviceType.TRANSFORMER.getDeviceTypeCode()) {
 
         } else if (deviceTypeCode == DeviceType.ALL.getDeviceTypeCode()) {
-            List<DeviceStatusCount> devicesStatusCount = pvStringMapper.getDeviceStatusCount();
+            List<DeviceStatusCountDao> devicesStatusCount = pvStringMapper.getDeviceStatusCount();
             setDeviceStatusCount(devicesStatusCount, result);
             devicesStatusCount = combinerBoxMapper.getDeviceStatusCount();
             setDeviceStatusCount(devicesStatusCount, result);
@@ -143,23 +146,23 @@ public class DeviceServiceImpl implements DeviceService {
         queryDeviceInfoDao.setEndTime(now);
 
         PageHelper.startPage(getDeviceListRequestDto.getPageNum(), getDeviceListRequestDto.getPageSize());
-        List<PvStringInfo> pvStringInfos = pvStringDataMapper.getPvStringInfoList(queryDeviceInfoDao);
-        PageInfo page = new PageInfo(pvStringInfos);
+        List<PvStringInfoDao> pvStringInfoDaos = pvStringDataMapper.getPvStringInfoList(queryDeviceInfoDao);
+        PageInfo page = new PageInfo(pvStringInfoDaos);
         GetPvstringInfoListReponseDto getPvstringInfoListReponseDto = new GetPvstringInfoListReponseDto();
         getPvstringInfoListReponseDto.setPageCount(page.getPages());
         getPvstringInfoListReponseDto.setPageNum(page.getPageNum());
         getPvstringInfoListReponseDto.setPageSize(page.getPageSize());
         getPvstringInfoListReponseDto.setTotalCount(page.getTotal());
         List<PvStringInfoDto> pvStringDatas = new ArrayList<>();
-        for(PvStringInfo pvStringInfo : pvStringInfos) {
+        for(PvStringInfoDao pvStringInfoDao : pvStringInfoDaos) {
             PvStringInfoDto pvStringInfoDto = new PvStringInfoDto();
-            pvStringInfoDto.setDeviceId(pvStringInfo.getId());
-            pvStringInfoDto.setDeviceName(pvStringInfo.getStringNo());
-            pvStringInfoDto.setStandard(pvStringInfo.isStandard());
-            pvStringInfoDto.setU(pvStringInfo.getU());
-            pvStringInfoDto.setI(pvStringInfo.getI());
-            if (pvStringInfo.getI() != null && pvStringInfo.getU() != null) {
-                pvStringInfoDto.setP(pvStringInfo.getI() * pvStringInfo.getU());
+            pvStringInfoDto.setDeviceId(pvStringInfoDao.getId());
+            pvStringInfoDto.setDeviceName(pvStringInfoDao.getStringNo());
+            pvStringInfoDto.setStandard(pvStringInfoDao.isStandard());
+            pvStringInfoDto.setU(pvStringInfoDao.getU());
+            pvStringInfoDto.setI(pvStringInfoDao.getI());
+            if (pvStringInfoDao.getI() != null && pvStringInfoDao.getU() != null) {
+                pvStringInfoDto.setP(pvStringInfoDao.getI() * pvStringInfoDao.getU());
             }
             pvStringDatas.add(pvStringInfoDto);
         }
@@ -182,23 +185,23 @@ public class DeviceServiceImpl implements DeviceService {
         queryDeviceInfoDao.setEndTime(now);
 
         PageHelper.startPage(getDeviceListRequestDto.getPageNum(), getDeviceListRequestDto.getPageSize());
-        List<InverterInfo> inverterInfos = inverterDataMapper.getInverterInfoList(queryDeviceInfoDao);
-        PageInfo page = new PageInfo(inverterInfos);
+        List<InverterInfoDao> inverterInfoDaos = inverterDataMapper.getInverterInfoList(queryDeviceInfoDao);
+        PageInfo page = new PageInfo(inverterInfoDaos);
         GetInverterInfoListReponseDto getInverterInfoListReponseDto = new GetInverterInfoListReponseDto();
         getInverterInfoListReponseDto.setPageCount(page.getPages());
         getInverterInfoListReponseDto.setPageNum(page.getPageNum());
         getInverterInfoListReponseDto.setPageSize(page.getPageSize());
         getInverterInfoListReponseDto.setTotalCount(page.getTotal());
         List<InverterInfoDto> inverterDatas = new ArrayList<>();
-        for (InverterInfo inverterInfo : inverterInfos) {
+        for (InverterInfoDao inverterInfoDao : inverterInfoDaos) {
             InverterInfoDto inverterInfoDto = new InverterInfoDto();
-            inverterInfoDto.setDeviceId(inverterInfo.getId());
-            inverterInfoDto.setDeviceName(inverterInfo.getInverterNo());
-            inverterInfoDto.setStatus(inverterInfo.getStatus());
-            inverterInfoDto.setI(inverterInfo.getI());
-            inverterInfoDto.setU(inverterInfo.getU());
-            inverterInfoDto.setP(inverterInfo.getP());
-            inverterInfoDto.setCombinerBoxCount(inverterInfo.getCombinerBoxCount());
+            inverterInfoDto.setDeviceId(inverterInfoDao.getId());
+            inverterInfoDto.setDeviceName(inverterInfoDao.getInverterNo());
+            inverterInfoDto.setStatus(inverterInfoDao.getStatus());
+            inverterInfoDto.setI(inverterInfoDao.getI());
+            inverterInfoDto.setU(inverterInfoDao.getU());
+            inverterInfoDto.setP(inverterInfoDao.getP());
+            inverterInfoDto.setCombinerBoxCount(inverterInfoDao.getCombinerBoxCount());
             inverterDatas.add(inverterInfoDto);
         }
         getInverterInfoListReponseDto.setInverterInfos(inverterDatas);
@@ -221,7 +224,7 @@ public class DeviceServiceImpl implements DeviceService {
         queryDeviceInfoDao.setEndTime(now);
 
         PageHelper.startPage(getDeviceListRequestDto.getPageNum(), getDeviceListRequestDto.getPageSize());
-        List<CombinerBoxInfo> combinerBoxeInfos = combinerBoxDataMapper.getCombinerBoxInfoList(queryDeviceInfoDao);
+        List<CombinerBoxInfoDao> combinerBoxeInfos = combinerBoxDataMapper.getCombinerBoxInfoList(queryDeviceInfoDao);
         PageInfo page = new PageInfo(combinerBoxeInfos);
 
         GetCombinerBoxInfoListReponseDto getCombinerBoxInfoListReponseDto = new GetCombinerBoxInfoListReponseDto();
@@ -231,15 +234,15 @@ public class DeviceServiceImpl implements DeviceService {
         getCombinerBoxInfoListReponseDto.setTotalCount(page.getTotal());
         List<CombinerBoxInfoDto> combinerBoxDatas = new ArrayList<>();
 
-        for (CombinerBoxInfo combinerBoxInfo : combinerBoxeInfos) {
+        for (CombinerBoxInfoDao combinerBoxInfoDao : combinerBoxeInfos) {
             CombinerBoxInfoDto combinerBoxInfoDto = new CombinerBoxInfoDto();
-            combinerBoxInfoDto.setDeviceId(combinerBoxInfo.getId());
-            combinerBoxInfoDto.setDeviceName(combinerBoxInfo.getBoxNo());
-            combinerBoxInfoDto.setStatus(combinerBoxInfo.getStatus());
-            combinerBoxInfoDto.setI(combinerBoxInfo.getI());
-            combinerBoxInfoDto.setU(combinerBoxInfo.getU());
-            combinerBoxInfoDto.setP(combinerBoxInfo.getP());
-            combinerBoxInfoDto.setPvStringCount(combinerBoxInfo.getPvStringCount());
+            combinerBoxInfoDto.setDeviceId(combinerBoxInfoDao.getId());
+            combinerBoxInfoDto.setDeviceName(combinerBoxInfoDao.getBoxNo());
+            combinerBoxInfoDto.setStatus(combinerBoxInfoDao.getStatus());
+            combinerBoxInfoDto.setI(combinerBoxInfoDao.getI());
+            combinerBoxInfoDto.setU(combinerBoxInfoDao.getU());
+            combinerBoxInfoDto.setP(combinerBoxInfoDao.getP());
+            combinerBoxInfoDto.setPvStringCount(combinerBoxInfoDao.getPvStringCount());
             combinerBoxDatas.add(combinerBoxInfoDto);
         }
         getCombinerBoxInfoListReponseDto.setCombinerBoxInfos(combinerBoxDatas);
@@ -247,12 +250,54 @@ public class DeviceServiceImpl implements DeviceService {
         return resultDto;
     }
 
-    private void setDeviceStatusCount(List<DeviceStatusCount> devicesStatusCount, List<GetDeviceStatusInfoResponseDto> result) {
+    @Override
+    public ResultDto getTransformerInfoList(GetDeviceListRequestDto getDeviceListRequestDto) {
+        ResultDto resultDto = new ResultDto();
 
-        for (DeviceStatusCount deviceStatusCount : devicesStatusCount) {
+        Date now = new Date();
+        Calendar before10M = Calendar.getInstance();
+        before10M.setTime(now);
+        before10M.add(Calendar.MINUTE, -DATA_VALID_MINITUES);
+
+        QueryDeviceInfoDao queryDeviceInfoDao = new QueryDeviceInfoDao();
+        queryDeviceInfoDao.setDeviceStatus(getDeviceListRequestDto.getDeviceStatus());
+        queryDeviceInfoDao.setStartTime(before10M.getTime());
+        queryDeviceInfoDao.setEndTime(now);
+
+        PageHelper.startPage(getDeviceListRequestDto.getPageNum(), getDeviceListRequestDto.getPageSize());
+        List<TransformerInfoDao> transformerInfoDaos = transformerDataMapper.getTransformerInfoList(queryDeviceInfoDao);
+        PageInfo page = new PageInfo(transformerInfoDaos);
+
+        TransformerInfoListReponseDto transformerInfoListReponseDto = new TransformerInfoListReponseDto();
+        transformerInfoListReponseDto.setPageCount(page.getPages());
+        transformerInfoListReponseDto.setPageNum(page.getPageNum());
+        transformerInfoListReponseDto.setPageSize(page.getPageSize());
+        transformerInfoListReponseDto.setTotalCount(page.getTotal());
+        List<TransformerInfoDto> transformerInfoDtos = new ArrayList<>();
+
+        for (TransformerInfoDao transformerInfoDao : transformerInfoDaos) {
+            TransformerInfoDto transformerInfoDto = new TransformerInfoDto();
+            transformerInfoDto.setDeviceId(transformerInfoDao.getId());
+            transformerInfoDto.setDeviceName(transformerInfoDao.getTransformerNo());
+            transformerInfoDto.setStatus(transformerInfoDao.getStatus());
+            transformerInfoDto.setLU(transformerInfoDao.getLU());
+            transformerInfoDto.setHU(transformerInfoDao.getHU());
+            transformerInfoDto.setPac(transformerInfoDao.getPac());
+            transformerInfoDto.setFac(transformerInfoDao.getFac());
+            transformerInfoDto.setInverterCount(transformerInfoDao.getInverterCount());
+            transformerInfoDtos.add(transformerInfoDto);
+        }
+        transformerInfoListReponseDto.setTransformerInfos(transformerInfoDtos);
+        resultDto.setEntity(transformerInfoListReponseDto);
+        return resultDto;
+    }
+
+    private void setDeviceStatusCount(List<DeviceStatusCountDao> devicesStatusCount, List<GetDeviceStatusInfoResponseDto> result) {
+
+        for (DeviceStatusCountDao deviceStatusCountDao : devicesStatusCount) {
             for (GetDeviceStatusInfoResponseDto deviceStatusCountDto : result) {
-                if (deviceStatusCount.getStatus() == deviceStatusCountDto.getDeviceStautsCode()) {
-                    int deviceCount = deviceStatusCount.getDeviceCount() + deviceStatusCountDto.getDeviceCount();
+                if (deviceStatusCountDao.getStatus() == deviceStatusCountDto.getDeviceStautsCode()) {
+                    int deviceCount = deviceStatusCountDao.getDeviceCount() + deviceStatusCountDto.getDeviceCount();
                     deviceStatusCountDto.setDeviceCount(deviceCount);
                 }
             }

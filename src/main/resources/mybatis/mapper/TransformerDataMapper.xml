@@ -150,4 +150,22 @@
       device_time = #{deviceTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=OTHER}
   </update>
+  <select id="getTransformerInfoList" parameterType="com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao" resultType="com.pvsoul.eec.yuandong.dao.TransformerInfoDao">
+    SELECT ID,
+        transformer_no,
+        status,
+        ( SELECT l_u FROM transformer_data tfd WHERE tfd.transformer_id = tf.ID and device_time &gt;= #{startTime} and device_time &lt;= #{endTime} ORDER BY device_time DESC LIMIT 1 ) l_u,
+        ( SELECT h_u FROM transformer_data tfd WHERE tfd.transformer_id = tf.ID and device_time &gt;= #{startTime} and device_time &lt;= #{endTime} ORDER BY device_time DESC LIMIT 1 ) h_u,
+        ( SELECT pac FROM transformer_data tfd WHERE tfd.transformer_id = tf.ID and device_time &gt;= #{startTime} and device_time &lt;= #{endTime} ORDER BY device_time DESC LIMIT 1 ) pac,
+        ( SELECT fac FROM transformer_data tfd WHERE tfd.transformer_id = tf.ID and device_time &gt;= #{startTime} and device_time &lt;= #{endTime} ORDER BY device_time DESC LIMIT 1 ) fac,
+        ( SELECT p_factor FROM transformer_data tfd WHERE tfd.transformer_id = tf.ID and device_time &gt;= #{startTime} and device_time &lt;= #{endTime} ORDER BY device_time DESC LIMIT 1 ) p_factor,
+        ( SELECT COUNT ( 1 ) FROM inverter WHERE transformer_id = tf.ID ) inverter_count
+    FROM transformer tf
+    <where>
+      <if test="deviceStatus != null">
+        and tf.status = #{deviceStatus}
+      </if>
+    </where>
+    ORDER BY transformer_no
+  </select>
 </mapper>

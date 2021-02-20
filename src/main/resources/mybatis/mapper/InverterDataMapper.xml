@@ -341,7 +341,7 @@
           ) e_total
   from inverter it
   </select>
-  <select id="getInverterInfoList" parameterType="com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao" resultType="com.pvsoul.eec.yuandong.dao.InverterInfo">
+  <select id="getInverterInfoList" parameterType="com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao" resultType="com.pvsoul.eec.yuandong.dao.InverterInfoDao">
     SELECT ID,
         inverter_no,
         status,

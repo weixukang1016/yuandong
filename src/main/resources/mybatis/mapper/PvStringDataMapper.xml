@@ -161,7 +161,7 @@
       transformer_id = #{transformerId,jdbcType=OTHER}
     where id = #{id,jdbcType=OTHER}
   </update>
-  <select id="getPvStringInfoList" parameterType="com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao" resultType="com.pvsoul.eec.yuandong.dao.PvStringInfo">
+  <select id="getPvStringInfoList" parameterType="com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao" resultType="com.pvsoul.eec.yuandong.dao.PvStringInfoDao">
     SELECT ID ,
         string_no,
         status,

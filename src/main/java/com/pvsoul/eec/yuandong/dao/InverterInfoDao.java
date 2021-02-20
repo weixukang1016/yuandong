@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class InverterInfo {
+public class InverterInfoDao {
 
     private  String id;
 

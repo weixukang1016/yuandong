@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CombinerBoxInfo {
+public class CombinerBoxInfoDao {
 
     private  String id;
 

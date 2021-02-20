@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PvStringInfo {
+public class PvStringInfoDao {
 
     private  String id;
 

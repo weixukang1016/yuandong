@@ -2,7 +2,7 @@ package com.pvsoul.eec.yuandong.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pvsoul.eec.yuandong.entity.CombinerBox;
-import com.pvsoul.eec.yuandong.dao.DeviceStatusCount;
+import com.pvsoul.eec.yuandong.dao.DeviceStatusCountDao;
 
 import java.util.List;
 
@@ -19,5 +19,5 @@ public interface CombinerBoxMapper extends BaseMapper<CombinerBox> {
 
     int updateByPrimaryKey(CombinerBox record);
 
-    List<DeviceStatusCount> getDeviceStatusCount();
+    List<DeviceStatusCountDao> getDeviceStatusCount();
 }

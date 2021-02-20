@@ -14,4 +14,6 @@ public interface DeviceService {
     ResultDto getInverterInfoList(GetDeviceListRequestDto getDeviceListRequestDto);
 
     ResultDto getCombinerBoxInfoList(GetDeviceListRequestDto getDeviceListRequestDto);
+
+    ResultDto getTransformerInfoList(GetDeviceListRequestDto getDeviceListRequestDto);
 }

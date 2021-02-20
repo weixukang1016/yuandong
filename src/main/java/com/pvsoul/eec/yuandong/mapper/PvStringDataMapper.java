@@ -1,7 +1,7 @@
 package com.pvsoul.eec.yuandong.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.pvsoul.eec.yuandong.dao.PvStringInfo;
+import com.pvsoul.eec.yuandong.dao.PvStringInfoDao;
 import com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao;
 import com.pvsoul.eec.yuandong.entity.PvStringData;
 
@@ -20,5 +20,5 @@ public interface PvStringDataMapper extends BaseMapper<PvStringData> {
 
     int updateByPrimaryKey(PvStringData record);
 
-    List<PvStringInfo> getPvStringInfoList(QueryDeviceInfoDao deviceStatus);
+    List<PvStringInfoDao> getPvStringInfoList(QueryDeviceInfoDao deviceStatus);
 }

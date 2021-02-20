@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DeviceStatusCount {
+public class DeviceStatusCountDao {
 
     private int status;
 
