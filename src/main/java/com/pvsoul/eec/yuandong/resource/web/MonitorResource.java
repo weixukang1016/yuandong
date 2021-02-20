@@ -1,7 +1,10 @@
 package com.pvsoul.eec.yuandong.resource.web;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.pvsoul.eec.yuandong.dto.ResultDto;
-import com.pvsoul.eec.yuandong.dto.web.request.GetPvstringListRequestDto;
+import com.pvsoul.eec.yuandong.dto.web.request.GetDeviceListRequestDto;
 import com.pvsoul.eec.yuandong.service.DeviceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,21 +32,34 @@ public class MonitorResource {
     @POST
     @Path("/getinverterlist")
     //@ApiOperation("获取逆变器列表")
-    public Response getInverterList(@Context HttpServletRequest request) {
+    public Response getInverterList(@Context HttpServletRequest request, GetDeviceListRequestDto getDeviceListRequestDto) {
 
         //log.info(JSONObject.toJSONString(data));
-        ResultDto resultDto = new ResultDto();
-        return Response.status(Response.Status.OK).entity(resultDto).build();
+        ResultDto resultDto = deviceService.getInverterInfoList(getDeviceListRequestDto);
+        String result = JSONObject.toJSONString(resultDto, SerializerFeature.WriteMapNullValue);
+        return Response.status(Response.Status.OK).entity(result).build();
+    }
+
+    @POST
+    @Path("/getcombinerboxlist")
+    //@ApiOperation("获取汇流箱列表")
+    public Response getCombinerBoxList(@Context HttpServletRequest request, GetDeviceListRequestDto getDeviceListRequestDto) {
+
+        //log.info(JSONObject.toJSONString(data));
+        ResultDto resultDto = deviceService.getCombinerBoxInfoList(getDeviceListRequestDto);
+        String result = JSONObject.toJSONString(resultDto, SerializerFeature.WriteMapNullValue);
+        return Response.status(Response.Status.OK).entity(result).build();
     }
 
     @POST
     @Path("/getpvstringlist")
     //@ApiOperation("获取光伏组串列表")
-    public Response getPvstringList(@Context HttpServletRequest request, GetPvstringListRequestDto getPvstringListRequestDto) {
+    public Response getPvstringList(@Context HttpServletRequest request, GetDeviceListRequestDto getDeviceListRequestDto) {
 
         //log.info(JSONObject.toJSONString(data));
-        ResultDto resultDto = deviceService.getPvStringInfoList(getPvstringListRequestDto);
-        return Response.status(Response.Status.OK).entity(resultDto).build();
+        ResultDto resultDto = deviceService.getPvStringInfoList(getDeviceListRequestDto);
+        String result = JSONObject.toJSONString(resultDto, SerializerFeature.WriteMapNullValue);
+        return Response.status(Response.Status.OK).entity(result).build();
     }
 
 }

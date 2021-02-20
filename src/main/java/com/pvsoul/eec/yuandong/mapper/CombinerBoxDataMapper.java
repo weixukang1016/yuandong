@@ -1,7 +1,11 @@
 package com.pvsoul.eec.yuandong.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pvsoul.eec.yuandong.dao.CombinerBoxInfo;
+import com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao;
 import com.pvsoul.eec.yuandong.entity.CombinerBoxData;
+
+import java.util.List;
 
 public interface CombinerBoxDataMapper extends BaseMapper<CombinerBoxData> {
     int deleteByPrimaryKey(Object id);
@@ -15,4 +19,6 @@ public interface CombinerBoxDataMapper extends BaseMapper<CombinerBoxData> {
     int updateByPrimaryKeySelective(CombinerBoxData record);
 
     int updateByPrimaryKey(CombinerBoxData record);
+
+    List<CombinerBoxInfo> getCombinerBoxInfoList(QueryDeviceInfoDao queryDeviceInfoDao);
 }

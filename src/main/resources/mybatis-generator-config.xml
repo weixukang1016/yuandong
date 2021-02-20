@@ -118,12 +118,6 @@
                    enableCountByExample="false" selectByExampleQueryId="false"
                    enableUpdateByExample="false">
             </table>
-            <table tableName='combiner_box_data' domainObjectName="CombinerBoxData"
-                   delimitIdentifiers="false" delimitAllColumns="false"
-                   enableSelectByExample="false" enableDeleteByExample="false"
-                   enableCountByExample="false" selectByExampleQueryId="false"
-                   enableUpdateByExample="false">
-            </table>
         <table tableName='inverter' domainObjectName="Inverter"
                delimitIdentifiers="false" delimitAllColumns="false"
                enableSelectByExample="false" enableDeleteByExample="false"
@@ -148,8 +142,14 @@
                enableCountByExample="false" selectByExampleQueryId="false"
                enableUpdateByExample="false">
         </table>
-        -->
         <table tableName='pv_string' domainObjectName="PvString"
+               delimitIdentifiers="false" delimitAllColumns="false"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" selectByExampleQueryId="false"
+               enableUpdateByExample="false">
+        </table>
+        -->
+        <table tableName='combiner_box_data' domainObjectName="CombinerBoxData"
                delimitIdentifiers="false" delimitAllColumns="false"
                enableSelectByExample="false" enableDeleteByExample="false"
                enableCountByExample="false" selectByExampleQueryId="false"

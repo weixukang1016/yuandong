@@ -341,4 +341,48 @@
           ) e_total
   from inverter it
   </select>
+  <select id="getInverterInfoList" parameterType="com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao" resultType="com.pvsoul.eec.yuandong.dao.InverterInfo">
+    SELECT ID,
+        inverter_no,
+        status,
+        ( SELECT pac
+        FROM inverter_data itd
+        WHERE itd.inverter_id = it.ID  and device_time &gt;= #{startTime} and device_time &lt;= #{endTime}
+        ORDER BY device_time DESC LIMIT ( 1 ) ) P,
+        (
+        SELECT AVG( itad.i )
+        FROM
+        inverter_data itd
+        INNER JOIN inverter_ac_data itad ON ( itad.inverter_data_id = itd.ID )
+        WHERE
+        itd.inverter_id = it.ID and device_time &gt;= #{startTime} and device_time &lt;= #{endTime}
+        GROUP BY
+        itd.device_time
+        ORDER BY
+        itd.device_time DESC
+        LIMIT ( 1 )
+        ) i,
+        (
+        SELECT 1.732 * AVG( itad.u )
+        FROM
+        inverter_data itd
+        INNER JOIN inverter_ac_data itad ON ( itad.inverter_data_id = itd.ID )
+        WHERE
+        itd.inverter_id = it.ID and device_time &gt;= #{startTime} and device_time &lt;= #{endTime}
+        GROUP BY
+        itd.device_time
+        ORDER BY
+        itd.device_time DESC
+        LIMIT ( 1 )
+        ) u,
+        ( SELECT COUNT ( 1 ) FROM combiner_box WHERE inverter_id = it.ID ) combiner_box_count
+        FROM
+        inverter it
+    <where>
+      <if test="deviceStatus != null">
+        and it.status = #{deviceStatus}
+      </if>
+    </where>
+    ORDER BY inverter_no
+  </select>
 </mapper>

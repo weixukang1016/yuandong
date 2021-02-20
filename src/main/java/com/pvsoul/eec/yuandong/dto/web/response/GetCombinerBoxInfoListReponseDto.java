@@ -14,9 +14,9 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GetPvstringListReponseDto implements Serializable {
+public class GetCombinerBoxInfoListReponseDto implements Serializable {
 
-    private static final long serialVersionUID = 313712306478565091L;
+    private static final long serialVersionUID = -742875502367788710L;
 
     private int pageNum;
 
@@ -26,5 +26,5 @@ public class GetPvstringListReponseDto implements Serializable {
 
     private long totalCount;
 
-    private List<PvStringInfoDto> pvStringDatas;
+    private List<CombinerBoxInfoDto> combinerBoxInfos;
 }

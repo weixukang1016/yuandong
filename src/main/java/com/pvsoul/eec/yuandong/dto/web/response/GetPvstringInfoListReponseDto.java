@@ -7,29 +7,24 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PvStringInfoDto implements Serializable {
+public class GetPvstringInfoListReponseDto implements Serializable {
 
-    private static final long serialVersionUID = 5099757433940155886L;
+    private static final long serialVersionUID = 313712306478565091L;
 
-    private String deviceName;
+    private int pageNum;
 
-    private String deviceId;
+    private int pageSize;
 
-    private boolean isStandard;
+    private int pageCount;
 
-    private int status;
+    private long totalCount;
 
-    private Float u;
-
-    private Float i;
-
-    private Float p;
-
-    private Float temperature;
+    private List<PvStringInfoDto> pvStringInfos;
 }

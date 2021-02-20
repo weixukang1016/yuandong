@@ -23,6 +23,8 @@ public class CombinerBoxData {
 
     private Object transformerId;
 
+    private Float p;
+
     public Object getId() {
         return id;
     }
@@ -101,5 +103,13 @@ public class CombinerBoxData {
 
     public void setTransformerId(Object transformerId) {
         this.transformerId = transformerId;
+    }
+
+    public Float getP() {
+        return p;
+    }
+
+    public void setP(Float p) {
+        this.p = p;
     }
 }

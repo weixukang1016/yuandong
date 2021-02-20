@@ -1,6 +1,8 @@
 package com.pvsoul.eec.yuandong.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pvsoul.eec.yuandong.dao.InverterInfo;
+import com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao;
 import com.pvsoul.eec.yuandong.entity.InverterData;
 
 import java.util.Date;
@@ -25,4 +27,11 @@ public interface InverterDataMapper extends BaseMapper<InverterData> {
      * @return
      */
     List<InverterData> getInverterLastDatas(Date endTime);
+
+    /**
+     * 根据状态获取逆变器的信息
+     * @param queryDeviceInfoDao
+     * @return
+     */
+    List<InverterInfo> getInverterInfoList(QueryDeviceInfoDao queryDeviceInfoDao);
 }

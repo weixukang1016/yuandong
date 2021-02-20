@@ -1,11 +1,7 @@
 package com.pvsoul.eec.yuandong.service;
 
 import com.pvsoul.eec.yuandong.dto.ResultDto;
-import com.pvsoul.eec.yuandong.dto.web.request.GetPvstringListRequestDto;
-import com.pvsoul.eec.yuandong.dto.web.response.GetDeviceInfoResponseDto;
-import com.pvsoul.eec.yuandong.dto.web.response.GetDeviceStatusInfoResponseDto;
-
-import java.util.List;
+import com.pvsoul.eec.yuandong.dto.web.request.GetDeviceListRequestDto;
 
 public interface DeviceService {
 
@@ -13,5 +9,9 @@ public interface DeviceService {
 
     ResultDto getDevicesStatusInfo(int deviceTypeCode);
 
-    ResultDto getPvStringInfoList(GetPvstringListRequestDto getPvstringListRequestDto);
+    ResultDto getPvStringInfoList(GetDeviceListRequestDto getDeviceListRequestDto);
+
+    ResultDto getInverterInfoList(GetDeviceListRequestDto getDeviceListRequestDto);
+
+    ResultDto getCombinerBoxInfoList(GetDeviceListRequestDto getDeviceListRequestDto);
 }

@@ -13,15 +13,13 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PvStringInfoDto implements Serializable {
+public class CombinerBoxInfoDto implements Serializable {
 
-    private static final long serialVersionUID = 5099757433940155886L;
+    private static final long serialVersionUID = -3631272243833728501L;
 
     private String deviceName;
 
     private String deviceId;
-
-    private boolean isStandard;
 
     private int status;
 
@@ -32,4 +30,6 @@ public class PvStringInfoDto implements Serializable {
     private Float p;
 
     private Float temperature;
+
+    private int pvStringCount;
 }

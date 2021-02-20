@@ -1,10 +1,14 @@
 package com.pvsoul.eec.yuandong.dto.web.response;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.glassfish.jersey.jackson.internal.jackson.jaxrs.annotation.JacksonFeatures;
 
 import java.io.Serializable;
 
@@ -13,15 +17,13 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PvStringInfoDto implements Serializable {
+public class InverterInfoDto implements Serializable {
 
-    private static final long serialVersionUID = 5099757433940155886L;
+    private static final long serialVersionUID = 7207868137407200313L;
 
     private String deviceName;
 
     private String deviceId;
-
-    private boolean isStandard;
 
     private int status;
 
@@ -31,5 +33,6 @@ public class PvStringInfoDto implements Serializable {
 
     private Float p;
 
-    private Float temperature;
+    private int combinerBoxCount;
+
 }

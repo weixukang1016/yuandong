@@ -3,21 +3,14 @@ package com.pvsoul.eec.yuandong.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.pvsoul.eec.yuandong.dao.PvStringInfo;
+import com.pvsoul.eec.yuandong.dao.*;
 import com.pvsoul.eec.yuandong.dto.ResultDto;
-import com.pvsoul.eec.yuandong.dto.web.request.GetPvstringListRequestDto;
-import com.pvsoul.eec.yuandong.dto.web.response.GetDeviceInfoResponseDto;
-import com.pvsoul.eec.yuandong.dto.web.response.GetDeviceStatusInfoResponseDto;
-import com.pvsoul.eec.yuandong.dto.web.response.GetPvstringListReponseDto;
-import com.pvsoul.eec.yuandong.dto.web.response.PvStringInfoDto;
+import com.pvsoul.eec.yuandong.dto.web.request.GetDeviceListRequestDto;
+import com.pvsoul.eec.yuandong.dto.web.response.*;
 import com.pvsoul.eec.yuandong.entity.CombinerBox;
-import com.pvsoul.eec.yuandong.dao.DeviceStatusCount;
 import com.pvsoul.eec.yuandong.entity.Inverter;
 import com.pvsoul.eec.yuandong.entity.PvString;
-import com.pvsoul.eec.yuandong.mapper.CombinerBoxMapper;
-import com.pvsoul.eec.yuandong.mapper.InverterMapper;
-import com.pvsoul.eec.yuandong.mapper.PvStringDataMapper;
-import com.pvsoul.eec.yuandong.mapper.PvStringMapper;
+import com.pvsoul.eec.yuandong.mapper.*;
 import com.pvsoul.eec.yuandong.service.DeviceService;
 import com.pvsoul.eec.yuandong.util.DeviceStatus;
 import com.pvsoul.eec.yuandong.util.DeviceType;
@@ -26,11 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
 @Slf4j
 public class DeviceServiceImpl implements DeviceService {
+
+    private static final int DATA_VALID_MINITUES = 10; //数据有效时间（10分钟）
 
     @Autowired
     private InverterMapper inverterMapper;
@@ -43,6 +40,12 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Autowired
     private PvStringDataMapper pvStringDataMapper;
+
+    @Autowired
+    private CombinerBoxDataMapper combinerBoxDataMapper;
+
+    @Autowired
+    private InverterDataMapper inverterDataMapper;
 
     @Override
     public ResultDto getDevicesInfo() {
@@ -127,16 +130,26 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public ResultDto getPvStringInfoList(GetPvstringListRequestDto getPvstringListRequestDto) {
+    public ResultDto getPvStringInfoList(GetDeviceListRequestDto getDeviceListRequestDto) {
         ResultDto resultDto = new ResultDto();
-        PageHelper.startPage(getPvstringListRequestDto.getPageNum(), getPvstringListRequestDto.getPageSize());
-        List<PvStringInfo> pvStringInfos = pvStringDataMapper.getPvStringList(getPvstringListRequestDto.getDeviceStatus());
+        Date now = new Date();
+        Calendar before10M = Calendar.getInstance();
+        before10M.setTime(now);
+        before10M.add(Calendar.MINUTE, -DATA_VALID_MINITUES);
+
+        QueryDeviceInfoDao queryDeviceInfoDao = new QueryDeviceInfoDao();
+        queryDeviceInfoDao.setDeviceStatus(getDeviceListRequestDto.getDeviceStatus());
+        queryDeviceInfoDao.setStartTime(before10M.getTime());
+        queryDeviceInfoDao.setEndTime(now);
+
+        PageHelper.startPage(getDeviceListRequestDto.getPageNum(), getDeviceListRequestDto.getPageSize());
+        List<PvStringInfo> pvStringInfos = pvStringDataMapper.getPvStringInfoList(queryDeviceInfoDao);
         PageInfo page = new PageInfo(pvStringInfos);
-        GetPvstringListReponseDto getPvstringListReponseDto = new GetPvstringListReponseDto();
-        getPvstringListReponseDto.setPageCount(page.getPages());
-        getPvstringListReponseDto.setPageNum(page.getPageNum());
-        getPvstringListReponseDto.setPageSize(page.getPageSize());
-        getPvstringListReponseDto.setTotalCount(page.getTotal());
+        GetPvstringInfoListReponseDto getPvstringInfoListReponseDto = new GetPvstringInfoListReponseDto();
+        getPvstringInfoListReponseDto.setPageCount(page.getPages());
+        getPvstringInfoListReponseDto.setPageNum(page.getPageNum());
+        getPvstringInfoListReponseDto.setPageSize(page.getPageSize());
+        getPvstringInfoListReponseDto.setTotalCount(page.getTotal());
         List<PvStringInfoDto> pvStringDatas = new ArrayList<>();
         for(PvStringInfo pvStringInfo : pvStringInfos) {
             PvStringInfoDto pvStringInfoDto = new PvStringInfoDto();
@@ -145,11 +158,92 @@ public class DeviceServiceImpl implements DeviceService {
             pvStringInfoDto.setStandard(pvStringInfo.isStandard());
             pvStringInfoDto.setU(pvStringInfo.getU());
             pvStringInfoDto.setI(pvStringInfo.getI());
-            pvStringInfoDto.setP(pvStringInfo.getI() * pvStringInfo.getU());
+            if (pvStringInfo.getI() != null && pvStringInfo.getU() != null) {
+                pvStringInfoDto.setP(pvStringInfo.getI() * pvStringInfo.getU());
+            }
             pvStringDatas.add(pvStringInfoDto);
         }
-        getPvstringListReponseDto.setPvStringDatas(pvStringDatas);
-        resultDto.setEntity(getPvstringListReponseDto);
+        getPvstringInfoListReponseDto.setPvStringInfos(pvStringDatas);
+        resultDto.setEntity(getPvstringInfoListReponseDto);
+        return resultDto;
+    }
+
+    @Override
+    public ResultDto getInverterInfoList(GetDeviceListRequestDto getDeviceListRequestDto) {
+        ResultDto resultDto = new ResultDto();
+        Date now = new Date();
+        Calendar before10M = Calendar.getInstance();
+        before10M.setTime(now);
+        before10M.add(Calendar.MINUTE, -DATA_VALID_MINITUES);
+
+        QueryDeviceInfoDao queryDeviceInfoDao = new QueryDeviceInfoDao();
+        queryDeviceInfoDao.setDeviceStatus(getDeviceListRequestDto.getDeviceStatus());
+        queryDeviceInfoDao.setStartTime(before10M.getTime());
+        queryDeviceInfoDao.setEndTime(now);
+
+        PageHelper.startPage(getDeviceListRequestDto.getPageNum(), getDeviceListRequestDto.getPageSize());
+        List<InverterInfo> inverterInfos = inverterDataMapper.getInverterInfoList(queryDeviceInfoDao);
+        PageInfo page = new PageInfo(inverterInfos);
+        GetInverterInfoListReponseDto getInverterInfoListReponseDto = new GetInverterInfoListReponseDto();
+        getInverterInfoListReponseDto.setPageCount(page.getPages());
+        getInverterInfoListReponseDto.setPageNum(page.getPageNum());
+        getInverterInfoListReponseDto.setPageSize(page.getPageSize());
+        getInverterInfoListReponseDto.setTotalCount(page.getTotal());
+        List<InverterInfoDto> inverterDatas = new ArrayList<>();
+        for (InverterInfo inverterInfo : inverterInfos) {
+            InverterInfoDto inverterInfoDto = new InverterInfoDto();
+            inverterInfoDto.setDeviceId(inverterInfo.getId());
+            inverterInfoDto.setDeviceName(inverterInfo.getInverterNo());
+            inverterInfoDto.setStatus(inverterInfo.getStatus());
+            inverterInfoDto.setI(inverterInfo.getI());
+            inverterInfoDto.setU(inverterInfo.getU());
+            inverterInfoDto.setP(inverterInfo.getP());
+            inverterInfoDto.setCombinerBoxCount(inverterInfo.getCombinerBoxCount());
+            inverterDatas.add(inverterInfoDto);
+        }
+        getInverterInfoListReponseDto.setInverterInfos(inverterDatas);
+        resultDto.setEntity(getInverterInfoListReponseDto);
+        return resultDto;
+    }
+
+    @Override
+    public ResultDto getCombinerBoxInfoList(GetDeviceListRequestDto getDeviceListRequestDto) {
+        ResultDto resultDto = new ResultDto();
+
+        Date now = new Date();
+        Calendar before10M = Calendar.getInstance();
+        before10M.setTime(now);
+        before10M.add(Calendar.MINUTE, -DATA_VALID_MINITUES);
+
+        QueryDeviceInfoDao queryDeviceInfoDao = new QueryDeviceInfoDao();
+        queryDeviceInfoDao.setDeviceStatus(getDeviceListRequestDto.getDeviceStatus());
+        queryDeviceInfoDao.setStartTime(before10M.getTime());
+        queryDeviceInfoDao.setEndTime(now);
+
+        PageHelper.startPage(getDeviceListRequestDto.getPageNum(), getDeviceListRequestDto.getPageSize());
+        List<CombinerBoxInfo> combinerBoxeInfos = combinerBoxDataMapper.getCombinerBoxInfoList(queryDeviceInfoDao);
+        PageInfo page = new PageInfo(combinerBoxeInfos);
+
+        GetCombinerBoxInfoListReponseDto getCombinerBoxInfoListReponseDto = new GetCombinerBoxInfoListReponseDto();
+        getCombinerBoxInfoListReponseDto.setPageCount(page.getPages());
+        getCombinerBoxInfoListReponseDto.setPageNum(page.getPageNum());
+        getCombinerBoxInfoListReponseDto.setPageSize(page.getPageSize());
+        getCombinerBoxInfoListReponseDto.setTotalCount(page.getTotal());
+        List<CombinerBoxInfoDto> combinerBoxDatas = new ArrayList<>();
+
+        for (CombinerBoxInfo combinerBoxInfo : combinerBoxeInfos) {
+            CombinerBoxInfoDto combinerBoxInfoDto = new CombinerBoxInfoDto();
+            combinerBoxInfoDto.setDeviceId(combinerBoxInfo.getId());
+            combinerBoxInfoDto.setDeviceName(combinerBoxInfo.getBoxNo());
+            combinerBoxInfoDto.setStatus(combinerBoxInfo.getStatus());
+            combinerBoxInfoDto.setI(combinerBoxInfo.getI());
+            combinerBoxInfoDto.setU(combinerBoxInfo.getU());
+            combinerBoxInfoDto.setP(combinerBoxInfo.getP());
+            combinerBoxInfoDto.setPvStringCount(combinerBoxInfo.getPvStringCount());
+            combinerBoxDatas.add(combinerBoxInfoDto);
+        }
+        getCombinerBoxInfoListReponseDto.setCombinerBoxInfos(combinerBoxDatas);
+        resultDto.setEntity(getCombinerBoxInfoListReponseDto);
         return resultDto;
     }
 

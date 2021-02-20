@@ -12,10 +12,11 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="device_time" jdbcType="TIMESTAMP" property="deviceTime" />
     <result column="transformer_id" jdbcType="OTHER" property="transformerId" />
+    <result column="p" jdbcType="REAL" property="p" />
   </resultMap>
   <sql id="Base_Column_List">
     id, power_station_id, inverter_id, combiner_box_id, u, i, temperature, create_time, 
-    device_time, transformer_id
+    device_time, transformer_id, p
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
     select 
@@ -30,12 +31,12 @@
   <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.CombinerBoxData">
     insert into combiner_box_data (id, power_station_id, inverter_id, 
       combiner_box_id, u, i, temperature, 
-      create_time, device_time, transformer_id
-      )
+      create_time, device_time, transformer_id, 
+      p)
     values (#{id,jdbcType=OTHER}, #{powerStationId,jdbcType=OTHER}, #{inverterId,jdbcType=OTHER}, 
       #{combinerBoxId,jdbcType=OTHER}, #{u,jdbcType=REAL}, #{i,jdbcType=REAL}, #{temperature,jdbcType=REAL}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{deviceTime,jdbcType=TIMESTAMP}, #{transformerId,jdbcType=OTHER}
-      )
+      #{createTime,jdbcType=TIMESTAMP}, #{deviceTime,jdbcType=TIMESTAMP}, #{transformerId,jdbcType=OTHER}, 
+      #{p,jdbcType=REAL})
   </insert>
   <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.CombinerBoxData">
     insert into combiner_box_data
@@ -70,6 +71,9 @@
       <if test="transformerId != null">
         transformer_id,
       </if>
+      <if test="p != null">
+        p,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -101,6 +105,9 @@
       </if>
       <if test="transformerId != null">
         #{transformerId,jdbcType=OTHER},
+      </if>
+      <if test="p != null">
+        #{p,jdbcType=REAL},
       </if>
     </trim>
   </insert>
@@ -134,6 +141,9 @@
       <if test="transformerId != null">
         transformer_id = #{transformerId,jdbcType=OTHER},
       </if>
+      <if test="p != null">
+        p = #{p,jdbcType=REAL},
+      </if>
     </set>
     where id = #{id,jdbcType=OTHER}
   </update>
@@ -147,7 +157,26 @@
       temperature = #{temperature,jdbcType=REAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       device_time = #{deviceTime,jdbcType=TIMESTAMP},
-      transformer_id = #{transformerId,jdbcType=OTHER}
+      transformer_id = #{transformerId,jdbcType=OTHER},
+      p = #{p,jdbcType=REAL}
     where id = #{id,jdbcType=OTHER}
   </update>
+  <select id="getCombinerBoxInfoList" parameterType="com.pvsoul.eec.yuandong.dao.QueryDeviceInfoDao" resultType="com.pvsoul.eec.yuandong.dao.CombinerBoxInfo">
+    SELECT ID ,
+	box_no,
+	status,
+	( SELECT u FROM combiner_box_data cbd WHERE cbd.combiner_box_id = cb.ID and device_time &gt;= #{startTime} and device_time &lt;= #{endTime} ORDER BY device_time DESC LIMIT 1 ) u,
+	( SELECT i FROM combiner_box_data cbd WHERE cbd.combiner_box_id = cb.ID and device_time &gt;= #{startTime} and device_time &lt;= #{endTime} ORDER BY device_time DESC LIMIT 1 ) i,
+	( SELECT P FROM combiner_box_data cbd WHERE cbd.combiner_box_id = cb.ID and device_time &gt;= #{startTime} and device_time &lt;= #{endTime} ORDER BY device_time DESC LIMIT 1 ) P,
+	( SELECT temperature FROM combiner_box_data cbd WHERE cbd.combiner_box_id = cb.ID and device_time &gt;= #{startTime} and device_time &lt;= #{endTime} ORDER BY device_time DESC LIMIT 1 ) temperature,
+	( SELECT COUNT ( 1 ) FROM pv_string WHERE combiner_box_id = cb.ID ) pv_string_count
+FROM
+	combiner_box cb
+    <where>
+      <if test="deviceStatus != null">
+        and cb.status = #{deviceStatus}
+      </if>
+    </where>
+    ORDER BY box_no
+  </select>
 </mapper>

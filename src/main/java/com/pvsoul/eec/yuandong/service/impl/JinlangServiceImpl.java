@@ -128,6 +128,7 @@ public class JinlangServiceImpl implements JinlangService {
             CombinerBox combinerBox = null;
             float combinerI = 0;
             float combinerU = 0;
+            float combinerP = 0;
             int pvStringCountInCombiner = 0;
             if (inverter != null) {
                 //查找数据对应的汇流箱,因为远东的是光伏组串直接接逆变器，汇流箱是虚拟汇流箱，因此汇流箱是根据逆变器来查找的
@@ -196,6 +197,7 @@ public class JinlangServiceImpl implements JinlangService {
                         if (combinerBox != null) {
                             combinerU += pvUI.getU();
                             combinerI += pvUI.getI();
+                            combinerP += (pvUI.getU() * pvUI.getI());
                             pvStringCountInCombiner++;
                         }
                     }
@@ -212,6 +214,7 @@ public class JinlangServiceImpl implements JinlangService {
                 combinerBoxData.setCombinerBoxId(combinerBox.getId());
                 combinerBoxData.setU(combinerU / pvStringCountInCombiner);  //用逆变器各支路的电压求平均
                 combinerBoxData.setI(combinerI); //用逆变器各支路的电流和
+                combinerBoxData.setP(combinerP); //用逆变器各支路的电压*电流求和
                 combinerBoxData.setTemperature(inverterDataDto.getInverterTemp()); //用逆变器的温度
                 combinerBoxData.setCreateTime(now);
                 combinerBoxData.setDeviceTime(data.getTime());//用逆变器数据上报的时间

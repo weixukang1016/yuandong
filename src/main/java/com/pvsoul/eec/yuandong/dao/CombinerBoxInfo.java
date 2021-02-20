@@ -5,19 +5,21 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PvStringInfo {
+public class CombinerBoxInfo {
 
     private  String id;
 
-    private String stringNo;
+    private String boxNo;
 
     private int status;
-
-    private boolean isStandard;
 
     private Float u;
 
     private Float i;
 
+    private Float p;
+
     private Float temperature;
+
+    private int pvStringCount;
 }
