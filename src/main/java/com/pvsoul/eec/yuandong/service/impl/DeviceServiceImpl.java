@@ -242,6 +242,7 @@ public class DeviceServiceImpl implements DeviceService {
             combinerBoxInfoDto.setI(combinerBoxInfoDao.getI());
             combinerBoxInfoDto.setU(combinerBoxInfoDao.getU());
             combinerBoxInfoDto.setP(combinerBoxInfoDao.getP());
+            combinerBoxInfoDto.setTemperature(combinerBoxInfoDao.getTemperature());
             combinerBoxInfoDto.setPvStringCount(combinerBoxInfoDao.getPvStringCount());
             combinerBoxDatas.add(combinerBoxInfoDto);
         }
@@ -284,6 +285,7 @@ public class DeviceServiceImpl implements DeviceService {
             transformerInfoDto.setHU(transformerInfoDao.getHU());
             transformerInfoDto.setPac(transformerInfoDao.getPac());
             transformerInfoDto.setFac(transformerInfoDao.getFac());
+            transformerInfoDto.setPFactor(transformerInfoDao.getPFactor());
             transformerInfoDto.setInverterCount(transformerInfoDao.getInverterCount());
             transformerInfoDtos.add(transformerInfoDto);
         }
