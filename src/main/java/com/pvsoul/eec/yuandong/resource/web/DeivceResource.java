@@ -36,8 +36,7 @@ public class DeivceResource {
 
         //log.info(JSONObject.toJSONString(data));
         ResultDto resultDto = deviceService.getTransformerInfoList(getDeviceListRequestDto);
-        String result = JSONObject.toJSONString(resultDto, SerializerFeature.WriteMapNullValue);
-        return Response.status(Response.Status.OK).entity(result).build();
+        return Response.status(Response.Status.OK).entity(resultDto).build();
     }
 
     @POST
@@ -47,8 +46,7 @@ public class DeivceResource {
 
         //log.info(JSONObject.toJSONString(data));
         ResultDto resultDto = deviceService.getInverterInfoList(getDeviceListRequestDto);
-        String result = JSONObject.toJSONString(resultDto, SerializerFeature.WriteMapNullValue);
-        return Response.status(Response.Status.OK).entity(result).build();
+        return Response.status(Response.Status.OK).entity(resultDto).build();
     }
 
     @POST
@@ -58,8 +56,7 @@ public class DeivceResource {
 
         //log.info(JSONObject.toJSONString(data));
         ResultDto resultDto = deviceService.getCombinerBoxInfoList(getDeviceListRequestDto);
-        String result = JSONObject.toJSONString(resultDto, SerializerFeature.WriteMapNullValue);
-        return Response.status(Response.Status.OK).entity(result).build();
+        return Response.status(Response.Status.OK).entity(resultDto).build();
     }
 
     @POST
@@ -69,8 +66,7 @@ public class DeivceResource {
 
         //log.info(JSONObject.toJSONString(data));
         ResultDto resultDto = deviceService.getPvStringInfoList(getDeviceListRequestDto);
-        String result = JSONObject.toJSONString(resultDto, SerializerFeature.WriteMapNullValue);
-        return Response.status(Response.Status.OK).entity(result).build();
+        return Response.status(Response.Status.OK).entity(resultDto).build();
     }
 
     @POST
@@ -80,8 +76,7 @@ public class DeivceResource {
 
         //log.info(JSONObject.toJSONString(data));
         ResultDto resultDto = deviceService.getPvstringDetail(deviceId);
-        String result = JSONObject.toJSONString(resultDto, SerializerFeature.WriteMapNullValue);
-        return Response.status(Response.Status.OK).entity(result).build();
+        return Response.status(Response.Status.OK).entity(resultDto).build();
     }
 
 }
