@@ -161,12 +161,18 @@ public class DeviceServiceImpl implements DeviceService {
             pvStringInfoDto.setStandard(pvStringInfoDao.isStandard());
             if (pvStringInfoDao.getU() != null) {
                 pvStringInfoDto.setU(String.format(pvStringInfoDao.getU().toString(), "%.1f") + "V");
+            } else {
+                pvStringInfoDto.setU("");
             }
             if (pvStringInfoDao.getI() != null) {
                 pvStringInfoDto.setI(String.format(pvStringInfoDao.getI().toString(), "%.1f") + "A");
+            } else {
+                pvStringInfoDto.setI("");
             }
             if (pvStringInfoDao.getI() != null && pvStringInfoDao.getU() != null) {
                 pvStringInfoDto.setP(String.format(String.valueOf(pvStringInfoDao.getI() * pvStringInfoDao.getU()), "%.1f") + "W");
+            } else {
+                pvStringInfoDto.setP("");
             }
             pvStringDatas.add(pvStringInfoDto);
         }
@@ -204,12 +210,18 @@ public class DeviceServiceImpl implements DeviceService {
             inverterInfoDto.setStatus(inverterInfoDao.getStatus());
             if (inverterInfoDao.getI() != null) {
                 inverterInfoDto.setI(String.format(String.valueOf(inverterInfoDao.getI()), "%.1") + "A");
+            } else {
+                inverterInfoDto.setI("");
             }
             if (inverterInfoDao.getU() != null) {
                 inverterInfoDto.setU(String.format(String.valueOf(inverterInfoDao.getU()), "%.1") + "V");
+            } else {
+                inverterInfoDto.setU("");
             }
             if (inverterInfoDao.getP() != null) {
                 inverterInfoDto.setP(String.format(String.valueOf(inverterInfoDao.getP() / 1000), "%.1") + "V");
+            } else {
+                inverterInfoDto.setP("");
             }
             inverterInfoDto.setCombinerBoxCount(inverterInfoDao.getCombinerBoxCount());
             inverterDatas.add(inverterInfoDto);
@@ -251,15 +263,23 @@ public class DeviceServiceImpl implements DeviceService {
             combinerBoxInfoDto.setStatus(combinerBoxInfoDao.getStatus());
             if (combinerBoxInfoDao.getI() != null) {
                 combinerBoxInfoDto.setI(String.format(combinerBoxInfoDao.getI().toString(), "%.1") + "A");
+            } else {
+                combinerBoxInfoDto.setI("");
             }
             if (combinerBoxInfoDao.getU() != null) {
                 combinerBoxInfoDto.setU(String.format(combinerBoxInfoDao.getU().toString(), "%.1") + "V");
+            } else {
+                combinerBoxInfoDto.setU("");
             }
             if (combinerBoxInfoDao.getP() != null) {
                 combinerBoxInfoDto.setP(String.format(String.valueOf(combinerBoxInfoDao.getP() / 1000), "%.1") + "kW");
+            } else {
+                combinerBoxInfoDto.setP("");
             }
             if (combinerBoxInfoDao.getTemperature() != null) {
                 combinerBoxInfoDto.setTemperature(String.format(String.valueOf(combinerBoxInfoDao.getTemperature()), "%.1") + "℃");
+            } else {
+                combinerBoxInfoDto.setTemperature("");
             }
             combinerBoxInfoDto.setPvStringCount(combinerBoxInfoDao.getPvStringCount());
             combinerBoxDatas.add(combinerBoxInfoDto);
@@ -301,18 +321,28 @@ public class DeviceServiceImpl implements DeviceService {
             transformerInfoDto.setStatus(transformerInfoDao.getStatus());
             if (transformerInfoDao.getLU() != null) {
                 transformerInfoDto.setLU(String.format(String.valueOf(transformerInfoDao.getLU()), "%.1") + "V");
+            } else {
+                transformerInfoDto.setLU("");
             }
             if (transformerInfoDao.getHU() != null) {
                 transformerInfoDto.setHU(String.format(String.valueOf(transformerInfoDao.getHU()), "%.1") + "kV");
+            } else {
+                transformerInfoDto.setHU("");
             }
             if (transformerInfoDao.getPac() != null) {
                 transformerInfoDto.setPac(String.format(String.valueOf(transformerInfoDao.getPac() / 1000), "%.1") + "kW");
+            } else {
+                transformerInfoDto.setPac("");
             }
             if (transformerInfoDao.getFac() != null) {
                 transformerInfoDto.setFac(String.valueOf(transformerInfoDao.getFac()) + "Hz");
+            } else {
+                transformerInfoDto.setFac("");
             }
             if (transformerInfoDao.getPFactor() != null) {
                 transformerInfoDto.setPFactor(String.valueOf(transformerInfoDao.getPFactor()));
+            } else {
+                transformerInfoDto.setPFactor("");
             }
             transformerInfoDto.setInverterCount(transformerInfoDao.getInverterCount());
             transformerInfoDtos.add(transformerInfoDto);
