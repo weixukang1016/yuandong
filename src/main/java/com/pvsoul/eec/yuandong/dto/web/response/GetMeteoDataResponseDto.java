@@ -22,13 +22,13 @@ public class GetMeteoDataResponseDto implements Serializable {
      * 气温（单位：℃）
      */
     @JsonProperty("temperature")
-    private Float temperature;
+    private String temperature;
 
     /**
      * 相对湿度
      */
     @JsonProperty("humidity")
-    private Float humidity;
+    private String humidity;
 
     /**
      * 降雨(0：未降雨，1：降雨）
@@ -40,7 +40,7 @@ public class GetMeteoDataResponseDto implements Serializable {
      * 大气压（单位：帕）
      */
     @JsonProperty("pressure")
-    private Float pressure;
+    private String pressure;
 
     /**
      * 风向（0~15的值，分别代表22.5度，0：北风，8：南风，4：东风，12：西风
@@ -52,11 +52,11 @@ public class GetMeteoDataResponseDto implements Serializable {
      * 风速
      */
     @JsonProperty("windSpeed")
-    private Float windSpeed;
+    private String windSpeed;
 
     /**
      * 太阳总辐射（单位：W/㎡）
      */
     @JsonProperty("poa")
-    private Float poa;
+    private String poa;
 }

@@ -73,4 +73,15 @@ public class DeivceResource {
         return Response.status(Response.Status.OK).entity(result).build();
     }
 
+    @POST
+    @Path("/getpvstringdetail")
+    //@ApiOperation("获取光伏组串列表")
+    public Response getPvstringDetail(@Context HttpServletRequest request, String deviceId) {
+
+        //log.info(JSONObject.toJSONString(data));
+        ResultDto resultDto = deviceService.getPvstringDetail(deviceId);
+        String result = JSONObject.toJSONString(resultDto, SerializerFeature.WriteMapNullValue);
+        return Response.status(Response.Status.OK).entity(result).build();
+    }
+
 }

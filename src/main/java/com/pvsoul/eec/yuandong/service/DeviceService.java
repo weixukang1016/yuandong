@@ -16,4 +16,6 @@ public interface DeviceService {
     ResultDto getCombinerBoxInfoList(GetDeviceListRequestDto getDeviceListRequestDto);
 
     ResultDto getTransformerInfoList(GetDeviceListRequestDto getDeviceListRequestDto);
+
+    ResultDto getPvstringDetail(String deviceId);
 }

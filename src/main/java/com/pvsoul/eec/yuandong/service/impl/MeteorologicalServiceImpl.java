@@ -63,12 +63,22 @@ public class MeteorologicalServiceImpl implements MeteorologicalService {
         MeteorologicalData meteorologicalData = meteorologicalDataMapper.selectOne(meteorologicalDataQueryWrapper);
         GetMeteoDataResponseDto getMeteoDataResponseDto = new GetMeteoDataResponseDto();
         if (meteorologicalData != null) {
-            getMeteoDataResponseDto.setTemperature(meteorologicalData.getTemperature());
-            getMeteoDataResponseDto.setHumidity(meteorologicalData.getHumidity());
+            if (meteorologicalData.getTemperature() != null) {
+                getMeteoDataResponseDto.setTemperature(meteorologicalData.getTemperature() + "℃");
+            }
+            if (meteorologicalData.getHumidity() != null) {
+                getMeteoDataResponseDto.setHumidity(meteorologicalData.getHumidity() + "%");
+            }
             getMeteoDataResponseDto.setWindDirection(getWindDirection(meteorologicalData.getWindDirection()));
-            getMeteoDataResponseDto.setWindSpeed(meteorologicalData.getWindSpeed());
-            getMeteoDataResponseDto.setPressure(meteorologicalData.getPressure());
-            getMeteoDataResponseDto.setPoa(meteorologicalData.getIrradiance());
+            if (meteorologicalData.getWindSpeed() != null) {
+                getMeteoDataResponseDto.setWindSpeed(meteorologicalData.getWindSpeed() + "m/s");
+            }
+            if (meteorologicalData.getPressure() != null) {
+                getMeteoDataResponseDto.setPressure(meteorologicalData.getPressure() + "Pa");
+            }
+            if (meteorologicalData.getIrradiance() != null) {
+                getMeteoDataResponseDto.setPoa(meteorologicalData.getIrradiance() + "W/㎡");
+            }
             resultDto.setEntity(getMeteoDataResponseDto);
         }
         return resultDto;

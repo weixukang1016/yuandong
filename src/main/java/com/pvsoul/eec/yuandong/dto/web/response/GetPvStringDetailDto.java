@@ -6,20 +6,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
-
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CombinerBoxInfoDto implements Serializable {
-
-    private static final long serialVersionUID = -3631272243833728501L;
+public class GetPvStringDetailDto {
 
     private String deviceName;
 
     private String deviceId;
+
+    private boolean isStandard;
 
     private int status;
 
@@ -29,7 +27,7 @@ public class CombinerBoxInfoDto implements Serializable {
 
     private String p;
 
-    private String temperature;
+    //private Float temperature;
 
-    private int pvStringCount;
+    private String decayRate;
 }

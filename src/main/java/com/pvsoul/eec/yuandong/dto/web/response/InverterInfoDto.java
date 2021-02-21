@@ -27,11 +27,11 @@ public class InverterInfoDto implements Serializable {
 
     private int status;
 
-    private Float u;
+    private String u;
 
-    private Float i;
+    private String i;
 
-    private Float p;
+    private String p;
 
     private int combinerBoxCount;
 

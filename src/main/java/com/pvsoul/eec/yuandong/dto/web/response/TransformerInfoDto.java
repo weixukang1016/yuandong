@@ -23,15 +23,15 @@ public class TransformerInfoDto implements Serializable {
 
     private int status;
 
-    private Float lU;
+    private String lU;
 
-    private Float hU;
+    private String hU;
 
-    private Float pac;
+    private String pac;
 
-    private Float fac;
+    private String fac;
 
-    private Float pFactor;
+    private String pFactor;
 
     private int inverterCount;
 }
