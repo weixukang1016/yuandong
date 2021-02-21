@@ -7,7 +7,7 @@ import com.pvsoul.eec.yuandong.resource.EecCenterResource;
 import com.pvsoul.eec.yuandong.resource.devicedata.JinlangResource;
 import com.pvsoul.eec.yuandong.resource.devicedata.TastekLetDtuResouce;
 import com.pvsoul.eec.yuandong.resource.web.HomeResource;
-import com.pvsoul.eec.yuandong.resource.web.MonitorResource;
+import com.pvsoul.eec.yuandong.resource.web.DeivceResource;
 import com.pvsoul.eec.yuandong.resource.web.SideBarResource;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.boot.autoconfigure.jersey.ResourceConfigCustomizer;
@@ -30,7 +30,7 @@ public class JerseyConfig implements ResourceConfigCustomizer {
         config.register(SideBarResource.class);
         config.register(EecCenterResource.class);
         config.register(HomeResource.class);
-        config.register(MonitorResource.class);
+        config.register(DeivceResource.class);
 
         config.registerClasses(ValidationExceptionProvider.class);
         config.registerClasses(RuntimeExceptionProvider.class);

@@ -19,12 +19,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("api/web/monitor")
+@Path("api/web/device")
 @Component
 @Slf4j
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class MonitorResource {
+public class DeivceResource {
 
     @Autowired
     private DeviceService deviceService;
