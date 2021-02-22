@@ -94,6 +94,15 @@ public class DeviceServiceImpl implements DeviceService {
         getDeviceInfoResponseDto.setDeviceTypeCode(DeviceType.PVSTRING.getDeviceTypeCode());
         getDeviceInfoResponseDto.setDeviceCount(pvStringCount);
         result.add(getDeviceInfoResponseDto);
+        
+        //设置全部数据
+        int totalCount = transformerCount + integerCount + combinerBoxCount + pvStringCount;
+        getDeviceInfoResponseDto = new GetDeviceInfoResponseDto();
+        getDeviceInfoResponseDto.setDeviceType(DeviceType.ALL.getDeviceType());
+        getDeviceInfoResponseDto.setDeviceTypeCode(DeviceType.ALL.getDeviceTypeCode());
+        getDeviceInfoResponseDto.setDeviceCount(totalCount);
+        result.add(0, getDeviceInfoResponseDto);
+
         resultDto.setEntity(result);
         return resultDto;
     }
@@ -143,6 +152,7 @@ public class DeviceServiceImpl implements DeviceService {
             devicesStatusCount = transformerMapper.getDeviceStatusCount();
             setDeviceStatusCount(devicesStatusCount, result);
         }
+        //设置全部的设备状态
         int totalDeviceCount = 0;
         for (GetDeviceStatusInfoResponseDto getDeviceStatusInfo : result) {
             totalDeviceCount += getDeviceStatusInfo.getDeviceCount();
