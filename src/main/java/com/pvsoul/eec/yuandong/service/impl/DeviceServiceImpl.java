@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -372,18 +372,36 @@ public class DeviceServiceImpl implements DeviceService {
         zeroClock.set(Calendar.SECOND, 0);
 
         QueryWrapper<PvStringData> pvStringDataQueryWrapper = new QueryWrapper<>();
+        pvStringDataQueryWrapper.eq("pv_string_id", getPvstringDetailRequestDto.getDeviceId());
         pvStringDataQueryWrapper.ge("device_time", zeroClock.getTime());
         pvStringDataQueryWrapper.le("device_time", now);
+        pvStringDataQueryWrapper.orderByAsc("device_time");
         List<PvStringData> pvStringDatas = pvStringDataMapper.selectList(pvStringDataQueryWrapper);
         List<DeviceDataDto> deviceDataDtos = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
         for (PvStringData pvStringData : pvStringDatas) {
             DeviceDataDto deviceDataDto = new DeviceDataDto();
+            deviceDataDto.setTime(sdf.format(pvStringData.getDeviceTime()));
             deviceDataDto.setI(pvStringData.getI());
             deviceDataDto.setU(pvStringData.getU());
             deviceDataDto.setP(Float.valueOf(String.format("%.1f", pvStringData.getU() * pvStringData.getI())));
             deviceDataDto.setTemperature(pvStringData.getTemperature());
             deviceDataDtos.add(deviceDataDto);
         }
+        if (deviceDataDtos.size() > 0) {
+            DeviceDataDto lastDeviceData = deviceDataDtos.get(deviceDataDtos.size() -  1);
+            getPvStringDetailResponseDto.setI(lastDeviceData.getI().toString());
+            getPvStringDetailResponseDto.setU(lastDeviceData.getU().toString());
+            getPvStringDetailResponseDto.setP(lastDeviceData.getP().toString());
+        } else {
+            getPvStringDetailResponseDto.setI("");
+            getPvStringDetailResponseDto.setU("");
+            getPvStringDetailResponseDto.setP("");
+        }
+        //TODO 后续提供
+        getPvStringDetailResponseDto.setDecayRate("后续提供");
+        getPvStringDetailResponseDto.setDustLossRate("后续提供");
+
         getPvStringDetailResponseDto.setDeviceDataOfToday(deviceDataDtos);
         resultDto.setEntity(getPvStringDetailResponseDto);
         return resultDto;
