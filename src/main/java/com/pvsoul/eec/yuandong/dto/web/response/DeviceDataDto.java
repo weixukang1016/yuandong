@@ -6,28 +6,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GetPvStringDetailDto {
+public class DeviceDataDto implements Serializable {
 
-    private String deviceName;
+    private static final long serialVersionUID = 3885021070282460512L;
 
-    private String deviceId;
+    private String time;
 
-    private boolean isStandard;
+    private Float u;
 
-    private int status;
+    private Float i;
 
-    private String u;
+    private Float p;
 
-    private String i;
-
-    private String p;
-
-    //private Float temperature;
-
-    private String decayRate;
+    private Float temperature;
 }

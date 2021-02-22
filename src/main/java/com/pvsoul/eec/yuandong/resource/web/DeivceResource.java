@@ -5,6 +5,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.pvsoul.eec.yuandong.dto.ResultDto;
 import com.pvsoul.eec.yuandong.dto.web.request.GetDeviceListRequestDto;
+import com.pvsoul.eec.yuandong.dto.web.request.GetPvstringDetailRequestDto;
 import com.pvsoul.eec.yuandong.service.DeviceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,11 +72,11 @@ public class DeivceResource {
 
     @POST
     @Path("/getpvstringdetail")
-    //@ApiOperation("获取光伏组串列表")
-    public Response getPvstringDetail(@Context HttpServletRequest request, String deviceId) {
+    //@ApiOperation("获取光伏组详情")
+    public Response getPvstringDetail(@Context HttpServletRequest request, GetPvstringDetailRequestDto getPvstringDetailRequestDto) {
 
         //log.info(JSONObject.toJSONString(data));
-        ResultDto resultDto = deviceService.getPvstringDetail(deviceId);
+        ResultDto resultDto = deviceService.getPvstringDetail(getPvstringDetailRequestDto);
         return Response.status(Response.Status.OK).entity(resultDto).build();
     }
 

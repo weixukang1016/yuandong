@@ -6,10 +6,12 @@ import com.github.pagehelper.PageInfo;
 import com.pvsoul.eec.yuandong.dao.*;
 import com.pvsoul.eec.yuandong.dto.ResultDto;
 import com.pvsoul.eec.yuandong.dto.web.request.GetDeviceListRequestDto;
+import com.pvsoul.eec.yuandong.dto.web.request.GetPvstringDetailRequestDto;
 import com.pvsoul.eec.yuandong.dto.web.response.*;
 import com.pvsoul.eec.yuandong.entity.CombinerBox;
 import com.pvsoul.eec.yuandong.entity.Inverter;
 import com.pvsoul.eec.yuandong.entity.PvString;
+import com.pvsoul.eec.yuandong.entity.PvStringData;
 import com.pvsoul.eec.yuandong.mapper.*;
 import com.pvsoul.eec.yuandong.service.DeviceService;
 import com.pvsoul.eec.yuandong.util.DeviceStatus;
@@ -18,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -160,17 +163,17 @@ public class DeviceServiceImpl implements DeviceService {
             pvStringInfoDto.setDeviceName(pvStringInfoDao.getStringNo());
             pvStringInfoDto.setStandard(pvStringInfoDao.isStandard());
             if (pvStringInfoDao.getU() != null) {
-                pvStringInfoDto.setU(String.format(pvStringInfoDao.getU().toString(), "%.1f") + "V");
+                pvStringInfoDto.setU(String.format("%.1f", pvStringInfoDao.getU()) + "V");
             } else {
                 pvStringInfoDto.setU("");
             }
             if (pvStringInfoDao.getI() != null) {
-                pvStringInfoDto.setI(String.format(pvStringInfoDao.getI().toString(), "%.1f") + "A");
+                pvStringInfoDto.setI(String.format("%.1f", pvStringInfoDao.getI()) + "A");
             } else {
                 pvStringInfoDto.setI("");
             }
             if (pvStringInfoDao.getI() != null && pvStringInfoDao.getU() != null) {
-                pvStringInfoDto.setP(String.format(String.valueOf(pvStringInfoDao.getI() * pvStringInfoDao.getU()), "%.1f") + "W");
+                pvStringInfoDto.setP(String.format("%.1f", pvStringInfoDao.getI() * pvStringInfoDao.getU()) + "W");
             } else {
                 pvStringInfoDto.setP("");
             }
@@ -209,17 +212,17 @@ public class DeviceServiceImpl implements DeviceService {
             inverterInfoDto.setDeviceName(inverterInfoDao.getInverterNo());
             inverterInfoDto.setStatus(inverterInfoDao.getStatus());
             if (inverterInfoDao.getI() != null) {
-                inverterInfoDto.setI(String.format(String.valueOf(inverterInfoDao.getI()), "%.1") + "A");
+                inverterInfoDto.setI(String.format("%.1f", inverterInfoDao.getI()) + "A");
             } else {
                 inverterInfoDto.setI("");
             }
             if (inverterInfoDao.getU() != null) {
-                inverterInfoDto.setU(String.format(String.valueOf(inverterInfoDao.getU()), "%.1") + "V");
+                inverterInfoDto.setU(String.format("%.1f", inverterInfoDao.getU()) + "V");
             } else {
                 inverterInfoDto.setU("");
             }
             if (inverterInfoDao.getP() != null) {
-                inverterInfoDto.setP(String.format(String.valueOf(inverterInfoDao.getP() / 1000), "%.1") + "V");
+                inverterInfoDto.setP(String.format("%.1f", inverterInfoDao.getP() / 1000) + "V");
             } else {
                 inverterInfoDto.setP("");
             }
@@ -262,22 +265,22 @@ public class DeviceServiceImpl implements DeviceService {
             combinerBoxInfoDto.setDeviceName(combinerBoxInfoDao.getBoxNo());
             combinerBoxInfoDto.setStatus(combinerBoxInfoDao.getStatus());
             if (combinerBoxInfoDao.getI() != null) {
-                combinerBoxInfoDto.setI(String.format(combinerBoxInfoDao.getI().toString(), "%.1") + "A");
+                combinerBoxInfoDto.setI(String.format("%.1f", combinerBoxInfoDao.getI()) + "A");
             } else {
                 combinerBoxInfoDto.setI("");
             }
             if (combinerBoxInfoDao.getU() != null) {
-                combinerBoxInfoDto.setU(String.format(combinerBoxInfoDao.getU().toString(), "%.1") + "V");
+                combinerBoxInfoDto.setU(String.format("%.1f", combinerBoxInfoDao.getU()) + "V");
             } else {
                 combinerBoxInfoDto.setU("");
             }
             if (combinerBoxInfoDao.getP() != null) {
-                combinerBoxInfoDto.setP(String.format(String.valueOf(combinerBoxInfoDao.getP() / 1000), "%.1") + "kW");
+                combinerBoxInfoDto.setP(String.format("%.1f", combinerBoxInfoDao.getP() / 1000) + "kW");
             } else {
                 combinerBoxInfoDto.setP("");
             }
             if (combinerBoxInfoDao.getTemperature() != null) {
-                combinerBoxInfoDto.setTemperature(String.format(String.valueOf(combinerBoxInfoDao.getTemperature()), "%.1") + "℃");
+                combinerBoxInfoDto.setTemperature(String.format("%.1f", combinerBoxInfoDao.getTemperature()) + "℃");
             } else {
                 combinerBoxInfoDto.setTemperature("");
             }
@@ -320,22 +323,22 @@ public class DeviceServiceImpl implements DeviceService {
             transformerInfoDto.setDeviceName(transformerInfoDao.getTransformerNo());
             transformerInfoDto.setStatus(transformerInfoDao.getStatus());
             if (transformerInfoDao.getLU() != null) {
-                transformerInfoDto.setLU(String.format(String.valueOf(transformerInfoDao.getLU()), "%.1") + "V");
+                transformerInfoDto.setLU(String.format("%.1f", transformerInfoDao.getLU()) + "V");
             } else {
                 transformerInfoDto.setLU("");
             }
             if (transformerInfoDao.getHU() != null) {
-                transformerInfoDto.setHU(String.format(String.valueOf(transformerInfoDao.getHU()), "%.1") + "kV");
+                transformerInfoDto.setHU(String.format("%.1f", transformerInfoDao.getHU()) + "kV");
             } else {
                 transformerInfoDto.setHU("");
             }
             if (transformerInfoDao.getPac() != null) {
-                transformerInfoDto.setPac(String.format(String.valueOf(transformerInfoDao.getPac() / 1000), "%.1") + "kW");
+                transformerInfoDto.setPac(String.format("%.1f", transformerInfoDao.getPac() / 1000) + "kW");
             } else {
                 transformerInfoDto.setPac("");
             }
             if (transformerInfoDao.getFac() != null) {
-                transformerInfoDto.setFac(String.valueOf(transformerInfoDao.getFac()) + "Hz");
+                transformerInfoDto.setFac(transformerInfoDao.getFac() + "Hz");
             } else {
                 transformerInfoDto.setFac("");
             }
@@ -353,10 +356,36 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public ResultDto getPvstringDetail(String deviceId) {
+    public ResultDto getPvstringDetail(GetPvstringDetailRequestDto getPvstringDetailRequestDto) {
         ResultDto resultDto = new ResultDto();
-        PvString pvString = pvStringMapper.selectByPrimaryKey(deviceId);
+        PvString pvString = pvStringMapper.selectByPrimaryKey(getPvstringDetailRequestDto.getDeviceId());
+        GetPvStringDetailResponseDto getPvStringDetailResponseDto = new GetPvStringDetailResponseDto();
+        getPvStringDetailResponseDto.setDeviceId(pvString.getId().toString());
+        getPvStringDetailResponseDto.setDeviceName(pvString.getStringNo());
+        getPvStringDetailResponseDto.setStatus(pvString.getStatus());
+        getPvStringDetailResponseDto.setStandard(pvString.getIsStandard());
 
+        Date now = new Date();
+        Calendar zeroClock = Calendar.getInstance();
+        zeroClock.set(Calendar.HOUR_OF_DAY, 0);
+        zeroClock.set(Calendar.MINUTE, 0);
+        zeroClock.set(Calendar.SECOND, 0);
+
+        QueryWrapper<PvStringData> pvStringDataQueryWrapper = new QueryWrapper<>();
+        pvStringDataQueryWrapper.ge("device_time", zeroClock.getTime());
+        pvStringDataQueryWrapper.le("device_time", now);
+        List<PvStringData> pvStringDatas = pvStringDataMapper.selectList(pvStringDataQueryWrapper);
+        List<DeviceDataDto> deviceDataDtos = new ArrayList<>();
+        for (PvStringData pvStringData : pvStringDatas) {
+            DeviceDataDto deviceDataDto = new DeviceDataDto();
+            deviceDataDto.setI(pvStringData.getI());
+            deviceDataDto.setU(pvStringData.getU());
+            deviceDataDto.setP(Float.valueOf(String.format("%.1f", pvStringData.getU() * pvStringData.getI())));
+            deviceDataDto.setTemperature(pvStringData.getTemperature());
+            deviceDataDtos.add(deviceDataDto);
+        }
+        getPvStringDetailResponseDto.setDeviceDataOfToday(deviceDataDtos);
+        resultDto.setEntity(getPvStringDetailResponseDto);
         return resultDto;
     }
 

@@ -2,6 +2,7 @@ package com.pvsoul.eec.yuandong.service;
 
 import com.pvsoul.eec.yuandong.dto.ResultDto;
 import com.pvsoul.eec.yuandong.dto.web.request.GetDeviceListRequestDto;
+import com.pvsoul.eec.yuandong.dto.web.request.GetPvstringDetailRequestDto;
 
 public interface DeviceService {
 
@@ -17,5 +18,5 @@ public interface DeviceService {
 
     ResultDto getTransformerInfoList(GetDeviceListRequestDto getDeviceListRequestDto);
 
-    ResultDto getPvstringDetail(String deviceId);
+    ResultDto getPvstringDetail(GetPvstringDetailRequestDto deviceId);
 }
