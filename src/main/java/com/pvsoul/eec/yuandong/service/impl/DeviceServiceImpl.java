@@ -378,7 +378,7 @@ public class DeviceServiceImpl implements DeviceService {
         pvStringDataQueryWrapper.orderByAsc("device_time");
         List<PvStringData> pvStringDatas = pvStringDataMapper.selectList(pvStringDataQueryWrapper);
         List<DeviceDataDto> deviceDataDtos = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         for (PvStringData pvStringData : pvStringDatas) {
             DeviceDataDto deviceDataDto = new DeviceDataDto();
             deviceDataDto.setTime(sdf.format(pvStringData.getDeviceTime()));

@@ -2,6 +2,7 @@ package com.pvsoul.eec.yuandong.dto.web.response;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +21,7 @@ public class GetPvStringDetailResponseDto {
 
     private String deviceId;
 
-    @JSONField(name="isStandard")
+    @JsonProperty("isStandard")
     private boolean isStandard;
 
     private int status;
