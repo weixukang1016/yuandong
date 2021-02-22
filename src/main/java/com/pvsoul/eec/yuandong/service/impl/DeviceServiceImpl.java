@@ -1,5 +1,6 @@
 package com.pvsoul.eec.yuandong.service.impl;
 
+import com.baomidou.mybatisplus.core.assist.ISqlRunner;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -8,10 +9,7 @@ import com.pvsoul.eec.yuandong.dto.ResultDto;
 import com.pvsoul.eec.yuandong.dto.web.request.GetDeviceListRequestDto;
 import com.pvsoul.eec.yuandong.dto.web.request.GetPvstringDetailRequestDto;
 import com.pvsoul.eec.yuandong.dto.web.response.*;
-import com.pvsoul.eec.yuandong.entity.CombinerBox;
-import com.pvsoul.eec.yuandong.entity.Inverter;
-import com.pvsoul.eec.yuandong.entity.PvString;
-import com.pvsoul.eec.yuandong.entity.PvStringData;
+import com.pvsoul.eec.yuandong.entity.*;
 import com.pvsoul.eec.yuandong.mapper.*;
 import com.pvsoul.eec.yuandong.service.DeviceService;
 import com.pvsoul.eec.yuandong.util.DeviceStatus;
@@ -31,6 +29,9 @@ import java.util.List;
 public class DeviceServiceImpl implements DeviceService {
 
     private static final int DATA_VALID_MINITUES = 10; //数据有效时间（10分钟）
+
+    @Autowired
+    private TransformerMapper transformerMapper;
 
     @Autowired
     private InverterMapper inverterMapper;
@@ -58,10 +59,19 @@ public class DeviceServiceImpl implements DeviceService {
         ResultDto resultDto = new ResultDto();
         List<GetDeviceInfoResponseDto> result = new ArrayList<GetDeviceInfoResponseDto>();
 
+        QueryWrapper<Transformer> transformerQueryWrapper = new QueryWrapper<>();
+        transformerQueryWrapper.eq("is_valid", true);
+        int transformerCount = transformerMapper.selectCount(transformerQueryWrapper);
+        GetDeviceInfoResponseDto getDeviceInfoResponseDto = new GetDeviceInfoResponseDto();
+        getDeviceInfoResponseDto.setDeviceType(DeviceType.TRANSFORMER.getDeviceType());
+        getDeviceInfoResponseDto.setDeviceTypeCode(DeviceType.TRANSFORMER.getDeviceTypeCode());
+        getDeviceInfoResponseDto.setDeviceCount(transformerCount);
+        result.add(getDeviceInfoResponseDto);
+
         QueryWrapper<Inverter> inverterQueryWrapper = new QueryWrapper<>();
         inverterQueryWrapper.eq("is_valid", true);
         int integerCount = inverterMapper.selectCount(inverterQueryWrapper);
-        GetDeviceInfoResponseDto getDeviceInfoResponseDto = new GetDeviceInfoResponseDto();
+        getDeviceInfoResponseDto = new GetDeviceInfoResponseDto();
         getDeviceInfoResponseDto.setDeviceType(DeviceType.INVERTER.getDeviceType());
         getDeviceInfoResponseDto.setDeviceTypeCode(DeviceType.INVERTER.getDeviceTypeCode());
         getDeviceInfoResponseDto.setDeviceCount(integerCount);
@@ -105,7 +115,6 @@ public class DeviceServiceImpl implements DeviceService {
         getDeviceStatusInfoResponseDto.setDeviceCount(0);
         result.add(getDeviceStatusInfoResponseDto);
 
-
         getDeviceStatusInfoResponseDto = new GetDeviceStatusInfoResponseDto();
         getDeviceStatusInfoResponseDto.setDeviceStautsCode(DeviceStatus.LOW_EFFICIENCY.getDeviceStatusCode());
         getDeviceStatusInfoResponseDto.setDeviceStauts(DeviceStatus.LOW_EFFICIENCY.getDeviceStatus());
@@ -122,7 +131,8 @@ public class DeviceServiceImpl implements DeviceService {
             List<DeviceStatusCountDao> devicesStatusCount = inverterMapper.getDeviceStatusCount();
             setDeviceStatusCount(devicesStatusCount, result);
         } else if (deviceTypeCode == DeviceType.TRANSFORMER.getDeviceTypeCode()) {
-
+            List<DeviceStatusCountDao> devicesStatusCount = transformerMapper.getDeviceStatusCount();
+            setDeviceStatusCount(devicesStatusCount, result);
         } else if (deviceTypeCode == DeviceType.ALL.getDeviceTypeCode()) {
             List<DeviceStatusCountDao> devicesStatusCount = pvStringMapper.getDeviceStatusCount();
             setDeviceStatusCount(devicesStatusCount, result);
@@ -130,7 +140,19 @@ public class DeviceServiceImpl implements DeviceService {
             setDeviceStatusCount(devicesStatusCount, result);
             devicesStatusCount = inverterMapper.getDeviceStatusCount();
             setDeviceStatusCount(devicesStatusCount, result);
+            devicesStatusCount = transformerMapper.getDeviceStatusCount();
+            setDeviceStatusCount(devicesStatusCount, result);
         }
+        int totalDeviceCount = 0;
+        for (GetDeviceStatusInfoResponseDto getDeviceStatusInfo : result) {
+            totalDeviceCount += getDeviceStatusInfo.getDeviceCount();
+        }
+        GetDeviceStatusInfoResponseDto totalDeviceStatusInfo = new GetDeviceStatusInfoResponseDto();
+        totalDeviceStatusInfo.setDeviceCount(totalDeviceCount);
+        totalDeviceStatusInfo.setDeviceStautsCode(null);
+        totalDeviceStatusInfo.setDeviceStauts("全部");
+        result.add(0, totalDeviceStatusInfo);
+
         resultDto.setEntity(result);
         return resultDto;
     }

@@ -126,4 +126,11 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=OTHER}
   </update>
+  <select id="getDeviceStatusCount" resultType="com.pvsoul.eec.yuandong.dao.DeviceStatusCountDao">
+    select
+    status,count(1) device_count
+    from transformer
+    where is_valid=true
+    group by status
+  </select>
 </mapper>

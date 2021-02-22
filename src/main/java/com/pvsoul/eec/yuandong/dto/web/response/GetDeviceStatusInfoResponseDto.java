@@ -19,7 +19,7 @@ public class GetDeviceStatusInfoResponseDto implements Serializable {
 
     private String deviceStauts;
 
-    private int deviceStautsCode;
+    private Integer deviceStautsCode;
 
     private int deviceCount;
 }

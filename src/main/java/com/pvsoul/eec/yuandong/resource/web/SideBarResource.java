@@ -1,5 +1,7 @@
 package com.pvsoul.eec.yuandong.resource.web;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.pvsoul.eec.yuandong.dto.ResultDto;
 import com.pvsoul.eec.yuandong.dto.web.request.GetDevicesStatusInfoRequestDto;
 import com.pvsoul.eec.yuandong.dto.web.response.GetDeviceInfoResponseDto;
@@ -60,6 +62,7 @@ public class SideBarResource {
 
         //log.info(JSONObject.toJSONString(data));
         ResultDto resultDto = deviceService.getDevicesStatusInfo(data.getDeviceTypeCode());
-        return Response.status(Response.Status.OK).entity(resultDto).build();
+        String result = JSON.toJSONString(resultDto, SerializerFeature.WriteMapNullValue);
+        return Response.status(Response.Status.OK).entity(result).build();
     }
 }
