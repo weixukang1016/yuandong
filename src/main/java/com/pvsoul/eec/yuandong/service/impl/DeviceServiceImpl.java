@@ -94,7 +94,7 @@ public class DeviceServiceImpl implements DeviceService {
         getDeviceInfoResponseDto.setDeviceTypeCode(DeviceType.PVSTRING.getDeviceTypeCode());
         getDeviceInfoResponseDto.setDeviceCount(pvStringCount);
         result.add(getDeviceInfoResponseDto);
-        
+
         //设置全部数据
         int totalCount = transformerCount + integerCount + combinerBoxCount + pvStringCount;
         getDeviceInfoResponseDto = new GetDeviceInfoResponseDto();
@@ -410,7 +410,7 @@ public class DeviceServiceImpl implements DeviceService {
         pvStringDataQueryWrapper.orderByAsc("device_time");
         List<PvStringData> pvStringDatas = pvStringDataMapper.selectList(pvStringDataQueryWrapper);
         List<DeviceDataDto> deviceDataDtos = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for (PvStringData pvStringData : pvStringDatas) {
             DeviceDataDto deviceDataDto = new DeviceDataDto();
             deviceDataDto.setTime(sdf.format(pvStringData.getDeviceTime()));
