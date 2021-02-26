@@ -54,6 +54,9 @@ public class DeviceServiceImpl implements DeviceService {
     @Autowired
     private TransformerDataMapper transformerDataMapper;
 
+    @Autowired
+    private PvStringRealModelMapper pvStringRealModelMapper;
+
     @Override
     public ResultDto getDevicesInfo() {
         ResultDto resultDto = new ResultDto();
@@ -422,17 +425,26 @@ public class DeviceServiceImpl implements DeviceService {
         }
         if (deviceDataDtos.size() > 0) {
             DeviceDataDto lastDeviceData = deviceDataDtos.get(deviceDataDtos.size() -  1);
-            getPvStringDetailResponseDto.setI(lastDeviceData.getI().toString());
-            getPvStringDetailResponseDto.setU(lastDeviceData.getU().toString());
-            getPvStringDetailResponseDto.setP(lastDeviceData.getP().toString());
+            getPvStringDetailResponseDto.setI(lastDeviceData.getI().toString() + "A");
+            getPvStringDetailResponseDto.setU(lastDeviceData.getU().toString() + "V");
+            getPvStringDetailResponseDto.setP(lastDeviceData.getP().toString() + "W");
         } else {
             getPvStringDetailResponseDto.setI("");
             getPvStringDetailResponseDto.setU("");
             getPvStringDetailResponseDto.setP("");
         }
-        //TODO 后续提供
-        getPvStringDetailResponseDto.setDecayRate("后续提供");
-        getPvStringDetailResponseDto.setDustLossRate("后续提供");
+
+        QueryWrapper<PvStringRealModel> pvStringRealModelQueryWrapper = new QueryWrapper<>();
+        pvStringRealModelQueryWrapper.eq("pv_string_id", getPvstringDetailRequestDto.getDeviceId());
+        pvStringRealModelQueryWrapper.eq("is_valid",true);
+        PvStringRealModel pvStringRealModel = pvStringRealModelMapper.selectOne(pvStringRealModelQueryWrapper);
+        if (pvStringRealModel != null) {
+            getPvStringDetailResponseDto.setDegradationRatio(String.valueOf(pvStringRealModel.getDegradationRatio() * 100) + "%");
+            getPvStringDetailResponseDto.setSoilingRatio(String.valueOf(pvStringRealModel.getSoilingRatio() * 100) + "%");
+        } else {
+            getPvStringDetailResponseDto.setDegradationRatio("");
+            getPvStringDetailResponseDto.setSoilingRatio("");
+        }
 
         getPvStringDetailResponseDto.setDeviceDataOfToday(deviceDataDtos);
         resultDto.setEntity(getPvStringDetailResponseDto);

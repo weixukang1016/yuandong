@@ -15,10 +15,20 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
     <result column="transformer_id" jdbcType="OTHER" property="transformerId" />
+    <result column="cleaning_method" jdbcType="INTEGER" property="cleaningMethod" />
+    <result column="last_clean_date" jdbcType="TIMESTAMP" property="lastCleanDate" />
+    <result column="support_type" jdbcType="INTEGER" property="supportType" />
+    <result column="module_number" jdbcType="INTEGER" property="moduleNumber" />
+    <result column="tilt_angle" jdbcType="REAL" property="tiltAngle" />
+    <result column="azimuth_angle" jdbcType="REAL" property="azimuthAngle" />
+    <result column="dcline_length" jdbcType="REAL" property="dclineLength" />
+    <result column="dcline_unit_ohm" jdbcType="REAL" property="dclineUnitOhm" />
   </resultMap>
   <sql id="Base_Column_List">
     id, power_station_id, inverter_id, string_no, create_time, update_time, pv_index, 
-    is_standard, is_valid, combiner_box_id, status, status_time, transformer_id
+    is_standard, is_valid, combiner_box_id, status, status_time, transformer_id, cleaning_method, 
+    last_clean_date, support_type, module_number, tilt_angle, azimuth_angle, dcline_length, 
+    dcline_unit_ohm
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
     select 
@@ -35,12 +45,18 @@
       string_no, create_time, update_time, 
       pv_index, is_standard, is_valid, 
       combiner_box_id, status, status_time, 
-      transformer_id)
+      transformer_id, cleaning_method, last_clean_date, 
+      support_type, module_number, tilt_angle, 
+      azimuth_angle, dcline_length, dcline_unit_ohm
+      )
     values (#{id,jdbcType=OTHER}, #{powerStationId,jdbcType=OTHER}, #{inverterId,jdbcType=OTHER}, 
       #{stringNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{pvIndex,jdbcType=INTEGER}, #{isStandard,jdbcType=BIT}, #{isValid,jdbcType=BIT}, 
       #{combinerBoxId,jdbcType=OTHER}, #{status,jdbcType=INTEGER}, #{statusTime,jdbcType=TIMESTAMP}, 
-      #{transformerId,jdbcType=OTHER})
+      #{transformerId,jdbcType=OTHER}, #{cleaningMethod,jdbcType=INTEGER}, #{lastCleanDate,jdbcType=TIMESTAMP}, 
+      #{supportType,jdbcType=INTEGER}, #{moduleNumber,jdbcType=INTEGER}, #{tiltAngle,jdbcType=REAL}, 
+      #{azimuthAngle,jdbcType=REAL}, #{dclineLength,jdbcType=REAL}, #{dclineUnitOhm,jdbcType=REAL}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.PvString">
     insert into pv_string
@@ -84,6 +100,30 @@
       <if test="transformerId != null">
         transformer_id,
       </if>
+      <if test="cleaningMethod != null">
+        cleaning_method,
+      </if>
+      <if test="lastCleanDate != null">
+        last_clean_date,
+      </if>
+      <if test="supportType != null">
+        support_type,
+      </if>
+      <if test="moduleNumber != null">
+        module_number,
+      </if>
+      <if test="tiltAngle != null">
+        tilt_angle,
+      </if>
+      <if test="azimuthAngle != null">
+        azimuth_angle,
+      </if>
+      <if test="dclineLength != null">
+        dcline_length,
+      </if>
+      <if test="dclineUnitOhm != null">
+        dcline_unit_ohm,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -124,6 +164,30 @@
       </if>
       <if test="transformerId != null">
         #{transformerId,jdbcType=OTHER},
+      </if>
+      <if test="cleaningMethod != null">
+        #{cleaningMethod,jdbcType=INTEGER},
+      </if>
+      <if test="lastCleanDate != null">
+        #{lastCleanDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supportType != null">
+        #{supportType,jdbcType=INTEGER},
+      </if>
+      <if test="moduleNumber != null">
+        #{moduleNumber,jdbcType=INTEGER},
+      </if>
+      <if test="tiltAngle != null">
+        #{tiltAngle,jdbcType=REAL},
+      </if>
+      <if test="azimuthAngle != null">
+        #{azimuthAngle,jdbcType=REAL},
+      </if>
+      <if test="dclineLength != null">
+        #{dclineLength,jdbcType=REAL},
+      </if>
+      <if test="dclineUnitOhm != null">
+        #{dclineUnitOhm,jdbcType=REAL},
       </if>
     </trim>
   </insert>
@@ -166,6 +230,30 @@
       <if test="transformerId != null">
         transformer_id = #{transformerId,jdbcType=OTHER},
       </if>
+      <if test="cleaningMethod != null">
+        cleaning_method = #{cleaningMethod,jdbcType=INTEGER},
+      </if>
+      <if test="lastCleanDate != null">
+        last_clean_date = #{lastCleanDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supportType != null">
+        support_type = #{supportType,jdbcType=INTEGER},
+      </if>
+      <if test="moduleNumber != null">
+        module_number = #{moduleNumber,jdbcType=INTEGER},
+      </if>
+      <if test="tiltAngle != null">
+        tilt_angle = #{tiltAngle,jdbcType=REAL},
+      </if>
+      <if test="azimuthAngle != null">
+        azimuth_angle = #{azimuthAngle,jdbcType=REAL},
+      </if>
+      <if test="dclineLength != null">
+        dcline_length = #{dclineLength,jdbcType=REAL},
+      </if>
+      <if test="dclineUnitOhm != null">
+        dcline_unit_ohm = #{dclineUnitOhm,jdbcType=REAL},
+      </if>
     </set>
     where id = #{id,jdbcType=OTHER}
   </update>
@@ -182,7 +270,15 @@
       combiner_box_id = #{combinerBoxId,jdbcType=OTHER},
       status = #{status,jdbcType=INTEGER},
       status_time = #{statusTime,jdbcType=TIMESTAMP},
-      transformer_id = #{transformerId,jdbcType=OTHER}
+      transformer_id = #{transformerId,jdbcType=OTHER},
+      cleaning_method = #{cleaningMethod,jdbcType=INTEGER},
+      last_clean_date = #{lastCleanDate,jdbcType=TIMESTAMP},
+      support_type = #{supportType,jdbcType=INTEGER},
+      module_number = #{moduleNumber,jdbcType=INTEGER},
+      tilt_angle = #{tiltAngle,jdbcType=REAL},
+      azimuth_angle = #{azimuthAngle,jdbcType=REAL},
+      dcline_length = #{dclineLength,jdbcType=REAL},
+      dcline_unit_ohm = #{dclineUnitOhm,jdbcType=REAL}
     where id = #{id,jdbcType=OTHER}
   </update>
   <select id="getDeviceStatusCount" resultType="com.pvsoul.eec.yuandong.dao.DeviceStatusCountDao">

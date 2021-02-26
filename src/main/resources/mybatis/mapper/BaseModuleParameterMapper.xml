@@ -46,6 +46,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_valid" jdbcType="BIT" property="isValid" />
+    <result column="degradation" jdbcType="REAL" property="degradation" />
   </resultMap>
   <sql id="Base_Column_List">
     id, module_model, manufactor, stc_pmp, "stc_power _tolerance", stc_vmp, stc_imp, 
@@ -55,7 +56,7 @@
     module_weight, module_frame, box_standard, box_diode_count, cable_area, cable_length, 
     work_vmp, work_min_temperature, work_max_temperature, max_wind_load, max_snow_load, 
     work_imp, application_level, fire_provetion_level, rated_temperature, create_time, 
-    update_time, is_valid
+    update_time, is_valid, degradation
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
     select 
@@ -81,8 +82,8 @@
       work_vmp, work_min_temperature, work_max_temperature, 
       max_wind_load, max_snow_load, work_imp, 
       application_level, fire_provetion_level, rated_temperature, 
-      create_time, update_time, is_valid
-      )
+      create_time, update_time, is_valid, 
+      degradation)
     values (#{id,jdbcType=OTHER}, #{moduleModel,jdbcType=VARCHAR}, #{manufactor,jdbcType=VARCHAR}, 
       #{stcPmp,jdbcType=REAL}, #{stcPowerTolerance,jdbcType=REAL}, #{stcVmp,jdbcType=REAL}, 
       #{stcImp,jdbcType=REAL}, #{stcVoc,jdbcType=REAL}, #{stcLsc,jdbcType=REAL}, #{stcEfficiency,jdbcType=REAL}, 
@@ -96,8 +97,8 @@
       #{workVmp,jdbcType=REAL}, #{workMinTemperature,jdbcType=REAL}, #{workMaxTemperature,jdbcType=REAL}, 
       #{maxWindLoad,jdbcType=REAL}, #{maxSnowLoad,jdbcType=REAL}, #{workImp,jdbcType=REAL}, 
       #{applicationLevel,jdbcType=VARCHAR}, #{fireProvetionLevel,jdbcType=VARCHAR}, #{ratedTemperature,jdbcType=REAL}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isValid,jdbcType=BIT}
-      )
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isValid,jdbcType=BIT}, 
+      #{degradation,jdbcType=REAL})
   </insert>
   <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.BaseModuleParameter">
     insert into base_module_parameter
@@ -234,6 +235,9 @@
       <if test="isValid != null">
         is_valid,
       </if>
+      <if test="degradation != null">
+        degradation,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -367,6 +371,9 @@
       </if>
       <if test="isValid != null">
         #{isValid,jdbcType=BIT},
+      </if>
+      <if test="degradation != null">
+        #{degradation,jdbcType=REAL},
       </if>
     </trim>
   </insert>
@@ -502,6 +509,9 @@
       <if test="isValid != null">
         is_valid = #{isValid,jdbcType=BIT},
       </if>
+      <if test="degradation != null">
+        degradation = #{degradation,jdbcType=REAL},
+      </if>
     </set>
     where id = #{id,jdbcType=OTHER}
   </update>
@@ -549,7 +559,8 @@
       rated_temperature = #{ratedTemperature,jdbcType=REAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      is_valid = #{isValid,jdbcType=BIT}
+      is_valid = #{isValid,jdbcType=BIT},
+      degradation = #{degradation,jdbcType=REAL}
     where id = #{id,jdbcType=OTHER}
   </update>
 </mapper>

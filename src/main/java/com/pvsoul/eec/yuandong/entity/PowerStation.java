@@ -33,6 +33,8 @@ public class PowerStation {
 
     private String stationPhoto;
 
+    private Date commissioningDate;
+
     public Object getId() {
         return id;
     }
@@ -151,5 +153,13 @@ public class PowerStation {
 
     public void setStationPhoto(String stationPhoto) {
         this.stationPhoto = stationPhoto;
+    }
+
+    public Date getCommissioningDate() {
+        return commissioningDate;
+    }
+
+    public void setCommissioningDate(Date commissioningDate) {
+        this.commissioningDate = commissioningDate;
     }
 }

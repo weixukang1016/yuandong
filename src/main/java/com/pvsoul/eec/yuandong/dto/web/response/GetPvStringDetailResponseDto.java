@@ -37,12 +37,12 @@ public class GetPvStringDetailResponseDto {
     /**
      * 组件衰减率
      */
-    private String decayRate;
+    private String degradationRatio;
 
     /**
      * 灰尘损失率
      */
-    private String dustLossRate;
+    private String soilingRatio;
 
     /**
      *

@@ -29,6 +29,22 @@ public class PvString {
 
     private Object transformerId;
 
+    private Integer cleaningMethod;
+
+    private Date lastCleanDate;
+
+    private Integer supportType;
+
+    private Integer moduleNumber;
+
+    private Float tiltAngle;
+
+    private Float azimuthAngle;
+
+    private Float dclineLength;
+
+    private Float dclineUnitOhm;
+
     public Object getId() {
         return id;
     }
@@ -131,5 +147,69 @@ public class PvString {
 
     public void setTransformerId(Object transformerId) {
         this.transformerId = transformerId;
+    }
+
+    public Integer getCleaningMethod() {
+        return cleaningMethod;
+    }
+
+    public void setCleaningMethod(Integer cleaningMethod) {
+        this.cleaningMethod = cleaningMethod;
+    }
+
+    public Date getLastCleanDate() {
+        return lastCleanDate;
+    }
+
+    public void setLastCleanDate(Date lastCleanDate) {
+        this.lastCleanDate = lastCleanDate;
+    }
+
+    public Integer getSupportType() {
+        return supportType;
+    }
+
+    public void setSupportType(Integer supportType) {
+        this.supportType = supportType;
+    }
+
+    public Integer getModuleNumber() {
+        return moduleNumber;
+    }
+
+    public void setModuleNumber(Integer moduleNumber) {
+        this.moduleNumber = moduleNumber;
+    }
+
+    public Float getTiltAngle() {
+        return tiltAngle;
+    }
+
+    public void setTiltAngle(Float tiltAngle) {
+        this.tiltAngle = tiltAngle;
+    }
+
+    public Float getAzimuthAngle() {
+        return azimuthAngle;
+    }
+
+    public void setAzimuthAngle(Float azimuthAngle) {
+        this.azimuthAngle = azimuthAngle;
+    }
+
+    public Float getDclineLength() {
+        return dclineLength;
+    }
+
+    public void setDclineLength(Float dclineLength) {
+        this.dclineLength = dclineLength;
+    }
+
+    public Float getDclineUnitOhm() {
+        return dclineUnitOhm;
+    }
+
+    public void setDclineUnitOhm(Float dclineUnitOhm) {
+        this.dclineUnitOhm = dclineUnitOhm;
     }
 }

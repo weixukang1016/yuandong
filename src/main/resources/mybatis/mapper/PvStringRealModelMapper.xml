@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pvsoul.eec.yuandong.mapper.PvStringRealModelMapper">
+  <resultMap id="BaseResultMap" type="com.pvsoul.eec.yuandong.entity.PvStringRealModel">
+    <id column="id" jdbcType="OTHER" property="id" />
+    <result column="pv_string_id" jdbcType="OTHER" property="pvStringId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_valid" jdbcType="BIT" property="isValid" />
+    <result column="degradation_ratio" jdbcType="REAL" property="degradationRatio" />
+    <result column="soiling_ratio" jdbcType="REAL" property="soilingRatio" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pv_string_id, create_time, update_time, is_valid, degradation_ratio, soiling_ratio
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pv_string_real_model
+    where id = #{id,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    delete from pv_string_real_model
+    where id = #{id,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.pvsoul.eec.yuandong.entity.PvStringRealModel">
+    insert into pv_string_real_model (id, pv_string_id, create_time, 
+      update_time, is_valid, degradation_ratio, 
+      soiling_ratio)
+    values (#{id,jdbcType=OTHER}, #{pvStringId,jdbcType=OTHER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isValid,jdbcType=BIT}, #{degradationRatio,jdbcType=REAL}, 
+      #{soilingRatio,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pvsoul.eec.yuandong.entity.PvStringRealModel">
+    insert into pv_string_real_model
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pvStringId != null">
+        pv_string_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="degradationRatio != null">
+        degradation_ratio,
+      </if>
+      <if test="soilingRatio != null">
+        soiling_ratio,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=OTHER},
+      </if>
+      <if test="pvStringId != null">
+        #{pvStringId,jdbcType=OTHER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=BIT},
+      </if>
+      <if test="degradationRatio != null">
+        #{degradationRatio,jdbcType=REAL},
+      </if>
+      <if test="soilingRatio != null">
+        #{soilingRatio,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pvsoul.eec.yuandong.entity.PvStringRealModel">
+    update pv_string_real_model
+    <set>
+      <if test="pvStringId != null">
+        pv_string_id = #{pvStringId,jdbcType=OTHER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=BIT},
+      </if>
+      <if test="degradationRatio != null">
+        degradation_ratio = #{degradationRatio,jdbcType=REAL},
+      </if>
+      <if test="soilingRatio != null">
+        soiling_ratio = #{soilingRatio,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pvsoul.eec.yuandong.entity.PvStringRealModel">
+    update pv_string_real_model
+    set pv_string_id = #{pvStringId,jdbcType=OTHER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_valid = #{isValid,jdbcType=BIT},
+      degradation_ratio = #{degradationRatio,jdbcType=REAL},
+      soiling_ratio = #{soilingRatio,jdbcType=REAL}
+    where id = #{id,jdbcType=OTHER}
+  </update>
+</mapper>

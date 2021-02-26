@@ -91,6 +91,8 @@ public class BaseModuleParameter {
 
     private Boolean isValid;
 
+    private Float degradation;
+
     public Object getId() {
         return id;
     }
@@ -441,5 +443,13 @@ public class BaseModuleParameter {
 
     public void setIsValid(Boolean isValid) {
         this.isValid = isValid;
+    }
+
+    public Float getDegradation() {
+        return degradation;
+    }
+
+    public void setDegradation(Float degradation) {
+        this.degradation = degradation;
     }
 }
