@@ -254,7 +254,7 @@ public class DeviceServiceImpl implements DeviceService {
                 inverterInfoDto.setU("");
             }
             if (inverterInfoDao.getP() != null) {
-                inverterInfoDto.setP(String.format("%.1f", inverterInfoDao.getP() / 1000) + "V");
+                inverterInfoDto.setP(String.format("%.1f", inverterInfoDao.getP() / 1000) + "kW");
             } else {
                 inverterInfoDto.setP("");
             }
