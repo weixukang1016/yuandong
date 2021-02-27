@@ -420,7 +420,9 @@ public class DeviceServiceImpl implements DeviceService {
             deviceDataDto.setI(pvStringData.getI());
             deviceDataDto.setU(pvStringData.getU());
             deviceDataDto.setP(Float.valueOf(String.format("%.1f", pvStringData.getU() * pvStringData.getI())));
-            deviceDataDto.setTemperature(Float.valueOf(String.format("%.1f", pvStringData.getTemperature())));
+            if (pvStringData.getTemperature() != null) {
+                deviceDataDto.setTemperature(Float.valueOf(String.format("%.1f", pvStringData.getTemperature())));
+            }
             deviceDataDtos.add(deviceDataDto);
         }
         if (deviceDataDtos.size() > 0) {
