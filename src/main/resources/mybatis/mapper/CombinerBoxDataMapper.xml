@@ -173,6 +173,7 @@
 FROM
 	combiner_box cb
     <where>
+      cb.is_valid=true
       <if test="deviceStatus != null">
         and cb.status = #{deviceStatus}
       </if>

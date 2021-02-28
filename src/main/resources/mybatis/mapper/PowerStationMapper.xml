@@ -221,4 +221,32 @@
       commissioning_date = #{commissioningDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=OTHER}
   </update>
+  <select id="getDayPower" resultType="com.pvsoul.eec.yuandong.dao.DayPowerDao">
+    SELECT
+        it.device_date,
+        SUM (
+            (
+            SELECT
+                e_today
+            FROM
+                inverter_data itd
+            WHERE
+                itd.inverter_id = it.ID
+                AND to_char( device_time, 'yyyy-MM-dd' ) = it.device_date
+            ORDER BY
+                device_time DESC
+                LIMIT ( 1 )
+            )
+        ) day_power
+    FROM
+        ( SELECT ID, UNNEST (
+        <foreach  collection="array" item="id" open="ARRAY [" close="]" separator=",">
+        #{id}
+        </foreach>
+     ) device_date FROM inverter WHERE is_valid = TRUE ) it
+    GROUP BY
+        device_date
+    ORDER BY
+        device_date;
+  </select>
 </mapper>

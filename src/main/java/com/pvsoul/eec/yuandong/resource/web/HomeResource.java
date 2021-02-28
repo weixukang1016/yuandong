@@ -35,4 +35,14 @@ public class HomeResource {
         return Response.status(Response.Status.OK).entity(resultDto).build();
     }
 
+    @POST
+    @Path("/getStationDayPower")
+    //@ApiOperation("获取电站每日发电量（30天以内）")
+    public Response getStationDayPower(@Context HttpServletRequest request) {
+
+        //log.info(JSONObject.toJSONString(data));
+        ResultDto resultDto = stationService.getDayPower();
+        return Response.status(Response.Status.OK).entity(resultDto).build();
+    }
+
 }

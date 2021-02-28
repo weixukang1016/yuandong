@@ -172,6 +172,7 @@
     FROM
         pv_string ps
     <where>
+      ps.is_valid=true
       <if test="deviceStatus != null">
         and status = #{deviceStatus}
       </if>

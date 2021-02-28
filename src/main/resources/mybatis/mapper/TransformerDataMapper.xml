@@ -162,6 +162,7 @@
         ( SELECT COUNT ( 1 ) FROM inverter WHERE transformer_id = tf.ID ) inverter_count
     FROM transformer tf
     <where>
+      tf.is_valid=true
       <if test="deviceStatus != null">
         and tf.status = #{deviceStatus}
       </if>

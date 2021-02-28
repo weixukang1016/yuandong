@@ -1,10 +1,11 @@
 package com.pvsoul.eec.yuandong.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.pvsoul.eec.yuandong.dao.DayPowerDao;
 import com.pvsoul.eec.yuandong.dto.ResultDto;
 import com.pvsoul.eec.yuandong.dto.web.response.GetPowerStationInfoDto;
+import com.pvsoul.eec.yuandong.dto.web.response.StationDayPowerDto;
 import com.pvsoul.eec.yuandong.dto.web.response.StationInfoDto;
-import com.pvsoul.eec.yuandong.entity.Inverter;
 import com.pvsoul.eec.yuandong.entity.InverterData;
 import com.pvsoul.eec.yuandong.entity.PowerStation;
 import com.pvsoul.eec.yuandong.mapper.InverterDataMapper;
@@ -14,6 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -68,6 +72,30 @@ public class StationServiceImpl implements StationService {
 
         getPowerStationInfoDto.setStationInfoDto(stationInfoDto);
         resultDto.setEntity(getPowerStationInfoDto);
+        return resultDto;
+    }
+
+    @Override
+    public ResultDto getDayPower() {
+        ResultDto resultDto = new ResultDto();
+        //获取30天以内的日期
+        List<String> days = new ArrayList<String>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        days.add(sdf.format(calendar.getTime()));
+        for (int i = 1; i < 30; i++) {
+            calendar.add(Calendar.DATE, -1);
+            days.add(sdf.format(calendar.getTime()));
+        }
+        List<DayPowerDao> stationDayPowers = powerStationMapper.getDayPower(days.toArray());
+        List<StationDayPowerDto> stationDayPowerDtos = new ArrayList<>();
+        for (DayPowerDao dayPowerDao : stationDayPowers) {
+            StationDayPowerDto stationDayPowerDto = new StationDayPowerDto();
+            stationDayPowerDto.setDeviceDate(dayPowerDao.getDeviceDate());
+            stationDayPowerDto.setActualPower(dayPowerDao.getDayPower());
+            stationDayPowerDtos.add(stationDayPowerDto);
+        }
+        resultDto.setEntity(stationDayPowerDtos);
         return resultDto;
     }
 }

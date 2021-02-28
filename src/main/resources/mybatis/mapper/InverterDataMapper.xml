@@ -379,6 +379,7 @@
         FROM
         inverter it
     <where>
+      it.is_valid=true
       <if test="deviceStatus != null">
         and it.status = #{deviceStatus}
       </if>
